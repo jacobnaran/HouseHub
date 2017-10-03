@@ -16,7 +16,7 @@
 <ion-content padding>
 
   <!-- overlay -->
-  <button id="overlay" padding [hidden]="overlayHidden" (click)="hideOverlay()"></button>
+  <button id="overlay" padding [hidden]="overlayHidden" (click)="clickFab()"></button>
 
   <ion-grid>
     <ion-row>
@@ -45,7 +45,24 @@
   </ion-grid>
 
   <ion-fab bottom right>
-    <button ion-fab (click)="showOverlay()"><ion-icon name="add"></ion-icon></button>
+    <button id="fab" ion-fab (click)="toggleOverlay()"><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab><ion-icon name="document"></ion-icon></button>
+      <button ion-fab><ion-icon name="time"></ion-icon></button>
+    </ion-fab-list>
   </ion-fab>
+
+  <!-- <ion-fab bottom right [hidden]="overlayHidden">
+    <button ion-fab color="dark"><ion-icon name="arrow-dropup"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab> -->
+
+  <!-- <ion-fab bottom right>
+    <button ion-fab [hidden]="overlayHidden"><ion-icon name="pricetag"></ion-icon></button>
+  </ion-fab> -->
 
 </ion-content>

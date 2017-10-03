@@ -16,12 +16,18 @@ export class HomePage {
   //   console.log('ionViewDidLoad HomePage');
   // }
 
-  hideOverlay() {
-    this.overlayHidden = true;
+  toggleOverlay() {
+    if (this.overlayHidden) {
+      this.overlayHidden = false;
+    }
+    else {
+      this.overlayHidden = true;
+    }
   }
 
-  showOverlay() {
-    this.overlayHidden = false;
+  clickFab() {
+    var f1 = document.getElementById("fab");
+    f1.click();
   }
 
 }
