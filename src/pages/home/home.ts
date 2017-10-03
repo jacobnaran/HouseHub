@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -9,7 +10,7 @@ export class HomePage {
 
   overlayHidden: boolean = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
   }
 
   // ionViewDidLoad() {
@@ -23,6 +24,15 @@ export class HomePage {
     else {
       this.overlayHidden = true;
     }
+  }
+
+  cardClick(){
+    let alert = this.alertCtrl.create({
+      title: 'NO SOCIAL MEDIA FOR YOU',
+      subTitle: 'Social networks are massively addictive.',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
   clickFab() {
