@@ -15,6 +15,7 @@
 
 <ion-content padding>
 
+
   <!-- ICON SHOULD CHANGE BY FOOD TYPE (FOOD, VEGETABLE/FRUIT, DRINK) -->
   <ion-list no-lines>
     <ion-item>
@@ -51,9 +52,8 @@
        </ion-item-sliding>
   </ion-list>
 
-
-
- <div id="ListBackdrop" *ngIf="fabButtonOpened==true" ></div>
+  <button id="overlay" [hidden]="!fabOpened" (click)="clickFab()"></button>
+  
   <!-- <ion-fab bottom right>
     <button ion-fab color="orange" ><ion-icon name="add"></ion-icon></button>
   </ion-fab> -->
@@ -67,13 +67,15 @@
     </ion-fab-list>
   </ion-fab> -->
 
-  <ion-fab right bottom #fab4>
-   <button ion-fab color="dark" (click)="openFabButton()"><ion-icon name="add"></ion-icon></button>
+  <ion-fab bottom right #fab4>
+   <button ion-fab id="inv-fab" color="dark" (click)="toggleFab()"><ion-icon name="add"></ion-icon></button>
     <ion-fab-list side="top">
+
      <ion-label class="Tab">Add item</ion-label>
     <ion-label class="Item">Add tab</ion-label>
   <button ion-fab><ion-icon name="albums"></ion-icon></button>
   <button ion-fab><ion-icon name="cube"></ion-icon></button>
+
 
      </ion-fab-list>
    </ion-fab>
