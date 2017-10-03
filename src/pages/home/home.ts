@@ -7,11 +7,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HomePage {
 
+  overlayHidden: boolean = true;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   // ionViewDidLoad() {
   //   console.log('ionViewDidLoad HomePage');
   // }
+
+  hideOverlay() {
+    this.overlayHidden = true;
+  }
+
+  showOverlay() {
+    this.overlayHidden = false;
+  }
 
 }
