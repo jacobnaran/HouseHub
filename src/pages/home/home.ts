@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+
+import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -10,7 +11,8 @@ export class HomePage {
   // keeps track of whether the fab is clicked
   fabOpened: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, public alertCtrl: AlertController) {
     events.subscribe('tab:opened', data => {
       this.closeFab();
     });
@@ -27,6 +29,15 @@ export class HomePage {
     else {
       this.fabOpened = true;
     }
+  }
+
+  cardClick(){
+    let alert = this.alertCtrl.create({
+      title: 'NO SOCIAL MEDIA FOR YOU',
+      subTitle: 'Social networks are massively addictive.',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
   clickFab() {
