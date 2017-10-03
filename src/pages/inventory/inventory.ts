@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AlertController } from 'ionic-angular';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
@@ -15,11 +16,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class InventoryPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad InventoryPage');
   }
+
+
+ showAlert() {
+     let alert = this.alertCtrl.create({
+       title: 'NO SOCIAL MEDIA FOR YOU',
+       subTitle: 'Social networks are massively addictive.',
+       buttons: ['OK']
+     });
+     alert.present();
+   }
 
 }
