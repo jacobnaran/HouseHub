@@ -16,6 +16,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class InventoryPage {
 
+  fabButtonOpened: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
   }
 
@@ -32,5 +33,15 @@ export class InventoryPage {
      });
      alert.present();
    }
+
+   openFabButton(){
+     if(this.fabButtonOpened==false){
+         this.fabButtonOpened=true;
+     }else{
+         this.fabButtonOpened=false;
+     }
+   }
+
+
 
 }
