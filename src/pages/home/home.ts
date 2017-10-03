@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -7,27 +7,36 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HomePage {
 
-  overlayHidden: boolean = true;
+  // keeps track of whether the fab is clicked
+  fabOpened: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events) {
+    events.subscribe('tab:opened', data => {
+      this.closeFab();
+    });
   }
 
   // ionViewDidLoad() {
-  //   console.log('ionViewDidLoad HomePage');
+  //    this.events.publish('tab:opened', 'home');
   // }
 
-  toggleOverlay() {
-    if (this.overlayHidden) {
-      this.overlayHidden = false;
+  toggleFab() {
+    if (this.fabOpened) {
+      this.fabOpened = false;
     }
     else {
-      this.overlayHidden = true;
+      this.fabOpened = true;
     }
   }
 
   clickFab() {
-    var f1 = document.getElementById("fab");
-    f1.click();
+    document.getElementById("home-fab").click();
+  }
+
+  closeFab() {
+    if (this.fabOpened) {
+      this.clickFab();
+    }
   }
 
 }

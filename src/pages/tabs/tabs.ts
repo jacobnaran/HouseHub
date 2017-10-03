@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-// import { NavController, NavParams } from 'ionic-angular';
+import { Events } from 'ionic-angular';
 
 import { ShoppingListPage } from '../shopping-list/shopping-list';
 import { HomePage } from '../home/home';
@@ -15,7 +15,7 @@ export class TabsPage {
   tab2Root = HomePage;
   tab3Root = InventoryPage;
 
-  constructor() {
+  constructor(public events: Events) {
   }
 
 }

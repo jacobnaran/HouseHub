@@ -15,7 +15,8 @@
 
 <ion-content padding>
 
- <div id="ListBackdrop" *ngIf="fabButtonOpened==true" ></div>
+  <button id="overlay" [hidden]="!fabOpened" (click)="clickFab()"></button>
+  
   <!-- <ion-fab bottom right>
     <button ion-fab color="orange" ><ion-icon name="add"></ion-icon></button>
   </ion-fab> -->
@@ -29,12 +30,12 @@
     </ion-fab-list>
   </ion-fab> -->
 
-  <ion-fab right bottom #fab4>
-   <button ion-fab color="dark" (click)="openFabButton()"><ion-icon name="add"></ion-icon></button>
+  <ion-fab bottom right #fab4>
+   <button ion-fab id="inv-fab" color="dark" (click)="toggleFab()"><ion-icon name="add"></ion-icon></button>
     <ion-fab-list side="top">
      <ion-label class="Tab">Add tab</ion-label>
     <ion-label class="Item">Add item</ion-label>
-  <button ion-fab><ion-icon name="albums"></ion-icon></button>
+  <button ion-fab color="dark"><ion-icon name="albums"></ion-icon></button>
   <button ion-fab><ion-icon name="pizza"></ion-icon></button>
 
      </ion-fab-list>
