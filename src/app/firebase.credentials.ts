@@ -1,8 +1,8 @@
 export const FIREBASE_CREDENTIALS = {
-  apiKey: "AIzaSyD0OQ0j7Zo9NwsWyMPskNDclfR6ubPH6SE",
-  authDomain: "k-bulletin-board.firebaseapp.com",
-  databaseURL: "https://k-bulletin-board.firebaseio.com",
-  projectId: "k-bulletin-board",
-  storageBucket: "k-bulletin-board.appspot.com",
-  messagingSenderId: "273566628077"
+  apiKey: "AIzaSyBbmst7wcZXV7O671zm85t8jm9HC2fy3yw",
+  authDomain: "house-hub.firebaseapp.com",
+  databaseURL: "https://house-hub.firebaseio.com",
+  projectId: "house-hub",
+  storageBucket: "house-hub.appspot.com",
+  messagingSenderId: "350833857485"
 };
