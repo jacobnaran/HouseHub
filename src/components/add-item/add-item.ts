@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 
+import { ShoppingItem } from '../../models/shopping-item.interface';
+
+import { AngularFireDatabase } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database';
+
 /**
  * Generated class for the AddItemComponent component.
  *
@@ -13,14 +18,22 @@ import { ViewController } from 'ionic-angular';
 })
 export class AddItemComponent {
 
-  text: string;
+  shoppingItem = {} as ShoppingItem
+  addItemRef$: FirebaseListObservable<ShoppingItem[]>
 
-  constructor(public viewCtrl: ViewController) {
-    console.log('Hello AddItemComponent Component');
-    this.text = 'Hello World';
+  constructor(public viewCtrl: ViewController,
+              private db: AngularFireDatabase) {
+    this.addItemRef$ = this.db.list('shopping-list');
   }
 
   dismiss() {
+
+    this.addItemRef$.push({
+      name: this.shoppingItem.name,
+      timestamp: Date.now()
+    });
+
+    this.shoppingItem = {} as ShoppingItem;
     this.viewCtrl.dismiss();
   }
 }

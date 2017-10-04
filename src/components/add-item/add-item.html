@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list radio-group [(ngModel)]="itemType">
+  <!-- <ion-list radio-group [(ngModel)]="itemType">
     <ion-item>
       <ion-label>Food</ion-label>
       <ion-radio value="friends" checked></ion-radio>
@@ -26,15 +26,15 @@
       <ion-label>Other</ion-label>
       <ion-radio value="enemies"></ion-radio>
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 
   <ion-item>
-    <ion-input placeholder="Item Name" clearInput [(ngModel)]="itemName"></ion-input>
+    <ion-input placeholder="Item Name" clearInput [(ngModel)]="shoppingItem.name"></ion-input>
   </ion-item>
-
+  
   <ion-item>
     <ion-label>Expiration Date</ion-label>
-    <ion-datetime displayFormat="MM DD" [(ngModel)]="expDate">
+    <ion-datetime displayFormat="MM DD">
     </ion-datetime>
   </ion-item>
 
