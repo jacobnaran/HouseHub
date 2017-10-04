@@ -4,7 +4,7 @@ import { ViewController } from 'ionic-angular';
 import { ShoppingItem } from '../../models/shopping-item.interface';
 
 import { AngularFireDatabase } from 'angularfire2/database';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireList } from 'angularfire2/database';
 
 /**
  * Generated class for the AddItemComponent component.
@@ -19,7 +19,7 @@ import { FirebaseListObservable } from 'angularfire2/database';
 export class AddItemComponent {
 
   shoppingItem = {} as ShoppingItem
-  addItemRef$: FirebaseListObservable<ShoppingItem[]>
+  addItemRef$: AngularFireList<ShoppingItem>
 
   constructor(public viewCtrl: ViewController,
               private db: AngularFireDatabase) {
@@ -29,8 +29,7 @@ export class AddItemComponent {
   dismiss() {
 
     this.addItemRef$.push({
-      name: this.shoppingItem.name,
-      timestamp: Date.now()
+      name: this.shoppingItem.name
     });
 
     this.shoppingItem = {} as ShoppingItem;
