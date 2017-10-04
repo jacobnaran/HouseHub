@@ -4,11 +4,19 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+// firebase stuff
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { FIREBASE_CREDENTIALS } from './firebase.credentials';
+
 import { MyApp } from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { ShoppingListPage } from '../pages/shopping-list/shopping-list';
 import { InventoryPage } from '../pages/inventory/inventory';
+
+// components
+import { AddItemComponent } from '../components/add-item/add-item';
 
 @NgModule({
   declarations: [
@@ -16,11 +24,16 @@ import { InventoryPage } from '../pages/inventory/inventory';
     HomePage,
     TabsPage,
     ShoppingListPage,
-    InventoryPage
+    InventoryPage,
+    AddItemComponent
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    // Initialize AngularFire with credentials from the dashboard
+    AngularFireModule.initializeApp(FIREBASE_CREDENTIALS),
+    // Import the AngularFireDatabaseModule to use database interactions
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -28,7 +41,8 @@ import { InventoryPage } from '../pages/inventory/inventory';
     HomePage,
     TabsPage,
     ShoppingListPage,
-    InventoryPage
+    InventoryPage,
+    AddItemComponent
   ],
   providers: [
     StatusBar,

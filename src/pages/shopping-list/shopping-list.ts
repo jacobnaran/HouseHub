@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, ModalController, NavParams } from 'ionic-angular';
+
+import { AddItemComponent } from '../../components/add-item/add-item';
 
 /**
  * Generated class for the ShoppingListPage page.
@@ -15,7 +17,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ShoppingListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public modalCtrl: ModalController) {
+  }
+
+  showAddItem() {
+    let modal = this.modalCtrl.create(AddItemComponent);
+    modal.present();
   }
 
   ionViewDidLoad() {
