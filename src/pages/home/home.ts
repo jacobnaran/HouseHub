@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
+import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -7,21 +8,46 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HomePage {
 
-  overlayHidden: boolean = true;
+  // keeps track of whether the fab is clicked
+  fabOpened: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, public alertCtrl: AlertController) {
+    events.subscribe('tab:opened', data => {
+      this.closeFab();
+    });
   }
 
   // ionViewDidLoad() {
-  //   console.log('ionViewDidLoad HomePage');
+  //    this.events.publish('tab:opened', 'home');
   // }
 
-  hideOverlay() {
-    this.overlayHidden = true;
+  toggleFab() {
+    if (this.fabOpened) {
+      this.fabOpened = false;
+    }
+    else {
+      this.fabOpened = true;
+    }
   }
 
-  showOverlay() {
-    this.overlayHidden = false;
+  cardClick(){
+    let alert = this.alertCtrl.create({
+      title: 'NO SOCIAL MEDIA FOR YOU',
+      subTitle: 'Social networks are massively addictive.',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  clickFab() {
+    document.getElementById("home-fab").click();
+  }
+
+  closeFab() {
+    if (this.fabOpened) {
+      this.clickFab();
+    }
   }
 
 }

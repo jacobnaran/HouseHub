@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 /**
  * Generated class for the InventoryPage page.
@@ -16,7 +16,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class InventoryPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  fabOpened: boolean = false;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public events: Events) {
+    events.subscribe('tab:opened', data => {
+      this.closeFab();
+    });
   }
 
   ionViewDidLoad() {
@@ -32,5 +37,24 @@ export class InventoryPage {
      });
      alert.present();
    }
+
+ toggleFab() {
+   if(this.fabOpened) {
+       this.fabOpened = false;
+   }
+   else {
+       this.fabOpened = true;
+   }
+ }
+
+ clickFab() {
+   document.getElementById("inv-fab").click();
+ }
+
+ closeFab() {
+   if (this.fabOpened) {
+     this.clickFab();
+   }
+ }
 
 }
