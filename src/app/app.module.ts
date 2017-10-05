@@ -17,6 +17,7 @@ import { InventoryPage } from '../pages/inventory/inventory';
 
 // components
 import { AddItemComponent } from '../components/add-item/add-item';
+import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AddItemComponent } from '../components/add-item/add-item';
     TabsPage,
     ShoppingListPage,
     InventoryPage,
-    AddItemComponent
+    AddItemComponent,
+    AddIvnItemComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,8 @@ import { AddItemComponent } from '../components/add-item/add-item';
     TabsPage,
     ShoppingListPage,
     InventoryPage,
-    AddItemComponent
+    AddItemComponent,
+    AddIvnItemComponent
   ],
   providers: [
     StatusBar,
