@@ -25,12 +25,16 @@ export class AddIvnItemComponent {
               private db: AngularFireDatabase) {
     this.addItemRef$ = this.db.list('inventory-list');
   }
-  dismiss() {
 
+  addItem() {
     this.addItemRef$.push({
       name: this.inventoryItem.name
     });
 
+    this.dismiss();
+  }
+
+  dismiss() {
     this.inventoryItem = {} as InventoryItem;
     this.viewCtrl.dismiss();
   }
