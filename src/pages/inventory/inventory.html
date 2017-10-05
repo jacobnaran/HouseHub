@@ -53,7 +53,7 @@
   </ion-list>
 
   <button id="overlay" [hidden]="!fabOpened" (click)="clickFab()"></button>
-  
+
   <!-- <ion-fab bottom right>
     <button ion-fab color="orange" ><ion-icon name="add"></ion-icon></button>
   </ion-fab> -->
@@ -74,7 +74,7 @@
      <ion-label class="Tab">Add item</ion-label>
     <ion-label class="Item">Add tab</ion-label>
   <button ion-fab><ion-icon name="albums"></ion-icon></button>
-  <button ion-fab><ion-icon name="cube"></ion-icon></button>
+  <button ion-fab (click)="showAddItem()"><ion-icon name="cube"></ion-icon></button>
 
 
      </ion-fab-list>
