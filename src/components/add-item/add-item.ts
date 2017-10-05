@@ -26,12 +26,15 @@ export class AddItemComponent {
     this.addItemRef$ = this.db.list('shopping-list');
   }
 
-  dismiss() {
-
+  addItem() {
     this.addItemRef$.push({
       name: this.shoppingItem.name
     });
 
+    this.dismiss();
+  }
+
+  dismiss() {
     this.shoppingItem = {} as ShoppingItem;
     this.viewCtrl.dismiss();
   }

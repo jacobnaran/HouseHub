@@ -31,11 +31,12 @@
   <ion-item>
     <ion-input placeholder="Item Name" clearInput [(ngModel)]="shoppingItem.name"></ion-input>
   </ion-item>
-  
+
+  <!--
   <ion-item>
     <ion-label>Expiration Date</ion-label>
     <ion-datetime displayFormat="MM DD">
     </ion-datetime>
-  </ion-item>
+  </ion-item> -->
 
-  <button ion-button round (click)="dismiss()">Done</button>
+  <button ion-button round (click)="addItem()">Done</button>
