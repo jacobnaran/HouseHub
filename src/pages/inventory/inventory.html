@@ -15,9 +15,31 @@
 
 <ion-content padding>
 
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of items | async">
+      <ion-item>
+        <ion-icon name="leaf" item-start></ion-icon>
+          {{item.name}}
+      </ion-item>
+         <ion-item-options>
+           <button ion-button color="light" icon-start>
+             <ion-icon name="clipboard"></ion-icon>
+             Edit
+           </button>
+           <button (click) = "deleteIvnItem()" ion-button color="HHred" icon-start>
+             <ion-icon name="trash"></ion-icon>
+             Delete
+           </button>
+         </ion-item-options>
+       </ion-item-sliding>
 
+    <!-- <ion-item *ngFor="let item of items | async">
+      <ion-icon name="leaf" item-start></ion-icon>
+      <h3> {{item.name}} </h3>
+    </ion-item> -->
+  </ion-list>
   <!-- ICON SHOULD CHANGE BY FOOD TYPE (FOOD, VEGETABLE/FRUIT, DRINK) -->
-  <ion-list no-lines>
+  <!-- <ion-list no-lines>
     <ion-item>
       <ion-icon name="leaf" item-start></ion-icon>
         Apples
@@ -34,6 +56,8 @@
       <ion-icon name="leaf" item-start></ion-icon>
         Lettuce
     </ion-item>
+
+
     <ion-item-sliding>
       <ion-item>
         <ion-icon name="leaf" item-start></ion-icon>
@@ -50,7 +74,8 @@
            </button>
          </ion-item-options>
        </ion-item-sliding>
-  </ion-list>
+
+  </ion-list> -->
 
   <button id="overlay" [hidden]="!fabOpened" (click)="clickFab()"></button>
 

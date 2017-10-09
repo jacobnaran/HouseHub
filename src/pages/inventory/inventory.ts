@@ -48,9 +48,9 @@ export class InventoryPage {
 
  showAlert() {
      let alert = this.alertCtrl.create({
-       title: 'NO SOCIAL MEDIA FOR YOU',
-       subTitle: 'Social networks are massively addictive.',
-       buttons: ['OK']
+       title: 'Hi',
+       subTitle: 'Something isnt working so we put an alert here',
+       buttons: ['OK :(']
      });
      alert.present();
    }
@@ -77,6 +77,11 @@ export class InventoryPage {
  showAddItem() {
    let modal = this.modalCtrl.create(AddIvnItemComponent);
    modal.present();
+   this.closeFab();
+ }
+
+ deleteIvnItem() {
+   this.showAlert();
  }
 
 }
