@@ -3,7 +3,9 @@ import { IonicPage, NavController, ModalController, NavParams } from 'ionic-angu
 
 import { ShoppingItem } from '../../models/shopping-item.interface';
 
-import { Observable } from 'rxjs/Observable';
+// import { Observable } from 'rxjs/Observable';
+// import { Subscription } from 'rxjs/Subscription';
+
 import { AddItemComponent } from '../../components/add-item/add-item';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
@@ -21,9 +23,8 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 })
 export class ShoppingListPage {
 
-  //items: AngularFireList<any>
-  items: Observable<ShoppingItem[]>
-  // items: ShoppingItem[]
+  itemsRef: AngularFireList<any>
+  items: ShoppingItem[]
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -31,7 +32,16 @@ export class ShoppingListPage {
               private db: AngularFireDatabase) {
 
     // this.itemsRef = db.list('shopping-list');
-    this.items = db.list('shopping-list').valueChanges();
+    this.itemsRef = db.list('shopping-list');
+    this.itemsRef.snapshotChanges().map(actions => {
+      return actions.map(action => {
+        const data = action.payload.val();
+        const $key = action.payload.key;
+        return { $key, ...data };
+      });
+    }).subscribe(items => {
+      this.items = items;
+    });
 
     // db.list('shopping-list').snapshotChanges().map(action => {
     //   const arr = [];
@@ -49,4 +59,7 @@ export class ShoppingListPage {
     modal.present();
   }
 
+  deleteItem(key: string) {
+    this.itemsRef.remove(key);
+  }
 }
