@@ -23,7 +23,7 @@ $app-direction: ltr;
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
 
-$background-color: #EF4836;
+$background-color: #F39C12;
 
 // Named Color Variables
 // --------------------------------------------------
@@ -61,7 +61,21 @@ $colors: (
 // --------------------------------------------------
 // Windows only Sass variables can go here
 
+$tabs-md-tab-icon-color-active: #222;
+$tabs-md-tab-text-color-active: #222;
 
+$tabs-ios-tab-icon-color-active: #222;
+$tabs-ios-tab-text-color-active: #222;
+
+$toolbar-ios-title-text-color: #222;
+$toolbar-md-title-text-color: #222;
+
+$toolbar-ios-background: #F9BF3B;
+$toolbar-md-background: #F9BF3B;
+$toolbar-md-title-text-color: #222;
+
+$list-md-border-color: #222;
+$list-ios-border-color: #222;
 
 
 // App Theme

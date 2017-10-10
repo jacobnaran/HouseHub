@@ -68,25 +68,18 @@
     </ion-row>
   </ion-grid>
 
-  <ion-fab bottom right>
-    <button id="home-fab" color="dark" ion-fab (click)="toggleFab()"><ion-icon name="add"></ion-icon></button>
-    <ion-fab-list side="top">
-      <button ion-fab><ion-icon name="document"></ion-icon></button>
-      <button ion-fab><ion-icon name="time"></ion-icon></button>
-    </ion-fab-list>
-  </ion-fab>
 
-  <!-- <ion-fab bottom right [hidden]="overlayHidden">
-    <button ion-fab color="dark"><ion-icon name="arrow-dropup"></ion-icon></button>
-    <ion-fab-list side="top">
-      <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
-      <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
-      <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
-    </ion-fab-list>
-  </ion-fab> -->
 
-  <!-- <ion-fab bottom right>
-    <button ion-fab [hidden]="overlayHidden"><ion-icon name="pricetag"></ion-icon></button>
-  </ion-fab> -->
+  <ion-fab bottom right #fab>
+   <button ion-fab id="home-fab" color="dark" (click)="toggleFab()"><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+
+     <ion-label class="Reminder">Add reminder</ion-label>
+    <ion-label class="Note">Add note</ion-label>
+  <button ion-fab><ion-icon name="document"></ion-icon></button>
+  <button ion-fab (click)="showAddItem()"><ion-icon name="time"></ion-icon></button>
+</ion-fab-list>
+</ion-fab>
+
 
 </ion-content>
