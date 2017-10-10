@@ -1,41 +1,40 @@
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 
-import { ShoppingItem } from '../../models/shopping-item.interface';
-
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireList } from 'angularfire2/database';
 
 /**
- * Generated class for the AddItemComponent component.
+ * Generated class for the AddNoteComponent component.
  *
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
 @Component({
-  selector: 'add-item',
-  templateUrl: 'add-item.html'
+  selector: 'add-note',
+  templateUrl: 'add-note.html'
 })
-export class AddItemComponent {
+export class AddNoteComponent {
 
-  shoppingItem = {} as ShoppingItem
-  addItemRef$: AngularFireList<ShoppingItem>
+  noteText: string
+  addNoteRef$: AngularFireList<any>
 
   constructor(public viewCtrl: ViewController,
               private db: AngularFireDatabase) {
-    this.addItemRef$ = this.db.list('shopping-list');
+    this.addNoteRef$ = this.db.list('notes');
   }
 
-  addItem() {
-    this.addItemRef$.push({
-      name: this.shoppingItem.name
+  addNote() {
+    this.addNoteRef$.push({
+      text: this.noteText
     });
 
     this.dismiss();
   }
 
   dismiss() {
-    this.shoppingItem = {} as ShoppingItem;
+    // this.note = {}
     this.viewCtrl.dismiss();
   }
+
 }

@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-toolbar color="dark">
-    <ion-title>Add Shopping Item</ion-title>
+    <ion-title>Add Note</ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
         <span ion-text showWhen="ios">Cancel</span>
@@ -29,7 +29,7 @@
   </ion-list> -->
 
   <ion-item>
-    <ion-input placeholder="Item Name" clearInput [(ngModel)]="shoppingItem.name"></ion-input>
+    <ion-textarea placeholder="Note Text" clearInput [(ngModel)]="noteText"></ion-textarea>
   </ion-item>
 
 
@@ -43,4 +43,4 @@
 
 
 
-  <button ion-button round color ="dark" (click)="addItem()">Done</button>
+  <button ion-button round color ="dark" (click)="addNote()">Done</button>

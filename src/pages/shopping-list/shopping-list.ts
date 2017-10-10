@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ModalController, NavParams } from 'ionic-angular';
 
+import { ShoppingItem } from '../../models/shopping-item.interface';
+
+// import { Observable } from 'rxjs/Observable';
+// import { Subscription } from 'rxjs/Subscription';
+
 import { AddItemComponent } from '../../components/add-item/add-item';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
 /**
  * Generated class for the ShoppingListPage page.
@@ -17,9 +23,35 @@ import { AddItemComponent } from '../../components/add-item/add-item';
 })
 export class ShoppingListPage {
 
+  itemsRef: AngularFireList<any>
+  items: ShoppingItem[]
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public modalCtrl: ModalController) {
+              public modalCtrl: ModalController,
+              private db: AngularFireDatabase) {
+
+    // this.itemsRef = db.list('shopping-list');
+    this.itemsRef = db.list('shopping-list');
+    this.itemsRef.snapshotChanges().map(actions => {
+      return actions.map(action => {
+        const data = action.payload.val();
+        const $key = action.payload.key;
+        return { $key, ...data };
+      });
+    }).subscribe(items => {
+      this.items = items;
+    });
+
+    // db.list('shopping-list').snapshotChanges().map(action => {
+    //   const arr = [];
+    //   action.forEach(e => {
+    //     const $key = e.key;
+    //     arr.push({ $key, ...e.payload.val() });
+    //   });
+    //   return arr;
+    // }).subscribe(items => (this.items = items));
+
   }
 
   showAddItem() {
@@ -27,8 +59,7 @@ export class ShoppingListPage {
     modal.present();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ShoppingListPage');
+  deleteItem(key: string) {
+    this.itemsRef.remove(key);
   }
-
 }

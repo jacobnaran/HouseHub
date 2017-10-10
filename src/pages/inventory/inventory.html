@@ -15,9 +15,27 @@
 
 <ion-content padding>
 
+  <ion-list #list>
+    <ion-item-sliding *ngFor="let item of items | async">
+      <ion-item>
+        <ion-icon name="leaf" item-start></ion-icon>
+          {{item.name}}
+      </ion-item>
+         <ion-item-options>
+           <button ion-button color="light" icon-start>
+             <ion-icon name="clipboard"></ion-icon>
+             Edit
+           </button>
+           <button (click) = "deleteIvnItem()" ion-button color="HHred" icon-start>
+             <ion-icon name="trash"></ion-icon>
+             Delete
+           </button>
+         </ion-item-options>
+       </ion-item-sliding>
 
+  </ion-list>
   <!-- ICON SHOULD CHANGE BY FOOD TYPE (FOOD, VEGETABLE/FRUIT, DRINK) -->
-  <ion-list no-lines>
+  <!-- <ion-list no-lines>
     <ion-item>
       <ion-icon name="leaf" item-start></ion-icon>
         Apples
@@ -34,6 +52,8 @@
       <ion-icon name="leaf" item-start></ion-icon>
         Lettuce
     </ion-item>
+
+
     <ion-item-sliding>
       <ion-item>
         <ion-icon name="leaf" item-start></ion-icon>
@@ -50,22 +70,11 @@
            </button>
          </ion-item-options>
        </ion-item-sliding>
-  </ion-list>
+
+  </ion-list> -->
 
   <button id="overlay" [hidden]="!fabOpened" (click)="clickFab()"></button>
-  
-  <!-- <ion-fab bottom right>
-    <button ion-fab color="orange" ><ion-icon name="add"></ion-icon></button>
-  </ion-fab> -->
 
-  <!-- <ion-fab right bottom #fab4>
-    <button ion-fab color="dark"><ion-icon name="arrow-dropup"></ion-icon></button>
-    <ion-fab-list side="top">
-      <button ion-fab (click)="showAlert()"><ion-icon name="logo-facebook"></ion-icon></button>
-      <button ion-fab (click)="showAlert()"><ion-icon name="logo-twitter"></ion-icon></button>
-      <button ion-fab (click)="showAlert()"><ion-icon name="logo-googleplus"></ion-icon></button>
-    </ion-fab-list>
-  </ion-fab> -->
 
   <ion-fab bottom right #fab4>
    <button ion-fab id="inv-fab" color="dark" (click)="toggleFab()"><ion-icon name="add"></ion-icon></button>
@@ -74,7 +83,7 @@
      <ion-label class="Tab">Add item</ion-label>
     <ion-label class="Item">Add tab</ion-label>
   <button ion-fab><ion-icon name="albums"></ion-icon></button>
-  <button ion-fab><ion-icon name="cube"></ion-icon></button>
+  <button ion-fab (click)="showAddItem()"><ion-icon name="cube"></ion-icon></button>
 
 
      </ion-fab-list>

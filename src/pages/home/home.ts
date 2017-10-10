@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 
-import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, AlertController, ModalController } from 'ionic-angular';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+
+import { AddNoteComponent } from '../../components/add-note/add-note';
 
 @Component({
   selector: 'page-home',
@@ -10,12 +14,19 @@ export class HomePage {
 
   // keeps track of whether the fab is clicked
   fabOpened: boolean = false;
+  notes: Observable<any[]>
 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public events: Events,
+              public alertCtrl: AlertController,
+              public modalCtrl: ModalController,
+              public db: AngularFireDatabase) {
     events.subscribe('tab:opened', data => {
       this.closeFab();
     });
+
+    this.notes = db.list('notes').valueChanges();
   }
 
   // ionViewDidLoad() {
@@ -48,6 +59,12 @@ export class HomePage {
     if (this.fabOpened) {
       this.clickFab();
     }
+  }
+
+  showAddNote() {
+    let modal = this.modalCtrl.create(AddNoteComponent);
+    modal.present();
+    this.closeFab();
   }
 
 }
