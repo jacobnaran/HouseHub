@@ -16,7 +16,7 @@
 <ion-content padding>
 
   <ion-list #list>
-    <ion-item-sliding *ngFor="let item of items">
+    <ion-item-sliding *ngFor="let item of items | async">
       <ion-item>
         <ion-icon name="leaf" item-start></ion-icon>
           {{item.name}}
@@ -26,7 +26,7 @@
              <ion-icon name="clipboard"></ion-icon>
              Edit
            </button>
-           <button (click) = "deleteItem(item.$key)" ion-button color="HHred" icon-start>
+           <button (click) = "deleteItem(item.key)" ion-button color="HHred" icon-start>
              <ion-icon name="trash"></ion-icon>
              Delete
            </button>

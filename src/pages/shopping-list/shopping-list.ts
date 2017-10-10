@@ -3,7 +3,7 @@ import { IonicPage, NavController, ModalController, NavParams } from 'ionic-angu
 
 import { ShoppingItem } from '../../models/shopping-item.interface';
 
-// import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 // import { Subscription } from 'rxjs/Subscription';
 
 import { AddItemComponent } from '../../components/add-item/add-item';
@@ -24,7 +24,7 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 export class ShoppingListPage {
 
   itemsRef: AngularFireList<any>
-  items: ShoppingItem[]
+  items: Observable<ShoppingItem[]>
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -32,14 +32,8 @@ export class ShoppingListPage {
               private db: AngularFireDatabase) {
 
     this.itemsRef = db.list('shopping-list');
-    this.itemsRef.snapshotChanges().map(actions => {
-      return actions.map(action => {
-        const data = action.payload.val();
-        const $key = action.payload.key;
-        return { $key, ...data };
-      });
-    }).subscribe(items => {
-      this.items = items;
+    this.items = this.itemsRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
   }
 
