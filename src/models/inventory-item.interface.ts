@@ -3,5 +3,5 @@ export interface InventoryItem {
   $key?: string,
   name: string;
   quantity?: number;
-  Expiration_date?: string;
+  expDate?: string;
 }

@@ -31,7 +31,6 @@ export class ShoppingListPage {
               public modalCtrl: ModalController,
               private db: AngularFireDatabase) {
 
-    // this.itemsRef = db.list('shopping-list');
     this.itemsRef = db.list('shopping-list');
     this.itemsRef.snapshotChanges().map(actions => {
       return actions.map(action => {
@@ -42,16 +41,6 @@ export class ShoppingListPage {
     }).subscribe(items => {
       this.items = items;
     });
-
-    // db.list('shopping-list').snapshotChanges().map(action => {
-    //   const arr = [];
-    //   action.forEach(e => {
-    //     const $key = e.key;
-    //     arr.push({ $key, ...e.payload.val() });
-    //   });
-    //   return arr;
-    // }).subscribe(items => (this.items = items));
-
   }
 
   showAddItem() {
