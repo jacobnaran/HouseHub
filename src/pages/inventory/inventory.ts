@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { IonicPage, ModalController, NavController, NavParams, Events } from 'ionic-angular';
-import { Observable } from 'rxjs/Observable';
+//import { Observable } from 'rxjs/Observable';
 import { AddIvnItemComponent } from '../../components/add-ivn-item/add-ivn-item';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { InventoryItem } from '../../models/inventory-item.interface';
@@ -23,8 +23,8 @@ export class InventoryPage {
 
   fabOpened: boolean = false;
 
-  itemsRef: AngularFireList<InventoryItem>
-  items: Observable<InventoryItem[]>
+  itemsRef: AngularFireList<any>
+  items: InventoryItem[]
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -34,7 +34,15 @@ export class InventoryPage {
               public modalCtrl: ModalController) {
 
                 this.itemsRef = db.list('inventory-list');
-                this.items = this.itemsRef.valueChanges();
+                this.itemsRef.snapshotChanges().map(actions => {
+                  return actions.map(action => {
+                    const data = action.payload.val();
+                    const $key = action.payload.key;
+                    return { $key, ...data };
+                  });
+                }).subscribe(items => {
+                  this.items = items;
+                });
 
     events.subscribe('tab:opened', data => {
       this.closeFab();
@@ -80,8 +88,8 @@ export class InventoryPage {
    this.closeFab();
  }
 
- deleteIvnItem() {
-   this.showAlert();
+ deleteItem(key: string) {
+   this.itemsRef.remove(key);
  }
 
 }
