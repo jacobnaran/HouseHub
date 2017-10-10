@@ -17,6 +17,7 @@ import { InventoryPage } from '../pages/inventory/inventory';
 
 // components
 import { AddItemComponent } from '../components/add-item/add-item';
+import { AddNoteComponent } from '../components/add-note/add-note';
 import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
 
 @NgModule({
@@ -27,7 +28,8 @@ import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
     ShoppingListPage,
     InventoryPage,
     AddItemComponent,
-    AddIvnItemComponent
+    AddIvnItemComponent,
+    AddNoteComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
     ShoppingListPage,
     InventoryPage,
     AddItemComponent,
-    AddIvnItemComponent
+    AddIvnItemComponent,
+    AddNoteComponent
   ],
   providers: [
     StatusBar,

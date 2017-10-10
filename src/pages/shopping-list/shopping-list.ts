@@ -21,16 +21,27 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 })
 export class ShoppingListPage {
 
-  itemsRef: AngularFireList<ShoppingItem>
+  //items: AngularFireList<any>
   items: Observable<ShoppingItem[]>
+  // items: ShoppingItem[]
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public modalCtrl: ModalController,
               private db: AngularFireDatabase) {
 
-    this.itemsRef = db.list('shopping-list');
-    this.items = this.itemsRef.valueChanges();
+    // this.itemsRef = db.list('shopping-list');
+    this.items = db.list('shopping-list').valueChanges();
+
+    // db.list('shopping-list').snapshotChanges().map(action => {
+    //   const arr = [];
+    //   action.forEach(e => {
+    //     const $key = e.key;
+    //     arr.push({ $key, ...e.payload.val() });
+    //   });
+    //   return arr;
+    // }).subscribe(items => (this.items = items));
+
   }
 
   showAddItem() {
