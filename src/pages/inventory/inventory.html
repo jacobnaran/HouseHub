@@ -15,7 +15,7 @@
 
 <ion-content padding>
 
-  <ion-list>
+  <ion-list #list>
     <ion-item-sliding *ngFor="let item of items | async">
       <ion-item>
         <ion-icon name="leaf" item-start></ion-icon>
@@ -33,10 +33,6 @@
          </ion-item-options>
        </ion-item-sliding>
 
-    <!-- <ion-item *ngFor="let item of items | async">
-      <ion-icon name="leaf" item-start></ion-icon>
-      <h3> {{item.name}} </h3>
-    </ion-item> -->
   </ion-list>
   <!-- ICON SHOULD CHANGE BY FOOD TYPE (FOOD, VEGETABLE/FRUIT, DRINK) -->
   <!-- <ion-list no-lines>
@@ -79,18 +75,6 @@
 
   <button id="overlay" [hidden]="!fabOpened" (click)="clickFab()"></button>
 
-  <!-- <ion-fab bottom right>
-    <button ion-fab color="orange" ><ion-icon name="add"></ion-icon></button>
-  </ion-fab> -->
-
-  <!-- <ion-fab right bottom #fab4>
-    <button ion-fab color="dark"><ion-icon name="arrow-dropup"></ion-icon></button>
-    <ion-fab-list side="top">
-      <button ion-fab (click)="showAlert()"><ion-icon name="logo-facebook"></ion-icon></button>
-      <button ion-fab (click)="showAlert()"><ion-icon name="logo-twitter"></ion-icon></button>
-      <button ion-fab (click)="showAlert()"><ion-icon name="logo-googleplus"></ion-icon></button>
-    </ion-fab-list>
-  </ion-fab> -->
 
   <ion-fab bottom right #fab4>
    <button ion-fab id="inv-fab" color="dark" (click)="toggleFab()"><ion-icon name="add"></ion-icon></button>
