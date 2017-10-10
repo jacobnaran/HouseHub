@@ -5,6 +5,8 @@ import { IonicPage, ModalController, NavController, NavParams, Events } from 'io
 import { AddIvnItemComponent } from '../../components/add-ivn-item/add-ivn-item';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { InventoryItem } from '../../models/inventory-item.interface';
+import { StatusBar } from '@ionic-native/status-bar';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 
 /**
@@ -31,7 +33,10 @@ export class InventoryPage {
               public alertCtrl: AlertController,
               public events: Events,
               private db: AngularFireDatabase,
-              public modalCtrl: ModalController) {
+              public modalCtrl: ModalController,
+              private statusBar: StatusBar,
+              public localNotifications: LocalNotifications) {
+
 
                 this.itemsRef = db.list('inventory-list');
                 this.itemsRef.snapshotChanges().map(actions => {
@@ -47,6 +52,9 @@ export class InventoryPage {
     events.subscribe('tab:opened', data => {
       this.closeFab();
     });
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#F39C12');
   }
 
   ionViewDidLoad() {
@@ -90,6 +98,14 @@ export class InventoryPage {
 
  deleteItem(key: string) {
    this.itemsRef.remove(key);
+
+   this.localNotifications.schedule({
+     id: 1,
+     text: 'Single ILocalNotification',
+     //sound: isAndroid? 'file://sound.mp3': 'file://beep.caf',
+     data: { secret: key }
+   });
+
  }
 
 }
