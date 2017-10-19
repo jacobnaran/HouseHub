@@ -28,8 +28,10 @@
     <button ion-fab color="dark" (click)="showAddItem()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>
 
-  <ion-list>
-    <ion-item *ngFor="let item of items | async">
+
+  <ion-list no-lines>
+    <ion-item *ngFor="let item of items">
+
      {{item.name}}
      <button ion-button color="secondary" item-right (click)="deleteItem(item.key)" >
        <ion-icon name="trash"></ion-icon>

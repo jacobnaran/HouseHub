@@ -3,5 +3,7 @@ export interface InventoryItem {
   $key?: string,
   name: string;
   quantity?: number;
+  weeksLeft?: string;
   expDate?: string;
+
 }

@@ -24,7 +24,8 @@ export class AddIvnItemComponent {
   addItem() {
     this.addItemRef$.push({
       name: this.inventoryItem.name,
-      expDate: this.inventoryItem.expDate
+
+      weeksLeft: this.inventoryItem.weeksLeft
     });
 
     this.dismiss();

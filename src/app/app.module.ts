@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 // firebase stuff
 import { AngularFireModule } from 'angularfire2';
@@ -53,6 +54,7 @@ import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
   providers: [
     StatusBar,
     SplashScreen,
+    LocalNotifications,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
