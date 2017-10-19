@@ -15,11 +15,11 @@
 <ion-content>
 
   <div id="container">
-    <button ion-button color="secondary" class = "button button-large" id="private_button">
+    <button ion-button color="secondary" (click)="showAlert()"  class = "button button-large" id="private_button">
        Private
     </button>
 
-    <button ion-button color="secondary" class = "button button-large" id="public_button">
+    <button ion-button color="secondary" (click)="showAlert()" class = "button button-large" id="public_button">
        Public
     </button>
   </div>
