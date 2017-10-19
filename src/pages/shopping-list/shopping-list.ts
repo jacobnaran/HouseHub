@@ -37,6 +37,11 @@ export class ShoppingListPage {
     });
   }
 
+
+  clickFab() {
+    document.getElementById("home-fab").click();
+  }
+
   showAddItem() {
     let modal = this.modalCtrl.create(AddItemComponent);
     modal.present();

@@ -48,6 +48,7 @@ export class InventoryPage {
   }
 
 
+
  showAlert() {
      let alert = this.alertCtrl.create({
        title: 'Hi',
