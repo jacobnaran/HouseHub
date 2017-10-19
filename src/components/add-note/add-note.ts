@@ -21,7 +21,7 @@ export class AddNoteComponent {
 
   constructor(public viewCtrl: ViewController,
               private db: AngularFireDatabase) {
-    this.addNoteRef$ = this.db.list('notes');
+    this.addNoteRef$ = this.db.list('notes-list');
   }
 
   addNote() {

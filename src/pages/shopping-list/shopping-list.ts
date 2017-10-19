@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ModalController, NavParams } from 'ionic-angular';
+import {AlertController} from 'ionic-angular';
+import { IonicPage, NavController, ModalController, NavParams, Events } from 'ionic-angular';
 
 import { ShoppingItem } from '../../models/shopping-item.interface';
 
-// import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 // import { Subscription } from 'rxjs/Subscription';
 
 import { AddItemComponent } from '../../components/add-item/add-item';
@@ -23,35 +24,44 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 })
 export class ShoppingListPage {
 
+  //public ionColor: string = 'primary';
   itemsRef: AngularFireList<any>
-  items: ShoppingItem[]
+  items: Observable<ShoppingItem[]>
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public modalCtrl: ModalController,
-              private db: AngularFireDatabase) {
+              private db: AngularFireDatabase,
+              public events: Events,
+              public alertCtrl: AlertController) {
 
-    // this.itemsRef = db.list('shopping-list');
     this.itemsRef = db.list('shopping-list');
-    this.itemsRef.snapshotChanges().map(actions => {
-      return actions.map(action => {
-        const data = action.payload.val();
-        const $key = action.payload.key;
-        return { $key, ...data };
-      });
-    }).subscribe(items => {
-      this.items = items;
+    this.items = this.itemsRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
+  }
 
-    // db.list('shopping-list').snapshotChanges().map(action => {
-    //   const arr = [];
-    //   action.forEach(e => {
-    //     const $key = e.key;
-    //     arr.push({ $key, ...e.payload.val() });
-    //   });
-    //   return arr;
-    // }).subscribe(items => (this.items = items));
 
+  showAlert() {
+      let alert = this.alertCtrl.create({
+        title: 'Hi',
+        subTitle: 'Something isnt working so we put an alert here',
+        buttons: ['OK :(']
+      });
+      alert.present();
+      this.buttonColor = "primary";
+    //   if(this.ionColor == "primary")
+    //   {
+    //   this.ionColor = "secondary";
+    // }else
+    // {
+    //   this.ionColor = "primary";
+    // }
+    }
+
+
+  clickFab() {
+    document.getElementById("home-fab").click();
   }
 
   showAddItem() {

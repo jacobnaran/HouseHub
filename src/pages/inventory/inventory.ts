@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { IonicPage, ModalController, NavController, NavParams, Events } from 'ionic-angular';
-//import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { AddIvnItemComponent } from '../../components/add-ivn-item/add-ivn-item';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { InventoryItem } from '../../models/inventory-item.interface';
@@ -26,7 +26,7 @@ export class InventoryPage {
   fabOpened: boolean = false;
 
   itemsRef: AngularFireList<any>
-  items: InventoryItem[]
+  items: Observable<InventoryItem[]>
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -38,16 +38,10 @@ export class InventoryPage {
               public localNotifications: LocalNotifications) {
 
 
-                this.itemsRef = db.list('inventory-list');
-                this.itemsRef.snapshotChanges().map(actions => {
-                  return actions.map(action => {
-                    const data = action.payload.val();
-                    const $key = action.payload.key;
-                    return { $key, ...data };
-                  });
-                }).subscribe(items => {
-                  this.items = items;
-                });
+    this.itemsRef = db.list('inventory-list');
+    this.items = this.itemsRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
 
     events.subscribe('tab:opened', data => {
       this.closeFab();
@@ -60,6 +54,7 @@ export class InventoryPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad InventoryPage');
   }
+
 
 
  showAlert() {

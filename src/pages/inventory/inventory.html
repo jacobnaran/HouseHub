@@ -4,6 +4,9 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+
+<!--ADD THE TAB TAGS, WANT TO CHECK IF ITS WORKING -->
+
 <ion-header>
 
   <ion-navbar>
@@ -15,18 +18,20 @@
 
 <ion-content>
 
+
   <ion-list class="list">
     <ion-item-sliding *ngFor="let item of items">
       <ion-item class ="item">
         <!-- <h1>{{item.name}}</h1> -->
         {{item.name}}
+
       </ion-item>
          <ion-item-options>
            <button ion-button color="light" icon-start>
              <ion-icon name="clipboard"></ion-icon>
              Edit
            </button>
-           <button (click) = "deleteItem(item.$key)" ion-button color="HHred" icon-start>
+           <button (click) = "deleteItem(item.key)" ion-button color="HHred" icon-start>
              <ion-icon name="trash"></ion-icon>
              Delete
            </button>

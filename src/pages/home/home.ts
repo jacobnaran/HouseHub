@@ -14,6 +14,8 @@ export class HomePage {
 
   // keeps track of whether the fab is clicked
   fabOpened: boolean = false;
+
+  notesRef: AngularFireList<any>
   notes: Observable<any[]>
 
   constructor(public navCtrl: NavController,
@@ -24,9 +26,13 @@ export class HomePage {
               public db: AngularFireDatabase) {
     events.subscribe('tab:opened', data => {
       this.closeFab();
+
     });
 
-    this.notes = db.list('notes').valueChanges();
+    this.notesRef = db.list('notes-list');
+    this.notes = this.notesRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
   }
 
   // ionViewDidLoad() {
@@ -65,6 +71,10 @@ export class HomePage {
     let modal = this.modalCtrl.create(AddNoteComponent);
     modal.present();
     this.closeFab();
+  }
+
+  deleteNote(key: string) {
+    this.notesRef.remove(key);
   }
 
 }

@@ -4,4 +4,6 @@ export interface InventoryItem {
   name: string;
   quantity?: number;
   weeksLeft?: string;
+  expDate?: string;
+
 }
