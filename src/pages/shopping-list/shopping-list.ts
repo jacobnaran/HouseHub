@@ -50,7 +50,7 @@ export class ShoppingListPage {
       });
       alert.present();
       //this.buttonColor = "primary";
-    //   if(this.ionColor == "primary")
+    // /  if(this.ionColor == "primary")
     //   {
     //   this.ionColor = "secondary";
     // }else
