@@ -20,7 +20,7 @@
 
 
   <ion-list class="list">
-    <ion-item-sliding *ngFor="let item of items">
+    <ion-item-sliding *ngFor="let item of items | async">
       <ion-item class ="item">
         <!-- <h1>{{item.name}}</h1> -->
         {{item.name}}

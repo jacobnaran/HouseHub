@@ -49,8 +49,8 @@ export class ShoppingListPage {
         buttons: ['OK :(']
       });
       alert.present();
-      this.buttonColor = "primary";
-    //   if(this.ionColor == "primary")
+      //this.buttonColor = "primary";
+    // /  if(this.ionColor == "primary")
     //   {
     //   this.ionColor = "secondary";
     // }else
