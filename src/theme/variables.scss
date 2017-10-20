@@ -61,21 +61,26 @@ $colors: (
 // --------------------------------------------------
 // Windows only Sass variables can go here
 
+//Nav bar color
 $tabs-md-tab-icon-color-active: #222;
 $tabs-md-tab-text-color-active: #222;
-
 $tabs-ios-tab-icon-color-active: #222;
 $tabs-ios-tab-text-color-active: #222;
 
-$toolbar-ios-title-text-color: #222;
-$toolbar-md-title-text-color: #222;
-
+//Header bar color
 $toolbar-ios-background: #F9BF3B;
 $toolbar-md-background: #F9BF3B;
 $toolbar-md-title-text-color: #222;
+$toolbar-ios-title-text-color: #222;
 
-$list-md-border-color: #222;
+//List seperator color
+$list-md-border-color: #F9BF3B;
 $list-ios-border-color: #222;
+
+//Status Bar color
+// $cordovaStatusbar.overlaysWebView(true);
+// $cordovaStatusbar.styleHex('#F9BF3B');
+// $cordovaStatusbar.show();
 
 
 // App Theme

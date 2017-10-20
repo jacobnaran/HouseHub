@@ -30,12 +30,14 @@
 
   <ion-item>
     <ion-input placeholder="Item Name" clearInput [(ngModel)]="inventoryItem.name"></ion-input>
+
   </ion-item>
 
   <ion-item>
-    <ion-label>Expiration Date</ion-label>
+    <ion-input placeholder="Number of weeks left" clearInput [(ngModel)]="inventoryItem.weeksLeft"></ion-input>
+    <!-- <ion-label>Expiration Date</ion-label>
     <ion-datetime displayFormat="MM DD">
-    </ion-datetime>
+    </ion-datetime> -->
   </ion-item>
 
   <button ion-button round color ="dark" (click)="addItem()">Done</button>

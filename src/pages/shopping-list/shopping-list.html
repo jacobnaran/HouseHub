@@ -12,15 +12,26 @@
 
 </ion-header>
 
+<ion-content>
 
-<ion-content padding>
+  <div id="container">
+    <button ion-button color="secondary" (click)="showAlert()"  class = "button button-large" id="private_button">
+       Private
+    </button>
+
+    <button ion-button color="secondary" (click)="showAlert()" class = "button button-large" id="public_button">
+       Public
+    </button>
+  </div>
 
   <ion-fab bottom right>
     <button ion-fab color="dark" (click)="showAddItem()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>
 
-  <ion-list>
+
+  <ion-list no-lines>
     <ion-item *ngFor="let item of items | async">
+
      {{item.name}}
      <button ion-button color="secondary" item-right (click)="deleteItem(item.key)" >
        <ion-icon name="trash"></ion-icon>
