@@ -29,7 +29,7 @@ export class HomePage {
 
     });
 
-    this.notesRef = db.list('notes');
+    this.notesRef = db.list('notes-list');
     this.notes = this.notesRef.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
