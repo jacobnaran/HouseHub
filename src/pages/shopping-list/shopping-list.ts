@@ -29,6 +29,8 @@ export class ShoppingListPage {
   itemsRef: AngularFireList<any>
   items: Observable<ShoppingItem[]>
 
+  public: boolean = true
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public modalCtrl: ModalController,
@@ -64,7 +66,7 @@ export class ShoppingListPage {
     {
       this.navCtrl.push(SettingsPage);
     }
-    
+
   clickFab() {
     document.getElementById("home-fab").click();
   }

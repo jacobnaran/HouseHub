@@ -21,7 +21,12 @@
 
 <ion-content>
 
-  <div id="container">
+  <ion-select [(ngModel)]="public">
+    <ion-option value=true>Public</ion-option>
+    <ion-option value=false>Private</ion-option>
+  </ion-select>
+
+  <!-- <div id="container">
     <button ion-button color="secondary" (click)="showAlert()"  class = "button button-large" id="private_button">
        Private
     </button>
@@ -29,7 +34,7 @@
     <button ion-button color="primary" (click)="showAlert()" class = "button button-large" id="public_button">
        Public
     </button>
-  </div>
+  </div> -->
 
   <ion-fab bottom right>
     <button ion-fab color="dark" (click)="showAddItem()"><ion-icon name="add"></ion-icon></button>
