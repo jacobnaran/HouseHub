@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { AlertController } from 'ionic-angular';
-import { IonicPage, NavController, NavParams, Events, AlertController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, ModalController, AlertController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { SettingsPage} from '../settings/settings';
 
 import { AddNoteComponent } from '../../components/add-note/add-note';
 
@@ -46,6 +46,11 @@ export class HomePage {
       });
       alert.present();
     }
+
+settingsNav()
+{
+  this.navCtrl.push(SettingsPage);
+}
 
   toggleFab() {
     if (this.fabOpened) {
