@@ -44,7 +44,7 @@ export class InventoryPage {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
 
-    events.subscribe('tab:opened', data => {
+    events.subscribe('tab:selected', () => {
       this.closeFab();
     });
 

@@ -24,9 +24,8 @@ export class HomePage {
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
               public db: AngularFireDatabase) {
-    events.subscribe('tab:opened', data => {
+    events.subscribe('tab:selected', () => {
       this.closeFab();
-
     });
 
     this.notesRef = db.list('notes-list');

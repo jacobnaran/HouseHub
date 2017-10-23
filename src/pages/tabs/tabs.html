@@ -1,5 +1,5 @@
 <ion-tabs  selectedIndex="1">
-  <ion-tab [root]="tab1Root" tabTitle="Shopping List" tabIcon="pricetags"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="Home" tabIcon="home"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="Inventory" tabIcon="list-box"></ion-tab>
+  <ion-tab [root]="tab1Root" tabTitle="Shopping List" tabIcon="pricetags" (ionSelect)="tabSelect()"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="Home" tabIcon="home" (ionSelect)="tabSelect()"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="Inventory" tabIcon="list-box" (ionSelect)="tabSelect()"></ion-tab>
 </ion-tabs>
