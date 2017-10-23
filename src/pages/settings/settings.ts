@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, ModalController, AlertController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { SettingsPage} from '../settings/settings';
-import { LoginPage} from '../login/login';
+import { SettingsPage } from '../settings/settings';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the SettingsPage page.
@@ -41,8 +41,9 @@ export class SettingsPage {
 
     navLogin()
     {
-      this.navCtrl.pop();
-      this.navCtrl.setRoot(LoginPage);
+      //this.navCtrl.pop();
+      //this.navCtrl.setRoot(LoginPage);
+      this.events.publish('user:logout');
 
     }
 
