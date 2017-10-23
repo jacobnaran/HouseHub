@@ -7,6 +7,7 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { InventoryItem } from '../../models/inventory-item.interface';
 import { StatusBar } from '@ionic-native/status-bar';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { SettingsPage} from '../settings/settings';
 
 
 /**
@@ -43,7 +44,7 @@ export class InventoryPage {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
 
-    events.subscribe('tab:opened', data => {
+    events.subscribe('tab:selected', () => {
       this.closeFab();
     });
 
@@ -55,7 +56,10 @@ export class InventoryPage {
     console.log('ionViewDidLoad InventoryPage');
   }
 
-
+  settingsNav()
+  {
+    this.navCtrl.push(SettingsPage);
+  }
 
  showAlert() {
      let alert = this.alertCtrl.create({

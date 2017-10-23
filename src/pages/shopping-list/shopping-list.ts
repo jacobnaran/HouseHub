@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { AddItemComponent } from '../../components/add-item/add-item';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { SettingsPage} from '../settings/settings';
 
 /**
  * Generated class for the ShoppingListPage page.
@@ -51,7 +52,11 @@ export class ShoppingListPage {
       alert.present();
     }
 
-
+    settingsNav()
+    {
+      this.navCtrl.push(SettingsPage);
+    }
+    
   clickFab() {
     document.getElementById("home-fab").click();
   }

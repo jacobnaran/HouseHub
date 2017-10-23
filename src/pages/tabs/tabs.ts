@@ -18,4 +18,7 @@ export class TabsPage {
   constructor(public events: Events) {
   }
 
+  tabSelect() {
+    this.events.publish('tab:selected');
+  }
 }

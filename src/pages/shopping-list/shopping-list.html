@@ -8,6 +8,13 @@
 
   <ion-navbar>
     <ion-title>Shopping List</ion-title>
+
+    <ion-buttons end>
+     <button (click)="settingsNav()" class="Settings">
+     <ion-icon name="settings"></ion-icon>
+   </button>
+   </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
@@ -19,7 +26,7 @@
        Private
     </button>
 
-    <button ion-button color="secondary" (click)="showAlert()" class = "button button-large" id="public_button">
+    <button ion-button color="primary" (click)="showAlert()" class = "button button-large" id="public_button">
        Public
     </button>
   </div>

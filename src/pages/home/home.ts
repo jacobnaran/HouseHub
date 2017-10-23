@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-
-import { IonicPage, NavController, NavParams, Events, AlertController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, ModalController, AlertController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { SettingsPage} from '../settings/settings';
 
 import { AddNoteComponent } from '../../components/add-note/add-note';
 
@@ -24,9 +24,8 @@ export class HomePage {
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
               public db: AngularFireDatabase) {
-    events.subscribe('tab:opened', data => {
+    events.subscribe('tab:selected', () => {
       this.closeFab();
-
     });
 
     this.notesRef = db.list('notes-list');
@@ -38,6 +37,19 @@ export class HomePage {
   // ionViewDidLoad() {
   //    this.events.publish('tab:opened', 'home');
   // }
+  showAlert() {
+      let alert = this.alertCtrl.create({
+        title: 'Hi',
+        subTitle: 'Something isnt working so we put an alert here',
+        buttons: ['OK :(']
+      });
+      alert.present();
+    }
+
+settingsNav()
+{
+  this.navCtrl.push(SettingsPage);
+}
 
   toggleFab() {
     if (this.fabOpened) {

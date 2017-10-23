@@ -20,6 +20,8 @@ import { InventoryPage } from '../pages/inventory/inventory';
 import { AddItemComponent } from '../components/add-item/add-item';
 import { AddNoteComponent } from '../components/add-note/add-note';
 import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
+import { SettingsPage} from '../pages/settings/settings';
+import { LoginPage } from '../pages/login/login';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
     InventoryPage,
     AddItemComponent,
     AddIvnItemComponent,
-    AddNoteComponent
+    AddNoteComponent,
+    SettingsPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +53,9 @@ import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
     InventoryPage,
     AddItemComponent,
     AddIvnItemComponent,
-    AddNoteComponent
+    AddNoteComponent,
+    SettingsPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
