@@ -11,6 +11,13 @@
 
   <ion-navbar>
     <ion-title>Inventory</ion-title>
+
+    <ion-buttons end>
+     <button (click)="showAlert()" class="Settings">
+     <ion-icon name="settings"></ion-icon>
+   </button>
+   </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
@@ -27,7 +34,7 @@
 
       </ion-item>
          <ion-item-options>
-           <button ion-button color="light" icon-start>
+           <button ion-button color="secondary" icon-start>
              <ion-icon name="clipboard"></ion-icon>
              Edit
            </button>
@@ -49,7 +56,7 @@
 
      <ion-label class="Tab">Add item</ion-label>
     <ion-label class="Item">Add tab</ion-label>
-  <button ion-fab><ion-icon name="albums"></ion-icon></button>
+  <button ion-fab (click)="showAlert()"><ion-icon name="albums"></ion-icon></button>
   <button ion-fab (click)="showAddItem()"><ion-icon name="cube"></ion-icon></button>
 
 

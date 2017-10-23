@@ -6,8 +6,17 @@
 -->
 <ion-header>
 
+
   <ion-navbar>
+
     <ion-title>Home</ion-title>
+
+    <ion-buttons end>
+     <button (click)="showAlert()" class="Settings">
+     <ion-icon name="settings"></ion-icon>
+   </button>
+   </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
@@ -29,57 +38,6 @@
   </ion-card>
 </ion-list>
 
-  <!-- <ion-grid>
-    <ion-row>
-      <ion-col col-6>
-        <ion-card color="light" (click)="cardClick()" class = "card" >
-          <ion-card-header>
-            Header 1
-          </ion-card-header>
-          <ion-card-content>
-            Content 1
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-
-      <ion-col col-6 >
-        <ion-card color="light">
-          <ion-card-header>
-            Header 2
-          </ion-card-header>
-          <ion-card-content>
-            Content 2
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col col-6>
-        <ion-card color="light">
-          <ion-card-header>
-            Header 1
-          </ion-card-header>
-          <ion-card-content>
-            Content 1
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-
-      <ion-col col-6>
-        <ion-card color="light">
-          <ion-card-header>
-            Header 2
-          </ion-card-header>
-          <ion-card-content>
-            Content 2
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
-
-
   <ion-fab bottom right #fab>
    <button ion-fab id="home-fab" color="dark" (click)="toggleFab()"><ion-icon name="add"></ion-icon></button>
     <ion-fab-list side="top">
@@ -87,7 +45,7 @@
      <ion-label class="Reminder">Add reminder</ion-label>
     <ion-label class="Note">Add note</ion-label>
   <button ion-fab (click)="showAddNote()"><ion-icon name="document"></ion-icon></button>
-  <button ion-fab ><ion-icon name="time"></ion-icon></button>
+  <button ion-fab (click)="showAlert()"><ion-icon name="time"></ion-icon></button>
 </ion-fab-list>
 </ion-fab>
 

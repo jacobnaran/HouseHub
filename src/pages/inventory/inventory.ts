@@ -55,8 +55,6 @@ export class InventoryPage {
     console.log('ionViewDidLoad InventoryPage');
   }
 
-
-
  showAlert() {
      let alert = this.alertCtrl.create({
        title: 'Hi',
