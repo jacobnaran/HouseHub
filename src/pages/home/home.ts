@@ -24,12 +24,11 @@ export class HomePage {
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
               public db: AngularFireDatabase) {
-    events.subscribe('tab:opened', data => {
+    events.subscribe('tab:selected', () => {
       this.closeFab();
-
     });
 
-    this.notesRef = db.list('notes');
+    this.notesRef = db.list('notes-list');
     this.notes = this.notesRef.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
