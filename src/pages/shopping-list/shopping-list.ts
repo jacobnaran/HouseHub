@@ -29,6 +29,9 @@ export class ShoppingListPage {
   itemsRef: AngularFireList<any>
   items: Observable<ShoppingItem[]>
 
+  // default is public shopping list
+  listName: string = "shopping-list"
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public modalCtrl: ModalController,
@@ -36,7 +39,7 @@ export class ShoppingListPage {
               public events: Events,
               public alertCtrl: AlertController) {
 
-    this.itemsRef = db.list('shopping-list');
+    this.itemsRef = db.list(this.listName);
     this.items = this.itemsRef.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
@@ -52,21 +55,28 @@ export class ShoppingListPage {
       alert.present();
     }
 
-    settingsNav()
-    {
-      this.navCtrl.push(SettingsPage);
-    }
-    
+  settingsNav()
+  {
+    this.navCtrl.push(SettingsPage);
+  }
+
   clickFab() {
     document.getElementById("home-fab").click();
   }
 
   showAddItem() {
-    let modal = this.modalCtrl.create(AddItemComponent);
+    let modal = this.modalCtrl.create(AddItemComponent, {listName: this.listName});
     modal.present();
   }
 
   deleteItem(key: string) {
     this.itemsRef.remove(key);
+  }
+
+  changeList() {
+    this.itemsRef = this.db.list(this.listName);
+    this.items = this.itemsRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
   }
 }
