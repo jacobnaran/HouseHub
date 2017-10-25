@@ -28,7 +28,7 @@ export class HomePage {
       this.closeFab();
     });
 
-    this.notesRef = db.list('notes-list');
+    this.notesRef = db.list('notes-list', ref => ref.orderByChild('timestamp'));
     this.notes = this.notesRef.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
