@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { ViewController, NavParams } from 'ionic-angular';
 
 import { ShoppingItem } from '../../models/shopping-item.interface';
 
@@ -22,8 +22,9 @@ export class AddItemComponent {
   addItemRef$: AngularFireList<ShoppingItem>
 
   constructor(public viewCtrl: ViewController,
-              private db: AngularFireDatabase) {
-    this.addItemRef$ = this.db.list('shopping-list');
+              private db: AngularFireDatabase,
+              public navParams: NavParams) {
+    this.addItemRef$ = db.list(navParams.get('listName'));
   }
 
   addItem() {

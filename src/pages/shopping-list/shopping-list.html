@@ -21,9 +21,9 @@
 
 <ion-content>
 
-  <ion-select [(ngModel)]="public">
-    <ion-option value=true>Public</ion-option>
-    <ion-option value=false>Private</ion-option>
+  <ion-select [(ngModel)]="listName" (ionChange)="changeList()">
+    <ion-option value="shopping-list">Public</ion-option>
+    <ion-option value="shopping-list-private">Private</ion-option>
   </ion-select>
 
   <!-- <div id="container">
