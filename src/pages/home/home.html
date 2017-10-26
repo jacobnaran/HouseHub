@@ -32,7 +32,7 @@
     <!-- <ion-card-header>
       {{ item.name }}
     </ion-card-header> -->
-    <ion-card-content>
+    <ion-card-content (click)="showAlert();//deleteNote(item.key)">
       {{ note.text }}
     </ion-card-content>
   </ion-card>

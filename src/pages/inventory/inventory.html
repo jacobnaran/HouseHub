@@ -28,9 +28,20 @@
 
   <ion-list class="list">
     <ion-item-sliding *ngFor="let item of items | async">
-      <ion-item class ="item">
+      <ion-item class ="Inventoryitem">
         <!-- <h1>{{item.name}}</h1> -->
-        {{item.name}}
+        <h2 id="Invname"style="text-align:left;float:left;">{{item.name}}</h2>
+        <h2 style="text-align:right;float:right; color:#F9BF3B">{{item.weeksLeft}} days left</h2>
+        <!-- <hr style="clear:both;"/> -->
+
+
+        <!-- <ion-label>
+            {{item.name}}
+          </ion-label>
+
+      <ion-label id="days">
+          {{item.weeksLeft}}
+        </ion-label> -->
 
       </ion-item>
          <ion-item-options>
