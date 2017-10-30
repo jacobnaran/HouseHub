@@ -4,6 +4,7 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { LoginPage } from '../login/login';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { User } from '../../models/user/user.interface';
 
 /**
  * Generated class for the SettingsPage page.
@@ -19,7 +20,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class SettingsPage {
 
-  profile: FirebaseObjectObservable<User>
+  profile: Observable<User>
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
