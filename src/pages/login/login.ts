@@ -32,7 +32,7 @@ export class LoginPage {
   showAlert() {
       let alert = this.alertCtrl.create({
         title: 'Error',
-        subTitle: 'Please enter a valid username and password',
+        subTitle: 'Please enter a valid email id and password',
         buttons: ['Ok']
       });
       alert.present();
@@ -45,10 +45,12 @@ export class LoginPage {
     if(this.email != undefined && this.password != undefined)
     {
       var that = this;
-      this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(function(){that.navCtrl.setRoot(TabsPage);},function(){that.showAlert();});
+    this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(function(){that.navCtrl.setRoot(TabsPage);},function(){that.showAlert();});
     } else {
     this.showAlert();
     }
   }
+
+
 
 }

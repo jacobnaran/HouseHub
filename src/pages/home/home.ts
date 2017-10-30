@@ -39,9 +39,9 @@ export class HomePage {
   // }
   showAlert() {
       let alert = this.alertCtrl.create({
-        title: 'Hi',
-        subTitle: 'Something isnt working so we put an alert here',
-        buttons: ['OK :(']
+        title: 'Card deleted',
+        //subTitle: '',
+        buttons: ['OK']
       });
       alert.present();
 
@@ -59,15 +59,6 @@ settingsNav()
     else {
       this.fabOpened = true;
     }
-  }
-
-  cardClick(){
-    let alert = this.alertCtrl.create({
-      title: 'NO SOCIAL MEDIA FOR YOU',
-      subTitle: 'Social networks are massively addictive.',
-      buttons: ['OK']
-    });
-    alert.present();
   }
 
   clickFab() {
