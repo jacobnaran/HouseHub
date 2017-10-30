@@ -39,6 +39,11 @@ export class LoginPage {
 
     }
 
+  signInAsGuest() {
+    this.afAuth.auth.signInWithEmailAndPassword('guest@househub.com', 'password');
+    this.navCtrl.setRoot(TabsPage);
+  }
+
   signIn()
   {
     //this.showAlert(this.email,this.password);
