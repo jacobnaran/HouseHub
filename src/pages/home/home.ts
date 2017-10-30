@@ -90,5 +90,4 @@ settingsNav()
     this.notesRef.remove(key);
   }
 
-
 }
