@@ -90,8 +90,5 @@ settingsNav()
     this.notesRef.remove(key);
   }
 
-  deleteItem(key: string) {
-    this.itemsRef.remove(key);
-  }
 
 }
