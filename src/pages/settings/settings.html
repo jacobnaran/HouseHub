@@ -16,6 +16,8 @@
 <ion-content padding class="Page">
 
 <div class="setText">
+    <h4><b>Active account</b></h4>
+    <h5 id="account">{{ (profile | async)?.email }}</h5>
     <h4><b>Active House</b></h4>
     <h5>TestHouse</h5>
     <h4><b>Shareable Code</b></h4>

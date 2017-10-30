@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, Events, ModalController, AlertCont
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { LoginPage } from '../login/login';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 /**
  * Generated class for the SettingsPage page.
@@ -18,12 +19,18 @@ import { LoginPage } from '../login/login';
 })
 export class SettingsPage {
 
+  profile: FirebaseObjectObservable<User>
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public events: Events,
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
-              public db: AngularFireDatabase) {
+              public db: AngularFireDatabase,
+              public afAuth: AngularFireAuth) {
+      this.afAuth.authState.subscribe(data => {
+        this.profile = this.db.object(`users/${data.uid}`).valueChanges();
+      })
   }
 
   ionViewDidLoad() {
@@ -31,7 +38,7 @@ export class SettingsPage {
   }
   showAlert() {
       let alert = this.alertCtrl.create({
-        title: 'About Version 2.4',
+        title: 'About Version 3.1',
         subTitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam feugiat risus purus, eu dignissim turpis maximus vel. Cras non faucibus lorem. Proin luctus, urna in hendrerit aliquet, orci nunc congue nunc, ut pretium enim mauris et turpis. Vestibulum ac arcu vel eros posuere congue in sit amet nibh. Proin rutrum, metus ac varius iaculis, leo dui tempor enim, vel aliquam leo nibh id mi. Phasellus aliquam accumsan elit eu luctus. Donec commodo eget arcu at bibendum. Vivamus id arcu vel massa luctus faucibus.',
         buttons: ['Close']
       });
@@ -42,6 +49,7 @@ export class SettingsPage {
     {
       //this.navCtrl.pop();
       //this.navCtrl.setRoot(LoginPage);
+      this.afAuth.auth.signOut();
       this.events.publish('user:logout');
 
     }

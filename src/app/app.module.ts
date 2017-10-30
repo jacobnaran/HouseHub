@@ -8,6 +8,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 // firebase stuff
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { FIREBASE_CREDENTIALS } from './firebase.credentials';
 
 import { MyApp } from './app.component';
@@ -44,7 +45,8 @@ import { RegisterPage } from '../pages/register/register';
     // Initialize AngularFire with credentials from the dashboard
     AngularFireModule.initializeApp(FIREBASE_CREDENTIALS),
     // Import the AngularFireDatabaseModule to use database interactions
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
