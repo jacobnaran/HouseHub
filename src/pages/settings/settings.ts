@@ -4,7 +4,7 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { LoginPage } from '../login/login';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { User } from '../../models/user/user.interface';
+import { User } from '../../models/user.interface';
 
 /**
  * Generated class for the SettingsPage page.
