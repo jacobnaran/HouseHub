@@ -45,8 +45,7 @@ export class LoginPage {
     if(this.email != undefined && this.password != undefined)
     {
       var that = this;
-    this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(function(){that.navCtrl.setRoot(TabsPage);},function(){that.showAlert();});
-
+      this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(function(){that.navCtrl.setRoot(TabsPage);},function(){that.showAlert();});
     } else {
     this.showAlert();
     }
