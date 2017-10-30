@@ -26,7 +26,7 @@ export class LoginPage {
   }
 
   navigateToRegisterPage() {
-    this.navCtrl.setRoot(RegisterPage);
+    this.navCtrl.push(RegisterPage);
   }
 
   showAlert() {
