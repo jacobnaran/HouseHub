@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
-import{ AngularFireAuth } from 'angularfire2/auth'
+import{ AngularFireDatabase } from 'angularfire2/database';
+import{ AngularFireAuth } from 'angularfire2/auth';
 import { TabsPage } from '../tabs/tabs';
 import { User } from '../../models/user.interface';
 
@@ -23,7 +24,8 @@ export class RegisterPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public afAuth: AngularFireAuth,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              public db: AngularFireDatabase) {
   }
 
   ionViewDidLoad() {
@@ -34,8 +36,16 @@ export class RegisterPage {
     // this.alertCtrl.create({
     //   subTitle: user.email+" "+user.password
     // }).present();
-    await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
-    this.afAuth.auth.signInWithEmailAndPassword(email, password);
-    this.navCtrl.setRoot(TabsPage);
+    try {
+      await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+      await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+      this.afAuth.authState.subscribe(auth => {
+        this.db.object(`users/${auth.uid}`).set(this.user)
+          .then(() => this.navCtrl.setRoot(TabsPage))
+      })
+    }
+    catch (e) {
+      console.error(e);
+    }
   }
 }

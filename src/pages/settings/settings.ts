@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, Events, ModalController, AlertCont
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { LoginPage } from '../login/login';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 /**
  * Generated class for the SettingsPage page.
@@ -23,7 +24,8 @@ export class SettingsPage {
               public events: Events,
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
-              public db: AngularFireDatabase) {
+              public db: AngularFireDatabase,
+              public afAuth: AngularFireAuth) {
   }
 
   ionViewDidLoad() {
@@ -42,6 +44,7 @@ export class SettingsPage {
     {
       //this.navCtrl.pop();
       //this.navCtrl.setRoot(LoginPage);
+      this.afAuth.auth.signOut();
       this.events.publish('user:logout');
 
     }
