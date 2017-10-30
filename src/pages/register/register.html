@@ -35,8 +35,9 @@
     <ion-label floating>Password</ion-label>
     <ion-input type="password" [(ngModel)]="user.password"></ion-input>
   </ion-item>
-
-  <button block ion-button color="secondary" (click)="createAccountAndLogIn(user.email, user.password)">
+<br/>
+<br/>
+  <button block ion-button class="register" (click)="createAccountAndLogIn(user.email, user.password)">
     Create Account and Log In
   </button>
 
