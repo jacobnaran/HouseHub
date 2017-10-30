@@ -22,6 +22,7 @@ import { AddNoteComponent } from '../components/add-note/add-note';
 import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
 import { SettingsPage} from '../pages/settings/settings';
 import { LoginPage } from '../pages/login/login';
+import { RegisterPage } from '../pages/register/register';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { LoginPage } from '../pages/login/login';
     AddIvnItemComponent,
     AddNoteComponent,
     SettingsPage,
-    LoginPage
+    LoginPage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,8 @@ import { LoginPage } from '../pages/login/login';
     AddIvnItemComponent,
     AddNoteComponent,
     SettingsPage,
-    LoginPage
+    LoginPage,
+    RegisterPage
   ],
   providers: [
     StatusBar,
