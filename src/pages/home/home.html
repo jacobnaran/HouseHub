@@ -28,14 +28,26 @@
   <button id="overlay" [hidden]="!fabOpened" (click)="clickFab()"></button>
 
 <ion-list id="note-list" *ngFor="let note of notes | async">
+<div class="container" style="position:relative;">
   <ion-card color="light">
     <!-- <ion-card-header>
       {{ item.name }}
     </ion-card-header> -->
-    <ion-card-content (click)="showAlert();deleteNote(note.key)">
+    <ion-card-content (click)="showAlert();//deleteNote(note.key)">
       {{ note.text }}
+      <button ion-button block color="secondary"  (click)="deleteNote(note.key)" >
+        <ion-icon name="trash"></ion-icon>
+      </button>
+      <!-- style="position:absolute;right:8px;bottom:-3px;" -->
+      <button ion-button block color="dark" (click)="deleteNote(note.key)" >
+        <ion-icon name="clipboard"></ion-icon>
+      </button>
     </ion-card-content>
+    <!-- <button ion-button item-end class="delete" color="secondary" item-right (click)="deleteNote(note.key)" >
+      <ion-icon name="trash"></ion-icon>
+    </button> -->
   </ion-card>
+</div>
 </ion-list>
 
   <ion-fab bottom right #fab>
