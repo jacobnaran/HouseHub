@@ -23,7 +23,7 @@ $app-direction: ltr;
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
 
-$background-color: #F39C12;
+$background-color: #4A525A;
 
 // Named Color Variables
 // --------------------------------------------------
@@ -34,8 +34,8 @@ $background-color: #F39C12;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #F39C12,
-  secondary:  #F9BF3B,
+  primary:    #4A525A,
+  secondary:  #93A3BC,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222,
@@ -62,19 +62,19 @@ $colors: (
 // Windows only Sass variables can go here
 
 //Nav bar color
-$tabs-md-tab-icon-color-active: #222;
-$tabs-md-tab-text-color-active: #222;
-$tabs-ios-tab-icon-color-active: #222;
-$tabs-ios-tab-text-color-active: #222;
+$tabs-md-tab-icon-color-active: white;
+$tabs-md-tab-text-color-active: white;
+$tabs-ios-tab-icon-color-active: white;
+$tabs-ios-tab-text-color-active: white;
 
 //Header bar color
-$toolbar-ios-background: #F9BF3B;
-$toolbar-md-background: #F9BF3B;
-$toolbar-md-title-text-color: #222;
-$toolbar-ios-title-text-color: #222;
+$toolbar-ios-background: #93A3BC;
+$toolbar-md-background: #93A3BC;
+$toolbar-md-title-text-color: white;
+$toolbar-ios-title-text-color: white;
 
 //List seperator color
-$list-md-border-color: #F9BF3B;
+$list-md-border-color: #93A3BC;
 $list-ios-border-color: #F9BF3B;
 
 //Status Bar color
