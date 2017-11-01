@@ -3,6 +3,7 @@ import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angu
 import{ AngularFireDatabase } from 'angularfire2/database';
 import{ AngularFireAuth } from 'angularfire2/auth';
 import { TabsPage } from '../tabs/tabs';
+import { SetupPage } from '../setup/setup';
 import { User } from '../../models/user.interface';
 
 /*
@@ -20,6 +21,7 @@ import { User } from '../../models/user.interface';
 export class RegisterPage {
 
   user = {} as User;
+  userId: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -39,9 +41,11 @@ export class RegisterPage {
     try {
       await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
       await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+      this.user.privateKey = this.db.list('shopping-lists').push(null).key;
       this.afAuth.authState.subscribe(auth => {
-        this.db.object(`users/${auth.uid}`).set(this.user)
-          .then(() => this.navCtrl.setRoot(TabsPage))
+        this.userId = auth.uid;
+        this.db.object(`users/${this.userId}`).set(this.user);
+        this.navCtrl.setRoot(SetupPage, {user: this.user});
       })
     }
     catch (e) {

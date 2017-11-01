@@ -24,6 +24,7 @@ import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
 import { SettingsPage} from '../pages/settings/settings';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
+import { SetupPage } from '../pages/setup/setup';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { RegisterPage } from '../pages/register/register';
     AddNoteComponent,
     SettingsPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    SetupPage
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,8 @@ import { RegisterPage } from '../pages/register/register';
     AddNoteComponent,
     SettingsPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    SetupPage
   ],
   providers: [
     StatusBar,
