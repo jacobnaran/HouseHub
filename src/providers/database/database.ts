@@ -16,6 +16,7 @@ export class DatabaseProvider {
 
   authState: any = null;
   currentUser = {} as User;
+  currentHouseholdName = '';
 
   // whether a user is in the process of registering
   registering: boolean = false;
@@ -43,7 +44,7 @@ export class DatabaseProvider {
       if (this.registering)
         return;
 
-      this.db.object(`users/${this.currentUserId}`).valueChanges().subscribe(data => {
+      this.db.object(`users/${this.currentUserId}`).valueChanges().subscribe((data) => {
         this.currentUser.name = data['name'];
         this.currentUser.username = data['username'];
         this.currentUser.email = data['email'];
@@ -52,9 +53,14 @@ export class DatabaseProvider {
         this.events.publish('user:update');
         console.log('user:update1');
       });
+
+      // this.db.object(`households/${this.currentUser.householdKey}`).valueChanges().subscribe((data) => {
+      //   this.currentHouseholdName = data['name'];
+      // });
     }
     else {
       this.currentUser = {} as User;
+      this.currentHouseholdName = '';
     }
   }
 
