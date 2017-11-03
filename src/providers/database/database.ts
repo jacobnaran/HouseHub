@@ -84,6 +84,6 @@ export class DatabaseProvider {
 
   signOut(): void {
     this.afAuth.auth.signOut();
-    //this.updateUserObject();
+    this.updateUserObject();
   }
 }
