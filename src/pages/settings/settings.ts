@@ -34,13 +34,14 @@ export class SettingsPage {
               public dbProv: DatabaseProvider) {
 
       // on auth state change, update name
-      this.events.subscribe('user:update', () => {
-        console.log('event heard (settings)');
-        console.log(dbProv.currentUser.name);
+      this.afAuth.authState.subscribe(() => {
         this.name = dbProv.currentUser.name;
       });
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad SettingsPage');
+  }
   showAlert() {
       let alert = this.alertCtrl.create({
         title: 'About Version 3.1',

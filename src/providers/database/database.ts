@@ -23,7 +23,6 @@ export class DatabaseProvider {
 
     this.afAuth.authState.subscribe((auth) => {
       this.authState = auth;
-      this.updateUserObject();
     });
 
   }
@@ -33,10 +32,8 @@ export class DatabaseProvider {
     return this.authState !== null;
   }
 
-  updateUserObject(): void {
-    console.log('function call');
+  private updateUserObject(): void {
     if (this.authenticated) {
-        console.log('function call authenticated');
       this.db.object(`users/${this.currentUserId}`).valueChanges().subscribe(data => {
         this.currentUser.name = data['name'];
         this.currentUser.username = data['username'];
@@ -44,7 +41,7 @@ export class DatabaseProvider {
         this.currentUser.householdKey = data['householdKey'];
         this.currentUser.privateKey = data['privateKey'];
         this.events.publish('user:update');
-        console.log('user:update');
+        console.log('user:update1');
       });
     }
     else {
@@ -77,20 +74,15 @@ export class DatabaseProvider {
   }
 
   emailLogin(email:string, password:string) {
-    //  return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-    //    .then(() => {
-    //      this.updateUserObject();
-    //    })
-    //    .catch(error => console.log(error));
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then(() => {
-        //this.updateUserObject();
-      })
-      .catch(error => console.log(error));
+     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+       .then((user) => {
+         this.updateUserObject();
+       })
+       .catch(error => console.log(error));
   }
 
   signOut(): void {
     this.afAuth.auth.signOut();
-    //this.updateUserObject();
+    this.updateUserObject();
   }
 }

@@ -23,6 +23,10 @@ export class LoginPage {
               public dbProv: DatabaseProvider) {
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad LoginPage');
+  }
+
   navigateToRegisterPage() {
     this.navCtrl.push(RegisterPage);
   }
