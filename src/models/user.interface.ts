@@ -3,5 +3,6 @@ export interface User {
   password: string;
   username?: string;
   name?: string;
-
+  householdKey?: string;
+  privateKey?: string;
 }
