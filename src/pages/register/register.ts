@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
-import{ AngularFireDatabase } from 'angularfire2/database';
-import{ AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { DatabaseProvider } from '../../providers/database/database';
 import { TabsPage } from '../tabs/tabs';
 import { SetupPage } from '../setup/setup';
 import { User } from '../../models/user.interface';
@@ -21,13 +22,14 @@ import { User } from '../../models/user.interface';
 export class RegisterPage {
 
   user = {} as User;
-  userId: string;
+  //userId: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public afAuth: AngularFireAuth,
+              //public afAuth: AngularFireAuth,
               public alertCtrl: AlertController,
-              public db: AngularFireDatabase) {
+              private db: AngularFireDatabase,
+              private dbProv: DatabaseProvider) {
   }
 
   ionViewDidLoad() {
@@ -35,18 +37,9 @@ export class RegisterPage {
   }
 
   async createAccountAndLogIn(email: string, password: string) {
-    // this.alertCtrl.create({
-    //   subTitle: user.email+" "+user.password
-    // }).present();
     try {
-      await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
-      await this.afAuth.auth.signInWithEmailAndPassword(email, password);
-      this.user.privateKey = this.db.list('shopping-lists').push(null).key;
-      this.afAuth.authState.subscribe(auth => {
-        this.userId = auth.uid;
-        this.db.object(`users/${this.userId}`).set(this.user);
-        this.navCtrl.setRoot(SetupPage, {user: this.user});
-      })
+      await this.dbProv.emailSignUp(email, password, this.user);
+      this.navCtrl.setRoot(SetupPage, {user: this.user});
     }
     catch (e) {
       console.error(e);

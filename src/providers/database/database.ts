@@ -36,6 +36,7 @@ export class DatabaseProvider {
   private updateUserObject(): void {
     if (this.authenticated) {
       this.db.object(`users/${this.currentUserId}`).valueChanges().subscribe(data => {
+        // this is the error: upon registration, this method is called before the data is stored
         this.currentUser.name = data['name'];
         this.currentUser.username = data['username'];
         this.currentUser.email = data['email'];
@@ -69,15 +70,22 @@ export class DatabaseProvider {
     return this.authenticated ? this.authState.uid : '';
   }
 
-  emailSignUp(email:string, password:string) {
+  // creates user and logs in
+  emailSignUp(email:string, password:string, newUser: User) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then((auth) => {
+        this.authState = auth;
+        newUser.privateKey = this.db.list('shopping-lists').push(null).key;
+        this.db.object(`users/${auth.uid}`).set(newUser);
+        this.updateUserObject();
+      })
       .catch(error => console.log(error));
   }
 
   emailLogin(email:string, password:string) {
      return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-       .then((user) => {
-         //this.updateUserObject();
+       .then(() => {
+         this.updateUserObject();
        })
        .catch(error => console.log(error));
   }
