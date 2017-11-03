@@ -22,11 +22,7 @@ export class LoginPage {
               public alertCtrl: AlertController,
               public dbProv: DatabaseProvider) {
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
-
+  
   navigateToRegisterPage() {
     this.navCtrl.push(RegisterPage);
   }

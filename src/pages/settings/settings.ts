@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, ModalController, AlertController } from 'ionic-angular';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
 import { LoginPage } from '../login/login';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { User } from '../../models/user.interface';
 import { DatabaseProvider } from '../../providers/database/database';
 
 /**
@@ -29,7 +26,6 @@ export class SettingsPage {
               public events: Events,
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
-              public db: AngularFireDatabase,
               public afAuth: AngularFireAuth,
               public dbProv: DatabaseProvider) {
 
@@ -39,9 +35,6 @@ export class SettingsPage {
       });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
-  }
   showAlert() {
       let alert = this.alertCtrl.create({
         title: 'About Version 3.1',

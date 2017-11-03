@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
-import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from '../../models/user.interface';
 import { Observable } from 'rxjs/Observable';
@@ -42,7 +42,7 @@ export class DatabaseProvider {
       // do not execute code if user data hasn't been pushed yet
       if (this.registering)
         return;
-        
+
       this.db.object(`users/${this.currentUserId}`).valueChanges().subscribe(data => {
         // this is the error: upon registration, this method is called before the data is stored
         this.currentUser.name = data['name'];

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { Events, IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { Events, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import { SettingsPage } from '../settings/settings';
 import { DatabaseProvider } from '../../providers/database/database';
@@ -27,8 +26,7 @@ export class HomePage {
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
               public db: AngularFireDatabase,
-              public dbProv: DatabaseProvider,
-              public afAuth: AngularFireAuth) {
+              public dbProv: DatabaseProvider) {
     events.subscribe('tab:selected', () => {
       this.closeFab();
     });
@@ -39,11 +37,6 @@ export class HomePage {
     events.subscribe('user:update', () => {
       this.updateList();
     });
-
-    // this.notesRef = db.list(`notes-list/${dbProv.currentUser.householdKey}`, ref => ref.orderByChild('timestamp'));
-    // this.notes = this.notesRef.snapshotChanges().map(changes => {
-    //   return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-    // });
   }
 
   updateList() {
@@ -53,23 +46,20 @@ export class HomePage {
     });
   }
 
-  // ionViewDidLoad() {
-  //    this.events.publish('tab:opened', 'home');
-  // }
   showAlert() {
-      let alert = this.alertCtrl.create({
-        title: 'Card deleted',
-        //subTitle: '',
-        buttons: ['OK']
-      });
-      alert.present();
+    let alert = this.alertCtrl.create({
+      title: 'Card deleted',
+      //subTitle: '',
+      buttons: ['OK']
+    });
+    alert.present();
 
-    }
+  }
 
-settingsNav()
-{
-  this.navCtrl.push(SettingsPage);
-}
+  settingsNav()
+  {
+    this.navCtrl.push(SettingsPage);
+  }
 
   toggleFab() {
     if (this.fabOpened) {
@@ -99,5 +89,4 @@ settingsNav()
   deleteNote(key: string) {
     this.notesRef.remove(key);
   }
-
 }
