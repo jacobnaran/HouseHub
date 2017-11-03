@@ -17,6 +17,9 @@ export class DatabaseProvider {
   authState: any = null;
   currentUser = {} as User;
 
+  // whether a user is in the process of registering
+  registering: boolean = false;
+
   constructor(private afAuth: AngularFireAuth,
               private db: AngularFireDatabase,
               public events: Events) {
@@ -35,6 +38,11 @@ export class DatabaseProvider {
 
   private updateUserObject(): void {
     if (this.authenticated) {
+
+      // do not execute code if user data hasn't been pushed yet
+      if (this.registering)
+        return;
+        
       this.db.object(`users/${this.currentUserId}`).valueChanges().subscribe(data => {
         // this is the error: upon registration, this method is called before the data is stored
         this.currentUser.name = data['name'];
@@ -72,14 +80,19 @@ export class DatabaseProvider {
 
   // creates user and logs in
   emailSignUp(email:string, password:string, newUser: User) {
+    this.registering = true;
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((auth) => {
         this.authState = auth;
         newUser.privateKey = this.db.list('shopping-lists').push(null).key;
         this.db.object(`users/${auth.uid}`).set(newUser);
+        this.registering = false;
         this.updateUserObject();
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log(error);
+        this.registering = false;
+      });
   }
 
   emailLogin(email:string, password:string) {
