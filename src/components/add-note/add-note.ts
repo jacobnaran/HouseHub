@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { ViewController, Events } from 'ionic-angular';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireList } from 'angularfire2/database';
+import { DatabaseProvider } from '../../providers/database/database';
 
 /**
  * Generated class for the AddNoteComponent component.
@@ -20,8 +21,19 @@ export class AddNoteComponent {
   addNoteRef$: AngularFireList<any>
 
   constructor(public viewCtrl: ViewController,
-              private db: AngularFireDatabase) {
-    this.addNoteRef$ = this.db.list('notes-list');
+              private db: AngularFireDatabase,
+              private dbProv: DatabaseProvider,
+              public events: Events) {
+    this.updateList();
+
+    // on user update, update list
+    events.subscribe('user:update', () => {
+      this.updateList();
+    });
+  }
+
+  updateList() {
+    this.addNoteRef$ = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`);
   }
 
   addNote() {

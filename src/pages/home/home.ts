@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, ModalController, AlertController } from 'ionic-angular';
+import { Events, IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import { SettingsPage } from '../settings/settings';
+import { DatabaseProvider } from '../../providers/database/database';
+
 
 import { AddNoteComponent } from '../../components/add-note/add-note';
 
@@ -23,12 +26,28 @@ export class HomePage {
               public events: Events,
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
-              public db: AngularFireDatabase) {
+              public db: AngularFireDatabase,
+              public dbProv: DatabaseProvider,
+              public afAuth: AngularFireAuth) {
     events.subscribe('tab:selected', () => {
       this.closeFab();
     });
 
-    this.notesRef = db.list('notes-list', ref => ref.orderByChild('timestamp'));
+    this.updateList();
+
+    // on user update, update list
+    events.subscribe('user:update', () => {
+      this.updateList();
+    });
+
+    // this.notesRef = db.list(`notes-list/${dbProv.currentUser.householdKey}`, ref => ref.orderByChild('timestamp'));
+    // this.notes = this.notesRef.snapshotChanges().map(changes => {
+    //   return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    // });
+  }
+
+  updateList() {
+    this.notesRef = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`, ref => ref.orderByChild('timestamp'));
     this.notes = this.notesRef.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
