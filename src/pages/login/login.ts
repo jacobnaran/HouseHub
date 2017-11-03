@@ -4,6 +4,7 @@ import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from '../register/register';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
+import { DatabaseProvider } from '../../providers/database/database';
 
 @IonicPage()
 @Component({
@@ -18,7 +19,8 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public afAuth: AngularFireAuth,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              public dbProv: DatabaseProvider) {
   }
 
   ionViewDidLoad() {
@@ -40,7 +42,7 @@ export class LoginPage {
     }
 
   signInAsGuest() {
-    this.afAuth.auth.signInWithEmailAndPassword('guest@househub.com', 'password');
+    this.dbProv.emailLogin('guest@househub.com', 'password');
     this.navCtrl.setRoot(TabsPage);
   }
 
@@ -50,7 +52,7 @@ export class LoginPage {
     if(this.email != undefined && this.password != undefined)
     {
       var that = this;
-    this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(function(){that.navCtrl.setRoot(TabsPage);},function(){that.showAlert();});
+      this.dbProv.emailLogin(this.email, this.password).then(function(){that.navCtrl.setRoot(TabsPage);},function(){that.showAlert();});
     } else {
     this.showAlert();
     }

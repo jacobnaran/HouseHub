@@ -24,6 +24,8 @@ import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
 import { SettingsPage} from '../pages/settings/settings';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
+import { SetupPage } from '../pages/setup/setup';
+import { DatabaseProvider } from '../providers/database/database';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { RegisterPage } from '../pages/register/register';
     AddNoteComponent,
     SettingsPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    SetupPage
   ],
   imports: [
     BrowserModule,
@@ -60,13 +63,15 @@ import { RegisterPage } from '../pages/register/register';
     AddNoteComponent,
     SettingsPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    SetupPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     LocalNotifications,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    DatabaseProvider
   ]
 })
 export class AppModule {}
