@@ -23,7 +23,6 @@ export class DatabaseProvider {
 
     this.afAuth.authState.subscribe((auth) => {
       this.authState = auth;
-      this.updateUserObject();
     });
 
   }
@@ -77,7 +76,7 @@ export class DatabaseProvider {
   emailLogin(email:string, password:string) {
      return this.afAuth.auth.signInWithEmailAndPassword(email, password)
        .then((user) => {
-         //this.updateUserObject();
+         this.updateUserObject();
        })
        .catch(error => console.log(error));
   }
