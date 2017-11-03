@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AlertController} from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 import { IonicPage, NavController, ModalController, NavParams, Events } from 'ionic-angular';
 
 import { ShoppingItem } from '../../models/shopping-item.interface';
@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { AddItemComponent } from '../../components/add-item/add-item';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { SettingsPage} from '../settings/settings';
 
 /**
@@ -25,6 +26,10 @@ import { SettingsPage} from '../settings/settings';
 })
 export class ShoppingListPage {
 
+  userId: string;
+  hhKey: string;
+  privKey: string;
+
   //public ionColor: string = 'primary';
   itemsRef: AngularFireList<any>
   items: Observable<ShoppingItem[]>
@@ -37,7 +42,18 @@ export class ShoppingListPage {
               public modalCtrl: ModalController,
               private db: AngularFireDatabase,
               public events: Events,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              public afAuth: AngularFireAuth) {
+
+    // is this guaranteed to happen before the next line?
+    this.afAuth.authState.subscribe(auth => {
+      this.userId = auth.uid;
+    })
+
+    // this.db.object(`users/${this.userId}`).valueChanges().subscribe(data => {
+    //   this.hhKey = data.householdKey;
+    //   this.privKey = data.privateKey;
+    // });
 
     this.itemsRef = db.list(this.listName);
     this.items = this.itemsRef.snapshotChanges().map(changes => {

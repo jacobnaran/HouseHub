@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { LoginPage } from '../login/login';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from '../../models/user.interface';
+import { DatabaseProvider } from '../../providers/database/database';
 
 /**
  * Generated class for the SettingsPage page.
@@ -20,7 +21,8 @@ import { User } from '../../models/user.interface';
 })
 export class SettingsPage {
 
-  profile: Observable<User>
+  //profile: Observable<User>
+  name: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -28,10 +30,13 @@ export class SettingsPage {
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
               public db: AngularFireDatabase,
-              public afAuth: AngularFireAuth) {
-      this.afAuth.authState.subscribe(data => {
-        this.profile = this.db.object(`users/${data.uid}`).valueChanges();
-      })
+              public afAuth: AngularFireAuth,
+              public dbProv: DatabaseProvider) {
+
+      // on auth state change, update name
+      this.afAuth.authState.subscribe(() => {
+        this.name = dbProv.currentUser.name;
+      });
   }
 
   ionViewDidLoad() {

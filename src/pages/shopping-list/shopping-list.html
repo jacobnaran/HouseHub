@@ -27,7 +27,7 @@
     <ion-option value="shopping-list-private">Private</ion-option>
 
   </ion-select>
-<!-- 
+<!--
   <svg width="1800" height="2">
     <rect width="1000" height="2" style="fill:#F9BF3B;" />
   </svg> -->
@@ -48,10 +48,10 @@
 
 
   <ion-list no-lines>
-    <ion-item *ngFor="let item of items | async">
+    <ion-item class="list" *ngFor="let item of items | async">
 
      {{item.name}}
-     <button ion-button color="secondary" item-right (click)="deleteItem(item.key)" >
+     <button ion-button color="HHred" item-right (click)="deleteItem(item.key)" >
        <ion-icon name="trash"></ion-icon>
      </button>
     </ion-item>
