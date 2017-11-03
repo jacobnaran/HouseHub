@@ -8,6 +8,7 @@ import { InventoryItem } from '../../models/inventory-item.interface';
 import { StatusBar } from '@ionic-native/status-bar';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SettingsPage} from '../settings/settings';
+import { EditInvItemComponent } from '../../components/edit-inv-item/edit-inv-item';
 
 
 /**
@@ -70,6 +71,7 @@ export class InventoryPage {
      alert.present();
    }
 
+
  toggleFab() {
    if(this.fabOpened) {
        this.fabOpened = false;
@@ -91,6 +93,12 @@ export class InventoryPage {
 
  showAddItem() {
    let modal = this.modalCtrl.create(AddIvnItemComponent);
+   modal.present();
+   this.closeFab();
+ }
+
+ showEditItem(key: string) {
+   let modal = this.modalCtrl.create(EditInvItemComponent, {key: key});
    modal.present();
    this.closeFab();
  }

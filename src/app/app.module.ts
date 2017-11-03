@@ -21,6 +21,7 @@ import { InventoryPage } from '../pages/inventory/inventory';
 import { AddItemComponent } from '../components/add-item/add-item';
 import { AddNoteComponent } from '../components/add-note/add-note';
 import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
+import { EditInvItemComponent } from '../components/edit-inv-item/edit-inv-item';
 import { SettingsPage} from '../pages/settings/settings';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
@@ -37,7 +38,8 @@ import { RegisterPage } from '../pages/register/register';
     AddNoteComponent,
     SettingsPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    EditInvItemComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +59,7 @@ import { RegisterPage } from '../pages/register/register';
     InventoryPage,
     AddItemComponent,
     AddIvnItemComponent,
+    EditInvItemComponent,
     AddNoteComponent,
     SettingsPage,
     LoginPage,

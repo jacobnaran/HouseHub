@@ -21,14 +21,24 @@ export class AddIvnItemComponent {
     this.inventoryItem.expDate = 'hello';
   }
 
+  //  ionViewDidLoad()
+  //  {
+  //    this.focusInput();
+  //   }
+
+
   addItem() {
     this.addItemRef$.push({
       name: this.inventoryItem.name,
-      weeksLeft: (this.inventoryItem.weeksLeft!=null ? this.inventoryItem.weeksLeft : '') 
+      weeksLeft: (this.inventoryItem.weeksLeft!=null ? this.inventoryItem.weeksLeft : '')
     });
 
     this.dismiss();
   }
+
+  focusInput(input) {
+   input.setFocus();
+}
 
   dismiss() {
     this.inventoryItem = {} as InventoryItem;
