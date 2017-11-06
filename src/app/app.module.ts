@@ -19,6 +19,7 @@ import { InventoryPage } from '../pages/inventory/inventory';
 
 // components
 import { AddItemComponent } from '../components/add-item/add-item';
+import { AddReminderComponent } from '../components/add-reminder/add-reminder';
 import { AddNoteComponent } from '../components/add-note/add-note';
 import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
 import { EditInvItemComponent } from '../components/edit-inv-item/edit-inv-item';
@@ -36,6 +37,7 @@ import { DatabaseProvider } from '../providers/database/database';
     ShoppingListPage,
     InventoryPage,
     AddItemComponent,
+    AddReminderComponent,
     AddIvnItemComponent,
     AddNoteComponent,
     SettingsPage,
@@ -59,6 +61,7 @@ import { DatabaseProvider } from '../providers/database/database';
     HomePage,
     TabsPage,
     ShoppingListPage,
+    AddReminderComponent,
     InventoryPage,
     AddItemComponent,
     AddIvnItemComponent,
