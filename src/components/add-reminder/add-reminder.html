@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-toolbar color="dark">
-    <ion-title>Add Note</ion-title>
+    <ion-title>Add Reminder</ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
         <span ion-text showWhen="ios">Cancel</span>
@@ -13,33 +13,23 @@
 </ion-header>
 
 <ion-content padding>
-  <!-- <ion-list radio-group [(ngModel)]="itemType">
-    <ion-item>
-      <ion-label>Food</ion-label>
-      <ion-radio value="friends" checked></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>Beverage</ion-label>
-      <ion-radio value="family"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>Other</ion-label>
-      <ion-radio value="enemies"></ion-radio>
-    </ion-item>
-  </ion-list> -->
 
+<!-- CHANGE NGMODEL -->
   <ion-item>
-    <ion-textarea placeholder="Note Text" clearInput [(ngModel)]="noteText"></ion-textarea>
+    <ion-textarea placeholder="Reminder Title" clearInput [(ngModel)]="noteText"></ion-textarea>
   </ion-item>
 
+  <ion-list>
+      <ion-item>
+        <ion-label>Start Date</ion-label>
+        <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="event.month"></ion-datetime>
+      </ion-item>
 
-  <!--
 
-  <ion-item>
-    <ion-label>Expiration Date</ion-label>
-    <ion-datetime displayFormat="MM DD">
-    </ion-datetime>
-  </ion-item> -->
+      <ion-item>
+        <ion-label>Start Time</ion-label>
+        <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>
+      </ion-item>
 
 
 
