@@ -7,6 +7,7 @@ import { DatabaseProvider } from '../../providers/database/database';
 
 
 import { AddNoteComponent } from '../../components/add-note/add-note';
+import { AddReminderComponent } from '../../components/add-reminder/add-reminder';
 
 @Component({
   selector: 'page-home',
@@ -82,6 +83,12 @@ export class HomePage {
 
   showAddNote() {
     let modal = this.modalCtrl.create(AddNoteComponent);
+    modal.present();
+    this.closeFab();
+  }
+
+  showAddReminder() {
+    let modal = this.modalCtrl.create(AddReminderComponent);
     modal.present();
     this.closeFab();
   }
