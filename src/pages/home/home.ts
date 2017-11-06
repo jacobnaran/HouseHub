@@ -86,6 +86,12 @@ export class HomePage {
     this.closeFab();
   }
 
+  showAddReminder() {
+    let modal = this.modalCtrl.create(AddReminderComponent);
+    modal.present();
+    this.closeFab();
+  }
+
   deleteNote(key: string) {
     this.notesRef.remove(key);
   }
