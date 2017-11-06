@@ -29,14 +29,14 @@ export class AddIvnItemComponent {
 
   addItem() {
     var d = new Date(); //create new date object
-    var weeksLeft_int = parseInt(this.inventoryItem.weeksLeft);
-    var date_toStore = d.setDate(d.getDate()+weeksLeft_int);
+    var daysLeft_int = parseInt(this.inventoryItem.weeksLeft);
+    var date_toStore = d.setDate(d.getDate() + daysLeft_int);
     console.log(d);
     //console.log(date_toStore); //this was used for testing
 
     this.addItemRef$.push({
       name: this.inventoryItem.name,
-      weeksLeft: (date_toStore!=null ? date_toStore : '?')
+      weeksLeft: (date_toStore!=null ? date_toStore : '')
       //weeksLeft: (this.inventoryItem.weeksLeft!=null ? this.inventoryItem.weeksLeft : '')
     });
 
