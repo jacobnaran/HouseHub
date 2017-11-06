@@ -7,6 +7,7 @@ import { DatabaseProvider } from '../../providers/database/database';
 
 
 import { AddNoteComponent } from '../../components/add-note/add-note';
+import { AddReminderComponent } from '../../components/add-reminder/add-reminder';
 
 @Component({
   selector: 'page-home',
