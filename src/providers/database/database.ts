@@ -16,6 +16,7 @@ export class DatabaseProvider {
 
   authState: any = null;
   currentUser = {} as User;
+  currentHouseholdName = '';
 
   // whether a user is in the process of registering
   registering: boolean = false;
@@ -43,8 +44,7 @@ export class DatabaseProvider {
       if (this.registering)
         return;
 
-      this.db.object(`users/${this.currentUserId}`).valueChanges().subscribe(data => {
-        // this is the error: upon registration, this method is called before the data is stored
+      this.db.object(`users/${this.currentUserId}`).valueChanges().subscribe((data) => {
         this.currentUser.name = data['name'];
         this.currentUser.username = data['username'];
         this.currentUser.email = data['email'];
@@ -53,9 +53,14 @@ export class DatabaseProvider {
         this.events.publish('user:update');
         console.log('user:update1');
       });
+
+      // this.db.object(`households/${this.currentUser.householdKey}`).valueChanges().subscribe((data) => {
+      //   this.currentHouseholdName = data['name'];
+      // });
     }
     else {
       this.currentUser = {} as User;
+      this.currentHouseholdName = '';
     }
   }
 
@@ -85,6 +90,7 @@ export class DatabaseProvider {
       .then((auth) => {
         this.authState = auth;
         newUser.privateKey = this.db.list('shopping-lists').push(null).key;
+        newUser.householdKey = '000'; // to change later
         this.db.object(`users/${auth.uid}`).set(newUser);
         this.registering = false;
         this.updateUserObject();
