@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, ModalController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { DatabaseProvider } from '../../providers/database/database';
 
 /**
@@ -19,22 +18,13 @@ import { DatabaseProvider } from '../../providers/database/database';
 export class SettingsPage {
 
   //profile: Observable<User>
-  name: string;
-  household: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public events: Events,
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
-              public afAuth: AngularFireAuth,
               public dbProv: DatabaseProvider) {
-
-      // on auth state change, update name
-      this.afAuth.authState.subscribe(() => {
-        this.name = dbProv.currentUser.name;
-        this.household = dbProv.currentHouseholdName;
-      });
   }
 
   showAlert() {
@@ -46,11 +36,11 @@ export class SettingsPage {
       alert.present();
     }
 
-    navLogin()
+    logOut()
     {
-      //this.navCtrl.pop();
-      //this.navCtrl.setRoot(LoginPage);
-      this.afAuth.auth.signOut();
+      this.dbProv.signOut();
+
+      // publish event for global function in app.component.ts
       this.events.publish('user:logout');
 
     }
