@@ -20,6 +20,7 @@ export class SettingsPage {
 
   //profile: Observable<User>
   name: string;
+  household: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -32,6 +33,7 @@ export class SettingsPage {
       // on auth state change, update name
       this.afAuth.authState.subscribe(() => {
         this.name = dbProv.currentUser.name;
+        this.household = dbProv.currentHouseholdName;
       });
   }
 
