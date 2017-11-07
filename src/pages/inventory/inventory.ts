@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SettingsPage} from '../settings/settings';
 import { EditInvItemComponent } from '../../components/edit-inv-item/edit-inv-item';
+import { DatabaseProvider } from '../../providers/database/database';
 
 
 /**
@@ -37,12 +38,15 @@ export class InventoryPage {
               private db: AngularFireDatabase,
               public modalCtrl: ModalController,
               private statusBar: StatusBar,
-              public localNotifications: LocalNotifications) {
+              public localNotifications: LocalNotifications,
+              private dbProv: DatabaseProvider) {
 
 
-    this.itemsRef = db.list('inventory-list');
-    this.items = this.itemsRef.snapshotChanges().map(changes => {
-      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    this.updateList();
+
+    // on user update, update list
+    events.subscribe('user:update', () => {
+      this.updateList();
     });
 
     events.subscribe('tab:selected', () => {
@@ -53,8 +57,11 @@ export class InventoryPage {
     this.statusBar.backgroundColorByHexString('#F39C12');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad InventoryPage');
+  updateList() {
+    this.itemsRef = this.db.list(`inventory-lists/${this.dbProv.currentUser.householdKey}`);
+    this.items = this.itemsRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
   }
 
   settingsNav()
@@ -113,7 +120,7 @@ export class InventoryPage {
      data: { secret: key }
    });
 
-   
+
  }
 
 }
