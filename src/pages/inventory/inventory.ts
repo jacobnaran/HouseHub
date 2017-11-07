@@ -113,6 +113,7 @@ export class InventoryPage {
      data: { secret: key }
    });
 
+   
  }
 
 }

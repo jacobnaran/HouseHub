@@ -32,13 +32,16 @@
         <!-- <h1>{{item.name}}</h1> -->
         <h2 id="Invname"style="text-align:left;float:left;color: white;">{{item.name}}</h2>
         <h2 id="Days" style="text-align:right;float:right; color:#93A3BC">
-          <script>
-          var n = {{item.weeksLeft}} + "Days";
-          console.log(n);
+          <!-- {{ difference(items.weeksLeft) }} -->
+          <!-- <script>
+          //var n = {{item.weeksLeft}} + "Days";
+          //console.log('hi');
+          document.getElementById('Days').innerHTML = 'HI';
           </script>
+          CHECK SCRIPT -->
+          {{item.weeksLeft}} weeks/days left
         </h2>
         <!-- <hr style="clear:both;"/> -->
-
 
         <!-- <ion-label>
             {{item.name}}
