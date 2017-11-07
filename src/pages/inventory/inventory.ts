@@ -113,6 +113,9 @@ export class InventoryPage {
      data: { secret: key }
    });
 
+   difference(s: string): string {
+     return s;
+   }
  }
 
 }

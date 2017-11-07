@@ -36,7 +36,7 @@ export class AddIvnItemComponent {
 
     this.addItemRef$.push({
       name: this.inventoryItem.name,
-      weeksLeft: (date_toStore!=null ? date_toStore : '')
+      weeksLeft: (date_toStore!=null ? date_toStore.toString() : '')
       //weeksLeft: (this.inventoryItem.weeksLeft!=null ? this.inventoryItem.weeksLeft : '')
     });
 
