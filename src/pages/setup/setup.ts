@@ -85,7 +85,7 @@ export class SetupPage {
   join() {
     let prompt = this.alertCtrl.create({
       title: 'Existing Household',
-      message: "Enter the Household ID:",
+      message: "Enter the unique household ID (in the settings page):",
       inputs: [
         {
           name: 'id',
@@ -101,10 +101,25 @@ export class SetupPage {
         {
           text: 'OK',
           handler: data => {
+            this.joinHousehold(data.id);
           }
         }
       ]
     });
     prompt.present();
+  }
+
+  joinHousehold(id: string) {
+    // create new household key and store in user profile
+    let hhKey = id;
+    this.user.householdKey = hhKey;
+
+    // update user profile
+    //this.db.object(`users/${this.currentUserId}`).set(this.user);
+    this.db.object(`users/${this.dbProv.currentUserId}`).set(this.user);
+      // this should automatically update the currentUser object?
+
+    // navigate to home page
+    this.navCtrl.setRoot(TabsPage);
   }
 }

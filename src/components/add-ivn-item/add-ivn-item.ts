@@ -5,6 +5,7 @@ import { InventoryItem } from '../../models/inventory-item.interface';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireList } from 'angularfire2/database';
+import { DatabaseProvider } from '../../providers/database/database';
 
 @Component({
   selector: 'add-ivn-item',
@@ -16,8 +17,9 @@ export class AddIvnItemComponent {
   addItemRef$: AngularFireList<InventoryItem>
 
   constructor(public viewCtrl: ViewController,
-              private db: AngularFireDatabase) {
-    this.addItemRef$ = this.db.list('inventory-list');
+              private db: AngularFireDatabase,
+              private dbProv: DatabaseProvider) {
+    this.addItemRef$ = this.db.list(`inventory-lists/${dbProv.currentUser.householdKey}`);
     this.inventoryItem.expDate = 'hello';
   }
 
