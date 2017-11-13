@@ -4,7 +4,7 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { SettingsPage } from '../settings/settings';
 import { DatabaseProvider } from '../../providers/database/database';
-
+import { StatusBar } from '@ionic-native/status-bar';
 
 import { AddNoteComponent } from '../../components/add-note/add-note';
 import { AddReminderComponent } from '../../components/add-reminder/add-reminder';
@@ -27,12 +27,16 @@ export class HomePage {
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
               public db: AngularFireDatabase,
-              public dbProv: DatabaseProvider) {
+              public dbProv: DatabaseProvider,
+              private statusBar: StatusBar) {
     events.subscribe('tab:selected', () => {
       this.closeFab();
     });
 
     this.updateList();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#93A3BC');
 
     // on user update, update list
     events.subscribe('user:update', () => {
