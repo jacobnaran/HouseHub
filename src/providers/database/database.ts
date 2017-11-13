@@ -39,7 +39,7 @@ export class DatabaseProvider {
 
   public updateUserObject(): void {
     if (this.authenticated) {
-
+      console.log(this.currentUserId);
       // do not execute code if user data hasn't been pushed yet
       if (this.registering)
         return;

@@ -21,6 +21,13 @@ export class LoginPage {
               public afAuth: AngularFireAuth,
               public alertCtrl: AlertController,
               public dbProv: DatabaseProvider) {
+
+  }
+
+  ionViewDidLoad() {
+    // if (this.dbProv.authenticated) {
+    //   this.navCtrl.setRoot(TabsPage);
+    // }
   }
 
   navigateToRegisterPage() {
