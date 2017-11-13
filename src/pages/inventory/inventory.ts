@@ -115,7 +115,7 @@ export class InventoryPage {
 
    this.localNotifications.schedule({
      id: 1,
-     text: 'Deleted' + this.itemsRef.name,
+     //text: 'Deleted' + this.itemsRef.name,
      //sound: isAndroid? 'file://sound.mp3': 'file://beep.caf',
      data: { secret: key }
    });
