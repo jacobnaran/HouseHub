@@ -109,8 +109,8 @@ export class DatabaseProvider {
        .catch(error => console.log(error));
   }
 
-  signOut(): void {
-    this.afAuth.auth.signOut();
+  async signOut() {
+    await this.afAuth.auth.signOut();
     this.updateUserObject();
   }
 }
