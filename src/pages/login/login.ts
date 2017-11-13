@@ -55,8 +55,9 @@ export class LoginPage {
     if(this.email != undefined && this.password != undefined)
     {
       var that = this;
-      this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(async function(){
-        await that.dbProv.updateUserObject();
+      this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(function(){
+        // how do i do this asynchronously
+        that.dbProv.updateUserObject();
         that.navCtrl.setRoot(TabsPage);
       },function(){
         that.showAlert();
