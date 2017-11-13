@@ -22,7 +22,7 @@ export class LoginPage {
               public alertCtrl: AlertController,
               public dbProv: DatabaseProvider) {
   }
-  
+
   navigateToRegisterPage() {
     this.navCtrl.push(RegisterPage);
   }
@@ -48,7 +48,12 @@ export class LoginPage {
     if(this.email != undefined && this.password != undefined)
     {
       var that = this;
-      this.dbProv.emailLogin(this.email, this.password).then(function(){that.navCtrl.setRoot(TabsPage);},function(){that.showAlert();});
+      this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(function(){
+        that.dbProv.updateUserObject();
+        that.navCtrl.setRoot(TabsPage);
+      },function(){
+        that.showAlert();
+      });
     } else {
     this.showAlert();
     }

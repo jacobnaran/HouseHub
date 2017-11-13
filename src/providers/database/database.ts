@@ -37,7 +37,7 @@ export class DatabaseProvider {
     return this.authState !== null;
   }
 
-  private updateUserObject(): void {
+  public updateUserObject(): void {
     if (this.authenticated) {
 
       // do not execute code if user data hasn't been pushed yet
