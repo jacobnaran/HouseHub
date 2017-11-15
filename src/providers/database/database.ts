@@ -39,6 +39,7 @@ export class DatabaseProvider {
 
   public updateUserObject(): void {
     if (this.authenticated) {
+      //console.log(this.currentUserId);
 
       // do not execute code if user data hasn't been pushed yet
       if (this.registering)
@@ -49,9 +50,12 @@ export class DatabaseProvider {
         this.currentUser.username = data['username'];
         this.currentUser.email = data['email'];
         this.currentUser.householdKey = data['householdKey'];
+        this.db.object(`households/${this.currentUser.householdKey}`).valueChanges().subscribe((dat) => {
+          this.currentUser.householdName = dat['name'];
+        });
         this.currentUser.privateKey = data['privateKey'];
         this.events.publish('user:update');
-        console.log('user:update1');
+        //console.log('user:update1');
       });
 
       // this.db.object(`households/${this.currentUser.householdKey}`).valueChanges().subscribe((data) => {
@@ -91,6 +95,7 @@ export class DatabaseProvider {
         this.authState = auth;
         newUser.privateKey = this.db.list('shopping-lists').push(null).key;
         newUser.householdKey = '000'; // to change later
+        newUser.householdName = 'null';
         this.db.object(`users/${auth.uid}`).set(newUser);
         this.registering = false;
         this.updateUserObject();
@@ -109,8 +114,8 @@ export class DatabaseProvider {
        .catch(error => console.log(error));
   }
 
-  signOut(): void {
-    this.afAuth.auth.signOut();
+  async signOut() {
+    await this.afAuth.auth.signOut();
     this.updateUserObject();
   }
 }

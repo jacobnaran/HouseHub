@@ -21,6 +21,13 @@ export class LoginPage {
               public afAuth: AngularFireAuth,
               public alertCtrl: AlertController,
               public dbProv: DatabaseProvider) {
+
+  }
+
+  ionViewDidLoad() {
+    // if (this.dbProv.authenticated) {
+    //   this.navCtrl.setRoot(TabsPage);
+    // }
   }
 
   navigateToRegisterPage() {
@@ -49,6 +56,7 @@ export class LoginPage {
     {
       var that = this;
       this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(function(){
+        // how do i do this asynchronously
         that.dbProv.updateUserObject();
         that.navCtrl.setRoot(TabsPage);
       },function(){
