@@ -4,5 +4,6 @@ export interface User {
   username?: string;
   name?: string;
   householdKey?: string;
+  householdName?: string;
   privateKey?: string;
 }
