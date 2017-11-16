@@ -53,8 +53,8 @@ export class InventoryPage {
       this.closeFab();
     });
 
-    // this.statusBar.overlaysWebView(true);
-    // this.statusBar.backgroundColorByHexString('#F39C12');
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#93A3BC');
   }
 
   updateList() {
@@ -115,7 +115,7 @@ export class InventoryPage {
 
    this.localNotifications.schedule({
      id: 1,
-     //text: 'Deleted' + this.itemsRef.name,
+     text: 'Deleted inv item',
      //sound: isAndroid? 'file://sound.mp3': 'file://beep.caf',
      data: { secret: key }
    });
