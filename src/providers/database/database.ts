@@ -28,8 +28,9 @@ export class DatabaseProvider {
               public events: Events) {
 
     this.afAuth.authState.subscribe((auth) => {
+      //console.log(auth);
       this.authState = auth;
-      this.updateUserObject();
+      this.updateUserRef();
     });
 
   }
@@ -39,7 +40,7 @@ export class DatabaseProvider {
     return this.authState !== null;
   }
 
-  public updateUserObject(): void {
+  private updateUserRef(): void {
     if (this.authenticated) {
       //console.log(this.currentUserId);
 
@@ -96,7 +97,7 @@ export class DatabaseProvider {
         //newUser.householdName = 'null';
         this.db.object(`users/${auth.uid}`).set(newUser);
         this.registering = false;
-        this.updateUserObject();
+        this.updateUserRef();
       })
       .catch(error => {
         console.log(error);
@@ -107,7 +108,7 @@ export class DatabaseProvider {
   emailLogin(email:string, password:string) {
      return this.afAuth.auth.signInWithEmailAndPassword(email, password)
        .then(() => {
-         this.updateUserObject();
+         //this.updateUserRef();
        })
        .catch(error => console.log(error));
   }
