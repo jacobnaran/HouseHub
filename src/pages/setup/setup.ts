@@ -72,6 +72,7 @@ export class SetupPage {
     // create new household key and store in user profile
     let hhKey = this.db.list('households').push(null).key;
     this.db.object(`households/${hhKey}/name`).set(title);
+    this.db.list(`households/${hhKey}/members`).push(this.user.name);
     this.user.householdKey = hhKey;
 
     // update user profile
@@ -118,6 +119,9 @@ export class SetupPage {
     //this.db.object(`users/${this.currentUserId}`).set(this.user);
     this.db.object(`users/${this.dbProv.currentUserId}`).set(this.user);
       // this should automatically update the currentUser object?
+
+    // add user to list of users of that households
+    this.db.list(`households/${hhKey}/members`).push(this.user.name);
 
     // navigate to home page
     this.navCtrl.setRoot(TabsPage);

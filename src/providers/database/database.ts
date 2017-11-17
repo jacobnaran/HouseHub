@@ -16,7 +16,6 @@ export class DatabaseProvider {
 
   authState: any = null;
   currentUser = {} as User;
-  currentHouseholdName = '';
 
   // whether a user is in the process of registering
   registering: boolean = false;
@@ -64,7 +63,6 @@ export class DatabaseProvider {
     }
     else {
       this.currentUser = {} as User;
-      this.currentHouseholdName = '';
     }
   }
 
