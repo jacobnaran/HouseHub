@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
+import { NavController, NavParams,AlertController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from '../register/register';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { DatabaseProvider } from '../../providers/database/database';
 
-@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -23,9 +22,6 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    // if (this.dbProv.authenticated) {
-    //   this.navCtrl.setRoot(TabsPage);
-    // }
   }
 
   navigateToRegisterPage() {
@@ -33,14 +29,14 @@ export class LoginPage {
   }
 
   showAlert() {
-      let alert = this.alertCtrl.create({
-        title: 'Error',
-        subTitle: 'Please enter a valid email id and password',
-        buttons: ['Ok']
-      });
-      alert.present();
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: 'Please enter a valid email id and password',
+      buttons: ['Ok']
+    });
+    alert.present();
 
-    }
+  }
 
   signInAsGuest() {
     this.dbProv.emailLogin('guest@househub.com', 'password');
@@ -49,12 +45,10 @@ export class LoginPage {
 
   signIn()
   {
-    //this.showAlert(this.email,this.password);
     if(this.email != undefined && this.password != undefined)
     {
       var that = this;
       this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(function(){
-        // how do i do this asynchronously
         //that.dbProv.updateUserRef();
         that.navCtrl.setRoot(TabsPage);
       },function(){
@@ -64,7 +58,5 @@ export class LoginPage {
     this.showAlert();
     }
   }
-
-
 
 }

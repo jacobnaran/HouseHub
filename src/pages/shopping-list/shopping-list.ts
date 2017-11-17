@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
-import { IonicPage, NavController, ModalController, NavParams, Events } from 'ionic-angular';
+import { NavController, ModalController, NavParams, Events } from 'ionic-angular';
 
 import { ShoppingItem } from '../../models/shopping-item.interface';
 
@@ -14,13 +14,12 @@ import { SettingsPage} from '../settings/settings';
 import { DatabaseProvider } from '../../providers/database/database';
 
 /**
- * Generated class for the ShoppingListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+* Generated class for the ShoppingListPage page.
+*
+* See https://ionicframework.com/docs/components/#navigation for more info on
+* Ionic pages and navigation.
+*/
 
-@IonicPage()
 @Component({
   selector: 'page-shopping-list',
   templateUrl: 'shopping-list.html',
@@ -53,13 +52,13 @@ export class ShoppingListPage {
 
 
   showAlert() {
-      let alert = this.alertCtrl.create({
-        title: 'Hi',
-        subTitle: 'Something isnt working so we put an alert here',
-        buttons: ['OK :(']
-      });
-      alert.present();
-    }
+    let alert = this.alertCtrl.create({
+      title: 'Hi',
+      subTitle: 'Something isnt working so we put an alert here',
+      buttons: ['OK :(']
+    });
+    alert.present();
+  }
 
   settingsNav()
   {
@@ -82,7 +81,6 @@ export class ShoppingListPage {
 
   updateListKey() {
     this.listKey = (this.listType=="public" ? this.dbProv.currentUser.householdKey : this.dbProv.currentUser.privateKey);
-    //console.log(this.listKey);
   }
 
   updateList() {
