@@ -53,8 +53,7 @@ export class InventoryPage {
       this.closeFab();
     });
 
-    this.statusBar.overlaysWebView(true);
-    this.statusBar.backgroundColorByHexString('#93A3BC');
+
   }
 
   updateList() {
@@ -64,6 +63,12 @@ export class InventoryPage {
     });
   }
 
+ionViewDidLoad()
+{
+  this.statusBar.overlaysWebView(true);
+  this.statusBar.backgroundColorByHexString('#93A3BC');
+}
+
   settingsNav()
   {
     this.navCtrl.push(SettingsPage);
@@ -71,9 +76,9 @@ export class InventoryPage {
 
  showAlert() {
      let alert = this.alertCtrl.create({
-       title: 'Hi',
-       subTitle: 'Something isnt working so we put an alert here',
-       buttons: ['OK :(']
+       title: 'Adding new tab',
+       subTitle: 'Please fill  up your current inventory before adding a new tab',
+       buttons: ['OK']
      });
      alert.present();
    }
@@ -102,12 +107,18 @@ export class InventoryPage {
    let modal = this.modalCtrl.create(AddIvnItemComponent);
    modal.present();
    this.closeFab();
+
+   this.statusBar.overlaysWebView(true);
+   this.statusBar.backgroundColorByHexString('#222');
  }
 
  showEditItem(key: string) {
    let modal = this.modalCtrl.create(EditInvItemComponent, {key: key});
    modal.present();
    this.closeFab();
+
+   this.statusBar.overlaysWebView(true);
+   this.statusBar.backgroundColorByHexString('#222');
  }
 
  deleteItem(key: string) {

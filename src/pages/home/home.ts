@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/Observable';
 import { SettingsPage } from '../settings/settings';
 import { DatabaseProvider } from '../../providers/database/database';
 import { StatusBar } from '@ionic-native/status-bar';
-
 import { AddNoteComponent } from '../../components/add-note/add-note';
 import { AddReminderComponent } from '../../components/add-reminder/add-reminder';
 
@@ -89,12 +88,18 @@ export class HomePage {
     let modal = this.modalCtrl.create(AddNoteComponent);
     modal.present();
     this.closeFab();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#222');
   }
 
   showAddReminder() {
     let modal = this.modalCtrl.create(AddReminderComponent);
     modal.present();
     this.closeFab();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#222');
   }
 
   deleteNote(key: string) {

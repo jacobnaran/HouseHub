@@ -25,9 +25,8 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    // if (this.dbProv.authenticated) {
-    //   this.navCtrl.setRoot(TabsPage);
-    // }
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#93A3BC');
   }
 
   navigateToRegisterPage() {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 
 import { InventoryItem } from '../../models/inventory-item.interface';
 
@@ -18,7 +19,8 @@ export class AddIvnItemComponent {
 
   constructor(public viewCtrl: ViewController,
               private db: AngularFireDatabase,
-              private dbProv: DatabaseProvider) {
+              private dbProv: DatabaseProvider,
+              private statusBar: StatusBar) {
     this.addItemRef$ = this.db.list(`inventory-lists/${dbProv.currentUser.householdKey}`);
     this.inventoryItem.expDate = 'hello';
   }
@@ -54,5 +56,8 @@ export class AddIvnItemComponent {
   dismiss() {
     this.inventoryItem = {} as InventoryItem;
     this.viewCtrl.dismiss();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#93A3BC');
   }
 }

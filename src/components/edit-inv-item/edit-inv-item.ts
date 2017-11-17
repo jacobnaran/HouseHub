@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
-
+import { StatusBar } from '@ionic-native/status-bar';
 import { InventoryItem } from '../../models/inventory-item.interface';
 
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -26,7 +26,8 @@ export class EditInvItemComponent {
 
   constructor(public viewCtrl: ViewController,
               public navParams: NavParams,
-              private db: AngularFireDatabase) {
+              private db: AngularFireDatabase,
+              private statusBar: StatusBar) {
     this.itemKey = this.navParams.get('key');
     db.object(`inventory-list/${this.itemKey}`).valueChanges().subscribe((item) => {
       this.inventoryItem.name = item['name'];
@@ -53,5 +54,8 @@ export class EditInvItemComponent {
   dismiss() {
     this.inventoryItem = {} as InventoryItem;
     this.viewCtrl.dismiss();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#93A3BC');
   }
   }

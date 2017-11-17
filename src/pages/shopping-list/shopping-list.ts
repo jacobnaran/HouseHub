@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { IonicPage, NavController, ModalController, NavParams, Events } from 'ionic-angular';
-
+import { StatusBar } from '@ionic-native/status-bar';
 import { ShoppingItem } from '../../models/shopping-item.interface';
 
 import { Observable } from 'rxjs/Observable';
@@ -43,7 +43,8 @@ export class ShoppingListPage {
               private db: AngularFireDatabase,
               public events: Events,
               public alertCtrl: AlertController,
-              public afAuth: AngularFireAuth) {
+              public afAuth: AngularFireAuth,
+              private statusBar: StatusBar) {
 
     // is this guaranteed to happen before the next line?
     this.afAuth.authState.subscribe(auth => {
@@ -83,6 +84,9 @@ export class ShoppingListPage {
   showAddItem() {
     let modal = this.modalCtrl.create(AddItemComponent, {listName: this.listName});
     modal.present();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#222');
   }
 
   deleteItem(key: string) {
