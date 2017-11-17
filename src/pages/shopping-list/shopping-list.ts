@@ -11,6 +11,7 @@ import { AddItemComponent } from '../../components/add-item/add-item';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { SettingsPage} from '../settings/settings';
+import { DatabaseProvider } from '../../providers/database/database';
 
 /**
  * Generated class for the ShoppingListPage page.
@@ -26,16 +27,18 @@ import { SettingsPage} from '../settings/settings';
 })
 export class ShoppingListPage {
 
-  userId: string;
-  hhKey: string;
-  privKey: string;
+  // userId: string;
+  // hhKey: string;
+  // privKey: string;
+  listKey: string;
+  listType: string;
 
   //public ionColor: string = 'primary';
   itemsRef: AngularFireList<any>
   items: Observable<ShoppingItem[]>
 
   // default is public shopping list
-  listName: string = "shopping-list"
+  //listName: string = "shopping-list"
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -43,19 +46,21 @@ export class ShoppingListPage {
               private db: AngularFireDatabase,
               public events: Events,
               public alertCtrl: AlertController,
-              public afAuth: AngularFireAuth) {
+              public afAuth: AngularFireAuth,
+              public dbProv: DatabaseProvider) {
 
-    // is this guaranteed to happen before the next line?
-    this.afAuth.authState.subscribe(auth => {
-      this.userId = auth.uid;
-    })
+    // // is this guaranteed to happen before the next line?
+    // this.afAuth.authState.subscribe(auth => {
+    //   this.userId = auth.uid;
+    // })
 
     // this.db.object(`users/${this.userId}`).valueChanges().subscribe(data => {
     //   this.hhKey = data.householdKey;
     //   this.privKey = data.privateKey;
     // });
 
-    this.itemsRef = db.list(this.listName);
+    // default to public list
+    this.itemsRef = db.list(`shopping-lists/${dbProv.currentUser.householdKey}`);
     this.items = this.itemsRef.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
@@ -81,7 +86,8 @@ export class ShoppingListPage {
   }
 
   showAddItem() {
-    let modal = this.modalCtrl.create(AddItemComponent, {listName: this.listName});
+    //this.updateListKey();
+    let modal = this.modalCtrl.create(AddItemComponent, {listPath: `shopping-lists/${this.listKey}`});
     modal.present();
   }
 
@@ -89,8 +95,14 @@ export class ShoppingListPage {
     this.itemsRef.remove(key);
   }
 
+  updateListKey() {
+    this.listKey = (this.listType=="public" ? this.dbProv.currentUser.householdKey : this.dbProv.currentUser.privateKey);
+    //console.log(this.listKey);
+  }
+
   changeList() {
-    this.itemsRef = this.db.list(this.listName);
+    this.updateListKey();
+    this.itemsRef = this.db.list(`shopping-lists/${this.listKey}`);
     this.items = this.itemsRef.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });

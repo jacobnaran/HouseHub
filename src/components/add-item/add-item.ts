@@ -24,7 +24,7 @@ export class AddItemComponent {
   constructor(public viewCtrl: ViewController,
               private db: AngularFireDatabase,
               public navParams: NavParams) {
-    this.addItemRef$ = db.list(navParams.get('listName'));
+    this.addItemRef$ = db.list(navParams.get('listPath'));
   }
 
   addItem() {
