@@ -56,7 +56,7 @@ export class LoginPage {
       var that = this;
       this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(function(){
         // how do i do this asynchronously
-        that.dbProv.updateUserObject();
+        //that.dbProv.updateUserRef();
         that.navCtrl.setRoot(TabsPage);
       },function(){
         that.showAlert();
