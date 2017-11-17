@@ -19,8 +19,10 @@ import { InventoryPage } from '../pages/inventory/inventory';
 
 // components
 import { AddItemComponent } from '../components/add-item/add-item';
+import { AddReminderComponent } from '../components/add-reminder/add-reminder';
 import { AddNoteComponent } from '../components/add-note/add-note';
 import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
+import { EditInvItemComponent } from '../components/edit-inv-item/edit-inv-item';
 import { SettingsPage} from '../pages/settings/settings';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
@@ -35,11 +37,13 @@ import { DatabaseProvider } from '../providers/database/database';
     ShoppingListPage,
     InventoryPage,
     AddItemComponent,
+    AddReminderComponent,
     AddIvnItemComponent,
     AddNoteComponent,
     SettingsPage,
     LoginPage,
     RegisterPage,
+    EditInvItemComponent,
     SetupPage
   ],
   imports: [
@@ -57,9 +61,11 @@ import { DatabaseProvider } from '../providers/database/database';
     HomePage,
     TabsPage,
     ShoppingListPage,
+    AddReminderComponent,
     InventoryPage,
     AddItemComponent,
     AddIvnItemComponent,
+    EditInvItemComponent,
     AddNoteComponent,
     SettingsPage,
     LoginPage,

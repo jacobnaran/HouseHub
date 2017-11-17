@@ -18,12 +18,11 @@
 <div class="setText">
 
     <h4><b>Active Account</b></h4>
-    <h5 id="account">{{ name }}</h5>
+    <h5 id="account">{{ dbProv.currentUser.name }}</h5>
     <h4><b>Active House</b></h4>
-
-    <h5>TestHouse</h5>
+    <h5> {{ dbProv.currentUser.householdName }} </h5>
     <h4><b>Shareable Code:</b></h4>
-    <h5>s7Jwb803</h5>
+    <h5> {{ dbProv.currentUser.householdKey }} </h5>
     <br/>
     <br/>
     <button block ion-button color="secondary" (click)="showAlert()" >
@@ -31,7 +30,7 @@
       <ion-icon class="icon" name="information-circle"></ion-icon>
     </button>
     <br/>
-    <button block ion-button color="HHred" (click)="navLogin()" >
+    <button block ion-button color="HHred" (click)="logOut()" >
       Log out
     </button>
 

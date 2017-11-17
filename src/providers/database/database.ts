@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
-import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from '../../models/user.interface';
 import { Observable } from 'rxjs/Observable';
@@ -16,6 +16,9 @@ export class DatabaseProvider {
 
   authState: any = null;
   currentUser = {} as User;
+
+  // whether a user is in the process of registering
+  registering: boolean = false;
 
   constructor(private afAuth: AngularFireAuth,
               private db: AngularFireDatabase,
@@ -33,17 +36,30 @@ export class DatabaseProvider {
     return this.authState !== null;
   }
 
-  private updateUserObject(): void {
+  public updateUserObject(): void {
     if (this.authenticated) {
-      this.db.object(`users/${this.currentUserId}`).valueChanges().subscribe(data => {
+      //console.log(this.currentUserId);
+
+      // do not execute code if user data hasn't been pushed yet
+      if (this.registering)
+        return;
+
+      this.db.object(`users/${this.currentUserId}`).valueChanges().subscribe((data) => {
         this.currentUser.name = data['name'];
         this.currentUser.username = data['username'];
         this.currentUser.email = data['email'];
         this.currentUser.householdKey = data['householdKey'];
+        this.db.object(`households/${this.currentUser.householdKey}`).valueChanges().subscribe((dat) => {
+          this.currentUser.householdName = dat['name'];
+        });
         this.currentUser.privateKey = data['privateKey'];
         this.events.publish('user:update');
-        console.log('user:update1');
+        //console.log('user:update1');
       });
+
+      // this.db.object(`households/${this.currentUser.householdKey}`).valueChanges().subscribe((data) => {
+      //   this.currentHouseholdName = data['name'];
+      // });
     }
     else {
       this.currentUser = {} as User;
@@ -69,21 +85,35 @@ export class DatabaseProvider {
     return this.authenticated ? this.authState.uid : '';
   }
 
-  emailSignUp(email:string, password:string) {
+  // creates user and logs in
+  emailSignUp(email:string, password:string, newUser: User) {
+    this.registering = true;
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .catch(error => console.log(error));
+      .then((auth) => {
+        this.authState = auth;
+        newUser.privateKey = this.db.list('shopping-lists').push(null).key;
+        newUser.householdKey = '000'; // to change later
+        newUser.householdName = 'null';
+        this.db.object(`users/${auth.uid}`).set(newUser);
+        this.registering = false;
+        this.updateUserObject();
+      })
+      .catch(error => {
+        console.log(error);
+        this.registering = false;
+      });
   }
 
   emailLogin(email:string, password:string) {
      return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-       .then((user) => {
-         //this.updateUserObject();
+       .then(() => {
+         this.updateUserObject();
        })
        .catch(error => console.log(error));
   }
 
-  signOut(): void {
-    this.afAuth.auth.signOut();
+  async signOut() {
+    await this.afAuth.auth.signOut();
     this.updateUserObject();
   }
 }

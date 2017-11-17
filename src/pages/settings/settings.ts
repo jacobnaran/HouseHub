@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, ModalController, AlertController } from 'ionic-angular';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
 import { LoginPage } from '../login/login';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { User } from '../../models/user.interface';
 import { DatabaseProvider } from '../../providers/database/database';
 
 /**
@@ -22,26 +18,15 @@ import { DatabaseProvider } from '../../providers/database/database';
 export class SettingsPage {
 
   //profile: Observable<User>
-  name: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public events: Events,
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
-              public db: AngularFireDatabase,
-              public afAuth: AngularFireAuth,
               public dbProv: DatabaseProvider) {
-
-      // on auth state change, update name
-      this.afAuth.authState.subscribe(() => {
-        this.name = dbProv.currentUser.name;
-      });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
-  }
   showAlert() {
       let alert = this.alertCtrl.create({
         title: 'About Version 3.1',
@@ -51,11 +36,11 @@ export class SettingsPage {
       alert.present();
     }
 
-    navLogin()
+    logOut()
     {
-      //this.navCtrl.pop();
-      //this.navCtrl.setRoot(LoginPage);
-      this.afAuth.auth.signOut();
+      this.dbProv.signOut();
+
+      // publish event for global function in app.component.ts
       this.events.publish('user:logout');
 
     }
