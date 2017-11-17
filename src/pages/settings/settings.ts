@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, ModalController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, Events, ModalController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { DatabaseProvider } from '../../providers/database/database';
 
@@ -10,7 +10,6 @@ import { DatabaseProvider } from '../../providers/database/database';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',

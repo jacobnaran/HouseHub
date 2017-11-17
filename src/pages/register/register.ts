@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController, NavController } from 'ionic-angular';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { DatabaseProvider } from '../../providers/database/database';
-import { TabsPage } from '../tabs/tabs';
 import { SetupPage } from '../setup/setup';
 import { User } from '../../models/user.interface';
 
@@ -21,7 +19,6 @@ export class RegisterPage {
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
-              private db: AngularFireDatabase,
               private dbProv: DatabaseProvider) {
   }
 

@@ -4,7 +4,6 @@ import 'rxjs/add/operator/map';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from '../../models/user.interface';
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Events } from 'ionic-angular';
 

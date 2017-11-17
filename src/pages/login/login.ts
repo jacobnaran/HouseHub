@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angul
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from '../register/register';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable';
 import { DatabaseProvider } from '../../providers/database/database';
 
 @IonicPage()
