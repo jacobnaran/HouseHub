@@ -21,7 +21,6 @@ export class LoginPage {
               public afAuth: AngularFireAuth,
               public alertCtrl: AlertController,
               public dbProv: DatabaseProvider) {
-
   }
 
   ionViewDidLoad() {

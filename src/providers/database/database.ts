@@ -5,6 +5,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from '../../models/user.interface';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { Events } from 'ionic-angular';
 
 /*
@@ -17,6 +18,7 @@ export class DatabaseProvider {
   authState: any = null;
   currentUser = {} as User;
   currentHouseholdName: string;
+  userRef: Subscription;
 
   // whether a user is in the process of registering
   registering: boolean = false;
@@ -45,7 +47,7 @@ export class DatabaseProvider {
       if (this.registering)
         return;
 
-      this.db.object(`users/${this.currentUserId}`).valueChanges().subscribe((data) => {
+      this.userRef = this.db.object(`users/${this.currentUserId}`).valueChanges().subscribe((data) => {
         this.currentUser.name = data['name'];
         this.currentUser.username = data['username'];
         this.currentUser.email = data['email'];
@@ -61,9 +63,6 @@ export class DatabaseProvider {
       // this.db.object(`households/${this.currentUser.householdKey}`).valueChanges().subscribe((data) => {
       //   this.currentHouseholdName = data['name'];
       // });
-    }
-    else {
-      this.currentUser = {} as User;
     }
   }
 
@@ -115,6 +114,9 @@ export class DatabaseProvider {
 
   async signOut() {
     await this.afAuth.auth.signOut();
-    this.updateUserObject();
+
+    console.log('should appear only after sign out');
+    this.userRef.unsubscribe();
+    this.currentUser = {} as User;
   }
 }
