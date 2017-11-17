@@ -16,6 +16,7 @@ export class DatabaseProvider {
 
   authState: any = null;
   currentUser = {} as User;
+  currentHouseholdName: string;
 
   // whether a user is in the process of registering
   registering: boolean = false;
@@ -50,7 +51,7 @@ export class DatabaseProvider {
         this.currentUser.email = data['email'];
         this.currentUser.householdKey = data['householdKey'];
         this.db.object(`households/${this.currentUser.householdKey}`).valueChanges().subscribe((dat) => {
-          this.currentUser.householdName = dat['name'];
+          this.currentHouseholdName = dat['name'];
         });
         this.currentUser.privateKey = data['privateKey'];
         this.events.publish('user:update');
@@ -86,14 +87,14 @@ export class DatabaseProvider {
   }
 
   // creates user and logs in
-  emailSignUp(email:string, password:string, newUser: User) {
+  emailSignUp(newUser: User, password: string) {
     this.registering = true;
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+    return this.afAuth.auth.createUserWithEmailAndPassword(newUser.email, password)
       .then((auth) => {
         this.authState = auth;
         newUser.privateKey = this.db.list('shopping-lists').push(null).key;
         newUser.householdKey = '000'; // to change later
-        newUser.householdName = 'null';
+        //newUser.householdName = 'null';
         this.db.object(`users/${auth.uid}`).set(newUser);
         this.registering = false;
         this.updateUserObject();

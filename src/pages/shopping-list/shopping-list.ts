@@ -31,7 +31,7 @@ export class ShoppingListPage {
   // hhKey: string;
   // privKey: string;
   listKey: string;
-  listType: string;
+  listType: string = "public";
 
   //public ionColor: string = 'primary';
   itemsRef: AngularFireList<any>
@@ -59,11 +59,7 @@ export class ShoppingListPage {
     //   this.privKey = data.privateKey;
     // });
 
-    // default to public list
-    this.itemsRef = db.list(`shopping-lists/${dbProv.currentUser.householdKey}`);
-    this.items = this.itemsRef.snapshotChanges().map(changes => {
-      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-    });
+    this.updateList();
   }
 
 
@@ -100,7 +96,7 @@ export class ShoppingListPage {
     //console.log(this.listKey);
   }
 
-  changeList() {
+  updateList() {
     this.updateListKey();
     this.itemsRef = this.db.list(`shopping-lists/${this.listKey}`);
     this.items = this.itemsRef.snapshotChanges().map(changes => {

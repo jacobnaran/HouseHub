@@ -17,6 +17,7 @@ import { User } from '../../models/user.interface';
 export class RegisterPage {
 
   user = {} as User;  // user object
+  password: string;
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
@@ -25,9 +26,10 @@ export class RegisterPage {
   }
 
   // create account, log in, and navigate to setup page
-  async createAccountAndLogIn(email: string, password: string) {
+  async createAccountAndLogIn() {
     try {
-      await this.dbProv.emailSignUp(email, password, this.user);
+      await this.dbProv.emailSignUp(this.user, this.password);
+      this.password = '';
       this.navCtrl.setRoot(SetupPage, {user: this.user});
     }
     catch (e) {

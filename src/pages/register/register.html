@@ -33,11 +33,11 @@
 
   <ion-item>
     <ion-label floating>Password</ion-label>
-    <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+    <ion-input type="password" [(ngModel)]="password"></ion-input>
   </ion-item>
 <br/>
 <br/>
-  <button block ion-button class="register" (click)="createAccountAndLogIn(user.email, user.password)">
+  <button block ion-button class="register" (click)="createAccountAndLogIn()">
     Create Account and Log In
   </button>
 
