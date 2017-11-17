@@ -56,8 +56,9 @@ export class DatabaseProvider {
           this.currentHouseholdName = dat['name'];
         });
         this.currentUser.privateKey = data['privateKey'];
+
+        // for updating lists
         this.events.publish('user:update');
-        //console.log('user:update1');
       });
 
       // this.db.object(`households/${this.currentUser.householdKey}`).valueChanges().subscribe((data) => {
@@ -114,8 +115,6 @@ export class DatabaseProvider {
 
   async signOut() {
     await this.afAuth.auth.signOut();
-
-    console.log('should appear only after sign out');
     this.userRef.unsubscribe();
     this.currentUser = {} as User;
   }

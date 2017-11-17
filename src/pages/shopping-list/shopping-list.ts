@@ -27,18 +27,12 @@ import { DatabaseProvider } from '../../providers/database/database';
 })
 export class ShoppingListPage {
 
-  // userId: string;
-  // hhKey: string;
-  // privKey: string;
   listKey: string;
   listType: string = "public";
 
   //public ionColor: string = 'primary';
   itemsRef: AngularFireList<any>
   items: Observable<ShoppingItem[]>
-
-  // default is public shopping list
-  //listName: string = "shopping-list"
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -49,17 +43,12 @@ export class ShoppingListPage {
               public afAuth: AngularFireAuth,
               public dbProv: DatabaseProvider) {
 
-    // // is this guaranteed to happen before the next line?
-    // this.afAuth.authState.subscribe(auth => {
-    //   this.userId = auth.uid;
-    // })
-
-    // this.db.object(`users/${this.userId}`).valueChanges().subscribe(data => {
-    //   this.hhKey = data.householdKey;
-    //   this.privKey = data.privateKey;
-    // });
-
     this.updateList();
+
+    // on user update, update list
+    events.subscribe('user:update', () => {
+      this.updateList();
+    });
   }
 
 
