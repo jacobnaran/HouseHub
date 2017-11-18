@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { Events, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+
 import { SettingsPage } from '../settings/settings';
 import { DatabaseProvider } from '../../providers/database/database';
 import { StatusBar } from '@ionic-native/status-bar';
+
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+
 import { AddNoteComponent } from '../../components/add-note/add-note';
 import { AddReminderComponent } from '../../components/add-reminder/add-reminder';
 

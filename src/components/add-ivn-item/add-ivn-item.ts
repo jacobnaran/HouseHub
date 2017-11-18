@@ -26,32 +26,18 @@ export class AddIvnItemComponent {
     this.inventoryItem.expDate = 'hello';
   }
 
-  //  ionViewDidLoad()
-  //  {
-  //    this.focusInput();
-  //   }
-
-
-  // this.localNotifications.schedule({
-  //    text: 'Delayed ILocalNotification',
-  //    at: new Date(new Date().getTime() + 3600),
-  //    led: 'FF0000',
-  //    sound: null
-  // });
-
-
   addItem() {
     var d = new Date(); //create new date object
     var daysLeft_int = parseInt(this.inventoryItem.weeksLeft);
     var date_toStore = d.setDate(d.getDate() + daysLeft_int);
+    //console.log(d);
 
-    console.log(d);
     var month = d.getUTCMonth() + 1; //months from 1-12
     var day = d.getUTCDate();
     var year = d.getUTCFullYear();
 
     var newdate = month + "/" + day + "/" + year;
-    //console.log(date_toStore); //this was used for testing
+
 
     var nDate = new Date();
     nDate.setDate(d.getDate());

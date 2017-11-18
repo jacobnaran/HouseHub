@@ -25,15 +25,6 @@ export class AddNoteComponent {
               private dbProv: DatabaseProvider,
               public events: Events,
               private statusBar: StatusBar) {
-    this.updateList();
-
-    // on user update, update list
-    events.subscribe('user:update', () => {
-      this.updateList();
-    });
-  }
-
-  updateList() {
     this.addNoteRef$ = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`);
   }
 

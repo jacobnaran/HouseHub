@@ -22,9 +22,9 @@
 
 <ion-content>
 
-  <ion-select [(ngModel)]="listName" (ionChange)="changeList()" id="select">
-    <ion-option value="shopping-list">Public</ion-option>
-    <ion-option value="shopping-list-private">Private</ion-option>
+  <ion-select [(ngModel)]="listType" (ionChange)="updateList()" id="select">
+    <ion-option value="public">Public</ion-option>
+    <ion-option value="private">Private</ion-option>
 
   </ion-select>
 <!--
