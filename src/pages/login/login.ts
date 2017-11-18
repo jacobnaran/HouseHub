@@ -39,8 +39,12 @@ export class LoginPage {
   }
 
   signInAsGuest() {
+    var that = this;
     this.dbProv.emailLogin('guest@househub.com', 'password');
-    this.navCtrl.setRoot(TabsPage);
+    setTimeout(function() {
+      that.navCtrl.setRoot(TabsPage);
+    }, 750);
+
   }
 
   signIn()
@@ -48,7 +52,7 @@ export class LoginPage {
     if(this.email != undefined && this.password != undefined)
     {
       var that = this;
-      this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(function(){
+      this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(function() {
         //that.dbProv.updateUserRef();
         that.navCtrl.setRoot(TabsPage);
       },function(){
