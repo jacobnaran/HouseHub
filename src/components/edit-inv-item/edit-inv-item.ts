@@ -3,8 +3,10 @@ import { ViewController, NavParams } from 'ionic-angular';
 
 import { InventoryItem } from '../../models/inventory-item.interface';
 
+import { Subscription } from 'rxjs/Subscription';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireList } from 'angularfire2/database';
+import { DatabaseProvider } from '../../providers/database/database';
 /**
  * Generated class for the EditInvItemComponent component.
  *
@@ -19,20 +21,21 @@ export class EditInvItemComponent {
 
   inventoryItem = {} as InventoryItem
   addItemRef$: AngularFireList<InventoryItem>
-
+  itemRef: Subscription;
 
   text: string;
   itemKey: string;
 
   constructor(public viewCtrl: ViewController,
               public navParams: NavParams,
-              private db: AngularFireDatabase) {
+              private db: AngularFireDatabase,
+              private dbProv: DatabaseProvider) {
     this.itemKey = this.navParams.get('key');
-    db.object(`inventory-list/${this.itemKey}`).valueChanges().subscribe((item) => {
+    this.itemRef = db.object(`inventory-lists/${this.dbProv.currentUser.householdKey}/${this.itemKey}`).valueChanges().subscribe((item) => {
       this.inventoryItem.name = item['name'];
       this.inventoryItem.weeksLeft = item['weeksLeft'];
-    })
-    this.addItemRef$ = this.db.list('inventory-list');
+    });
+    this.addItemRef$ = this.db.list(`inventory-lists/${this.dbProv.currentUser.householdKey}`);
 
   }
 
@@ -52,6 +55,7 @@ export class EditInvItemComponent {
 
   dismiss() {
     this.inventoryItem = {} as InventoryItem;
+    this.itemRef.unsubscribe();
     this.viewCtrl.dismiss();
   }
   }
