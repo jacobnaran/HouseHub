@@ -23,19 +23,12 @@ export class AddIvnItemComponent {
     this.inventoryItem.expDate = 'hello';
   }
 
-  //  ionViewDidLoad()
-  //  {
-  //    this.focusInput();
-  //   }
-
-
   addItem() {
     var d = new Date(); //create new date object
     var daysLeft_int = parseInt(this.inventoryItem.weeksLeft);
     var date_toStore = d.setDate(d.getDate() + daysLeft_int);
 
     console.log(d);
-    //console.log(date_toStore); //this was used for testing
 
     this.addItemRef$.push({
       name: this.inventoryItem.name,

@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../models/user.interface';
 
 import { TabsPage } from '../tabs/tabs';
 
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import{ AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { DatabaseProvider } from '../../providers/database/database';
 
 /**
@@ -16,25 +14,19 @@ import { DatabaseProvider } from '../../providers/database/database';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-setup',
   templateUrl: 'setup.html',
 })
 export class SetupPage {
   user: User;
-  //currentUserId: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public alertCtrl: AlertController,
               public db: AngularFireDatabase,
-              //public afAuth: AngularFireAuth,
               public dbProv: DatabaseProvider) {
     this.user = navParams.get('user');
-    // this.afAuth.authState.subscribe(auth => {
-    //   this.currentUserId = auth.uid;
-    // })
   }
 
   ionViewDidLoad() {

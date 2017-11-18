@@ -24,15 +24,6 @@ export class AddNoteComponent {
               private db: AngularFireDatabase,
               private dbProv: DatabaseProvider,
               public events: Events) {
-    this.updateList();
-
-    // on user update, update list
-    events.subscribe('user:update', () => {
-      this.updateList();
-    });
-  }
-
-  updateList() {
     this.addNoteRef$ = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`);
   }
 

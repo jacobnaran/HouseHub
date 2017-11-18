@@ -17,21 +17,25 @@ import { DatabaseProvider } from '../../providers/database/database';
 })
 export class AddReminderComponent {
 
-  text: string;
+  remTitle: string;
+  remDate: string = '2017-11-19';
+  remTime: string = '12:00';
 
-  constructor(public viewCtrl: ViewController) {
+  addRemRef$: AngularFireList<any>
 
+  constructor(public viewCtrl: ViewController, private dbProv: DatabaseProvider, private db: AngularFireDatabase) {
+    this.addRemRef$ = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`);
   }
-  public event = {
-      month: '1990-02-19',
-      timeStarts: '07:43',
-      timeEnds: '1990-02-20'
-    }
 
-    dismiss() {
-      // this.note = {}
-      this.viewCtrl.dismiss();
-    }
+  done() {
+    this.addRemRef$.push({
+      text: this.remTitle,
+      timestamp: -1 * Date.now(),
+      remDate: this.remDate,
+      remTime: this.remTime
+    });
+    this.viewCtrl.dismiss();
+  }
 
 
 }

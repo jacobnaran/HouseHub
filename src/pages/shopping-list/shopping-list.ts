@@ -5,19 +5,15 @@ import { NavController, ModalController, NavParams, Events } from 'ionic-angular
 import { ShoppingItem } from '../../models/shopping-item.interface';
 
 import { Observable } from 'rxjs/Observable';
-// import { Subscription } from 'rxjs/Subscription';
 
 import { AddItemComponent } from '../../components/add-item/add-item';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
+
 import { SettingsPage} from '../settings/settings';
 import { DatabaseProvider } from '../../providers/database/database';
 
 /**
-* Generated class for the ShoppingListPage page.
-*
-* See https://ionicframework.com/docs/components/#navigation for more info on
-* Ionic pages and navigation.
+* Displays public or private shopping list. FAB allows user to add an item. Dropdown menu changes between private and public.
 */
 
 @Component({
@@ -29,7 +25,6 @@ export class ShoppingListPage {
   listKey: string;
   listType: string = "public";
 
-  //public ionColor: string = 'primary';
   itemsRef: AngularFireList<any>
   items: Observable<ShoppingItem[]>
 
@@ -39,50 +34,44 @@ export class ShoppingListPage {
               private db: AngularFireDatabase,
               public events: Events,
               public alertCtrl: AlertController,
-              public afAuth: AngularFireAuth,
               public dbProv: DatabaseProvider) {
 
+    // update list whenever user logs in
     this.updateList();
-
-    // on user update, update list
     events.subscribe('user:update', () => {
       this.updateList();
     });
   }
 
-
-  showAlert() {
-    let alert = this.alertCtrl.create({
-      title: 'Hi',
-      subTitle: 'Something isnt working so we put an alert here',
-      buttons: ['OK :(']
-    });
-    alert.present();
-  }
-
+  // navigate to settings page
   settingsNav()
   {
     this.navCtrl.push(SettingsPage);
   }
 
+  // click floating action button
   clickFab() {
     document.getElementById("home-fab").click();
   }
 
+  // add an item (show a separate component)
   showAddItem() {
     //this.updateListKey();
     let modal = this.modalCtrl.create(AddItemComponent, {listPath: `shopping-lists/${this.listKey}`});
     modal.present();
   }
 
+  // delete an item
   deleteItem(key: string) {
     this.itemsRef.remove(key);
   }
 
+  // update key
   updateListKey() {
     this.listKey = (this.listType=="public" ? this.dbProv.currentUser.householdKey : this.dbProv.currentUser.privateKey);
   }
 
+  // update shopping list database reference
   updateList() {
     this.updateListKey();
     this.itemsRef = this.db.list(`shopping-lists/${this.listKey}`);
