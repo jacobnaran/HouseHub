@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+
 import { NavController, ModalController, NavParams, Events } from 'ionic-angular';
 
 import { ShoppingItem } from '../../models/shopping-item.interface';
@@ -34,7 +36,8 @@ export class ShoppingListPage {
               private db: AngularFireDatabase,
               public events: Events,
               public alertCtrl: AlertController,
-              public dbProv: DatabaseProvider) {
+              public dbProv: DatabaseProvider,
+              private statusBar: StatusBar) {
 
     // update list whenever user logs in
     this.updateList();
@@ -59,6 +62,9 @@ export class ShoppingListPage {
     //this.updateListKey();
     let modal = this.modalCtrl.create(AddItemComponent, {listPath: `shopping-lists/${this.listKey}`});
     modal.present();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#222');
   }
 
   // delete an item

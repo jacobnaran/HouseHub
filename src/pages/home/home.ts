@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { Events, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { DatabaseProvider } from '../../providers/database/database';
-
 import { SettingsPage } from '../settings/settings';
+import { DatabaseProvider } from '../../providers/database/database';
+import { StatusBar } from '@ionic-native/status-bar';
+
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+
 import { AddNoteComponent } from '../../components/add-note/add-note';
 import { AddReminderComponent } from '../../components/add-reminder/add-reminder';
 
@@ -17,6 +19,7 @@ export class HomePage {
 
   // keeps track of whether the fab is clicked
   fabOpened: boolean = false;
+  buttonClick: boolean = false;
 
   notesRef: AngularFireList<any>
   notes: Observable<any[]>
@@ -27,12 +30,16 @@ export class HomePage {
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
               public db: AngularFireDatabase,
-              public dbProv: DatabaseProvider) {
+              public dbProv: DatabaseProvider,
+              private statusBar: StatusBar) {
     events.subscribe('tab:selected', () => {
       this.closeFab();
     });
 
     this.updateList();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#93A3BC');
 
     // on user update, update list
     events.subscribe('user:update', () => {
@@ -47,10 +54,10 @@ export class HomePage {
     });
   }
 
-  showAlert() {
+  showAlert(text) {
     let alert = this.alertCtrl.create({
-      title: 'Card deleted',
-      //subTitle: '',
+      //title: text,
+      subTitle: text,
       buttons: ['OK']
     });
     alert.present();
@@ -85,12 +92,18 @@ export class HomePage {
     let modal = this.modalCtrl.create(AddNoteComponent);
     modal.present();
     this.closeFab();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#222');
   }
 
   showAddReminder() {
     let modal = this.modalCtrl.create(AddReminderComponent);
     modal.present();
     this.closeFab();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#222');
   }
 
   deleteNote(key: string) {

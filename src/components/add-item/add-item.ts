@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
-
+import { StatusBar } from '@ionic-native/status-bar';
 import { ShoppingItem } from '../../models/shopping-item.interface';
 
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -23,8 +23,9 @@ export class AddItemComponent {
 
   constructor(public viewCtrl: ViewController,
               private db: AngularFireDatabase,
-              public navParams: NavParams) {
-    this.addItemRef$ = db.list(navParams.get('listPath'));
+              public navParams: NavParams,
+              private statusBar: StatusBar) {
+    this.addItemRef$ = db.list(navParams.get('listName'));
   }
 
   addItem() {
@@ -38,5 +39,8 @@ export class AddItemComponent {
   dismiss() {
     this.shoppingItem = {} as ShoppingItem;
     this.viewCtrl.dismiss();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#93A3BC');
   }
 }

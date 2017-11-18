@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController, Events } from 'ionic-angular';
-
+import { StatusBar } from '@ionic-native/status-bar';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireList } from 'angularfire2/database';
 import { DatabaseProvider } from '../../providers/database/database';
@@ -23,7 +23,7 @@ export class AddReminderComponent {
 
   addRemRef$: AngularFireList<any>
 
-  constructor(public viewCtrl: ViewController, private dbProv: DatabaseProvider, private db: AngularFireDatabase) {
+  constructor(public viewCtrl: ViewController, private dbProv: DatabaseProvider, private db: AngularFireDatabase, public statusBar: StatusBar) {
     this.addRemRef$ = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`);
   }
 
@@ -37,5 +37,11 @@ export class AddReminderComponent {
     this.viewCtrl.dismiss();
   }
 
+  dismiss() {
+    // this.note = {}
+    this.viewCtrl.dismiss();
 
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#93A3BC');
+  }
 }

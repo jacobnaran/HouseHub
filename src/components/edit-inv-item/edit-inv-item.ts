@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
-
+import { StatusBar } from '@ionic-native/status-bar';
 import { InventoryItem } from '../../models/inventory-item.interface';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -29,14 +29,15 @@ export class EditInvItemComponent {
   constructor(public viewCtrl: ViewController,
               public navParams: NavParams,
               private db: AngularFireDatabase,
+              private statusBar: StatusBar,
               private dbProv: DatabaseProvider) {
+    
     this.itemKey = this.navParams.get('key');
     this.itemRef = db.object(`inventory-lists/${this.dbProv.currentUser.householdKey}/${this.itemKey}`).valueChanges().subscribe((item) => {
       this.inventoryItem.name = item['name'];
       this.inventoryItem.weeksLeft = item['weeksLeft'];
     });
     this.addItemRef$ = this.db.list(`inventory-lists/${this.dbProv.currentUser.householdKey}`);
-
   }
 
   addItem() {
@@ -57,5 +58,8 @@ export class EditInvItemComponent {
     this.inventoryItem = {} as InventoryItem;
     this.itemRef.unsubscribe();
     this.viewCtrl.dismiss();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#93A3BC');
   }
   }

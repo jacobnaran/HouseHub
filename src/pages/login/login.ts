@@ -4,6 +4,7 @@ import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from '../register/register';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { DatabaseProvider } from '../../providers/database/database';
+import { StatusBar } from '@ionic-native/status-bar';
 
 @Component({
   selector: 'page-login',
@@ -18,10 +19,14 @@ export class LoginPage {
               public navParams: NavParams,
               public afAuth: AngularFireAuth,
               public alertCtrl: AlertController,
-              public dbProv: DatabaseProvider) {
+              public dbProv: DatabaseProvider,
+              private statusBar: StatusBar) {
+
   }
 
   ionViewDidLoad() {
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#93A3BC');
   }
 
   navigateToRegisterPage() {
