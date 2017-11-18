@@ -60,27 +60,8 @@ export class DatabaseProvider {
         // for updating lists
         this.events.publish('user:update');
       });
-
-      // this.db.object(`households/${this.currentUser.householdKey}`).valueChanges().subscribe((data) => {
-      //   this.currentHouseholdName = data['name'];
-      // });
     }
   }
-
-  /* don't know if i need this
-  // Returns current user data
-  get currentUser(): any {
-    return this.authenticated ? this.authState : null;
-  }
-
-  get currentUserObservable(): any {
-    return this.afAuth.authState
-    }
-  */
-
-  // get currentUserObject(): User {
-  //   return this.authenticated ? this.user : null;
-  // }
 
   get currentUserId(): string {
     return this.authenticated ? this.authState.uid : '';
