@@ -25,7 +25,7 @@ export class AddItemComponent {
               private db: AngularFireDatabase,
               public navParams: NavParams,
               private statusBar: StatusBar) {
-    this.addItemRef$ = db.list(navParams.get('listName'));
+    this.addItemRef$ = db.list(navParams.get('listPath'));
   }
 
   addItem() {
