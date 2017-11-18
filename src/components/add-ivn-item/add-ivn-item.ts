@@ -53,7 +53,7 @@ export class AddIvnItemComponent {
 
       });
       this.localNotifications.schedule({
-         text: this.inventoryItem.name + ' is expiring today',
+         text: this.inventoryItem.name + ' is/are expiring today',
          at: nDate,
          led: 'FF0000',
          sound: null

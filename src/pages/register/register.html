@@ -22,7 +22,7 @@
   </ion-item>
 
   <!-- <ion-item *ngIf="submitAttempt && !userForm.controls.password.valid"> -->
-    <p class="warning" *ngIf="submitAttempt && !userForm.controls.email.valid">Please enter a valid email address.</p>
+    <p class="warning" *ngIf="submitAttempt && !userForm.controls.email.valid">&nbsp; &nbsp; Please enter a valid email address.</p>
   <!-- </ion-item> -->
 
   <!-- <ion-item>
@@ -37,14 +37,14 @@
     <ion-input formControlName="name" type="text" [(ngModel)]="user.name"></ion-input>
   </ion-item>
 
-  <p class="warning" *ngIf="submitAttempt && !userForm.controls.name.valid">Please enter your name.</p>
+  <p class="warning" *ngIf="submitAttempt && !userForm.controls.name.valid">&nbsp; &nbsp;  Please enter your name.</p>
 
   <ion-item>
     <ion-label floating>Password</ion-label>
     <ion-input formControlName="password" type="password" [(ngModel)]="password"></ion-input>
   </ion-item>
 
-  <p class="warning" *ngIf="submitAttempt && !userForm.controls.password.valid">Please enter a password of 6 to 20 characters.</p>
+  <p class="warning" *ngIf="submitAttempt && !userForm.controls.password.valid">&nbsp; &nbsp;  Please enter a password of 6 to 20 characters.</p>
 <br/>
 <br/>
   <button block ion-button class="register" (click)="createAccountAndLogIn()">
