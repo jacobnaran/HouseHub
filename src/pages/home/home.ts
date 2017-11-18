@@ -16,6 +16,7 @@ export class HomePage {
 
   // keeps track of whether the fab is clicked
   fabOpened: boolean = false;
+  buttonClick: boolean = false;
 
   notesRef: AngularFireList<any>
   notes: Observable<any[]>
@@ -50,10 +51,10 @@ export class HomePage {
     });
   }
 
-  showAlert() {
+  showAlert(text) {
     let alert = this.alertCtrl.create({
-      title: 'Card deleted',
-      //subTitle: '',
+      //title: text,
+      subTitle: text,
       buttons: ['OK']
     });
     alert.present();

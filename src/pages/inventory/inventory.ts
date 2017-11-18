@@ -77,7 +77,7 @@ ionViewDidLoad()
  showAlert() {
      let alert = this.alertCtrl.create({
        title: 'Adding new tab',
-       subTitle: 'Please fill  up your current inventory before adding a new tab',
+       subTitle: 'Please fill up your current inventory before adding a new tab',
        buttons: ['OK']
      });
      alert.present();
