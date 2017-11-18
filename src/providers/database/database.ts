@@ -93,23 +93,16 @@ export class DatabaseProvider {
       .then((auth) => {
         this.authState = auth;
         newUser.privateKey = this.db.list('shopping-lists').push(null).key;
-        newUser.householdKey = '000'; // to change later
+        newUser.householdKey = 'nullhouseholdkey'; // to change later
         //newUser.householdName = 'null';
         this.db.object(`users/${auth.uid}`).set(newUser);
         this.registering = false;
         this.updateUserRef();
       })
-      .catch(error => {
-        console.log(error);
-        this.registering = false;
-      });
   }
 
   emailLogin(email:string, password:string) {
      return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-       .then(() => {
-         //this.updateUserRef();
-       })
        .catch(error => console.log(error));
   }
 
