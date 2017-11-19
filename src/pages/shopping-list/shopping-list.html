@@ -15,41 +15,23 @@
    </button>
    </ion-buttons>
 
-
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
 
-  <ion-select [(ngModel)]="listType" (ionChange)="changeList()" id="select">
+  <ion-select [(ngModel)]="listType" (ionChange)="updateList()" id="select">
     <ion-option value="public">Public</ion-option>
     <ion-option value="private">Private</ion-option>
-
   </ion-select>
-<!--
-  <svg width="1800" height="2">
-    <rect width="1000" height="2" style="fill:#F9BF3B;" />
-  </svg> -->
-
-  <!-- <div id="container">
-    <button ion-button color="secondary" (click)="showAlert()"  class = "button button-large" id="private_button">
-       Private
-    </button>
-
-    <button ion-button color="primary" (click)="showAlert()" class = "button button-large" id="public_button">
-       Public
-    </button>
-  </div> -->
 
   <ion-fab bottom right>
     <button ion-fab color="dark" (click)="showAddItem()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>
 
-
   <ion-list no-lines>
     <ion-item class="list" *ngFor="let item of items | async">
-
      {{item.name}}
      <button ion-button color="HHred" item-right (click)="deleteItem(item.key)" >
        <ion-icon name="trash"></ion-icon>

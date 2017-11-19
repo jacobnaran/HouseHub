@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
 import { ViewController, Events } from 'ionic-angular';
-
+import { StatusBar } from '@ionic-native/status-bar';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireList } from 'angularfire2/database';
 import { DatabaseProvider } from '../../providers/database/database';
 
 /**
- * Generated class for the AddNoteComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
+ * Page to add a note to the home page.
  */
 @Component({
   selector: 'add-note',
@@ -23,19 +20,14 @@ export class AddNoteComponent {
   constructor(public viewCtrl: ViewController,
               private db: AngularFireDatabase,
               private dbProv: DatabaseProvider,
-              public events: Events) {
-    this.updateList();
+              public events: Events,
+              private statusBar: StatusBar) {
 
-    // on user update, update list
-    events.subscribe('user:update', () => {
-      this.updateList();
-    });
-  }
-
-  updateList() {
+    // database reference
     this.addNoteRef$ = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`);
   }
 
+  // push note to database
   addNote() {
     this.addNoteRef$.push({
       text: this.noteText,
@@ -45,9 +37,13 @@ export class AddNoteComponent {
     this.dismiss();
   }
 
+  // dismiss page
   dismiss() {
     // this.note = {}
     this.viewCtrl.dismiss();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#93A3BC');
   }
 
 }

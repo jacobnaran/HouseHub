@@ -14,31 +14,42 @@
 
 
 <ion-content padding>
-
+<form [formGroup]="userForm">
+<!-- *ngIf="submitAttempt && !userForm.controls.password.valid" -->
   <ion-item>
     <ion-label floating>Email</ion-label>
-    <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+    <ion-input formControlName="email" type="text" [(ngModel)]="user.email"></ion-input>
   </ion-item>
 
-  <ion-item>
+  <!-- <ion-item *ngIf="submitAttempt && !userForm.controls.password.valid"> -->
+    <p class="warning" *ngIf="submitAttempt && !userForm.controls.email.valid">&nbsp; &nbsp; Please enter a valid email address.</p>
+  <!-- </ion-item> -->
+
+  <!-- <ion-item>
     <ion-label floating>Username</ion-label>
-    <ion-input type="text" [(ngModel)]="user.username"></ion-input>
+    <ion-input formControlName="username" type="text" [(ngModel)]="user.username"></ion-input>
   </ion-item>
+
+  <p class="warning" *ngIf="submitAttempt && !userForm.controls.username.valid">Please enter a username.</p> -->
 
   <ion-item>
     <ion-label floating>Name</ion-label>
-    <ion-input type="text" [(ngModel)]="user.name"></ion-input>
+    <ion-input formControlName="name" type="text" [(ngModel)]="user.name"></ion-input>
   </ion-item>
 
+  <p class="warning" *ngIf="submitAttempt && !userForm.controls.name.valid">&nbsp; &nbsp;  Please enter your name.</p>
 
   <ion-item>
     <ion-label floating>Password</ion-label>
-    <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+    <ion-input formControlName="password" type="password" [(ngModel)]="password"></ion-input>
   </ion-item>
+
+  <p class="warning" *ngIf="submitAttempt && !userForm.controls.password.valid">&nbsp; &nbsp;  Please enter a password of 6 to 20 characters.</p>
 <br/>
 <br/>
-  <button block ion-button class="register" (click)="createAccountAndLogIn(user.email, user.password)">
+  <button block ion-button class="register" (click)="createAccountAndLogIn()">
     Create Account and Log In
   </button>
 
+</form>
 </ion-content>

@@ -1,13 +1,19 @@
 import { Component } from '@angular/core';
 import { Events, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+
 import { SettingsPage } from '../settings/settings';
 import { DatabaseProvider } from '../../providers/database/database';
+import { StatusBar } from '@ionic-native/status-bar';
 
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
 import { AddNoteComponent } from '../../components/add-note/add-note';
 import { AddReminderComponent } from '../../components/add-reminder/add-reminder';
+
+/**
+ * Home page (middle tab). Displays shared notes.
+ */
 
 @Component({
   selector: 'page-home',
@@ -15,8 +21,7 @@ import { AddReminderComponent } from '../../components/add-reminder/add-reminder
 })
 export class HomePage {
 
-  // keeps track of whether the fab is clicked
-  fabOpened: boolean = false;
+  fabOpened: boolean = false; // keeps track of whether the fab is toggled
 
   notesRef: AngularFireList<any>
   notes: Observable<any[]>
@@ -27,19 +32,25 @@ export class HomePage {
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
               public db: AngularFireDatabase,
-              public dbProv: DatabaseProvider) {
+              public dbProv: DatabaseProvider,
+              private statusBar: StatusBar) {
+
+    // close fab on tab change
     events.subscribe('tab:selected', () => {
       this.closeFab();
     });
 
-    this.updateList();
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#93A3BC');
 
-    // on user update, update list
+    // update database reference when user logs in
+    this.updateList();
     events.subscribe('user:update', () => {
       this.updateList();
     });
   }
 
+  // update database reference
   updateList() {
     this.notesRef = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`, ref => ref.orderByChild('timestamp'));
     this.notes = this.notesRef.snapshotChanges().map(changes => {
@@ -47,21 +58,13 @@ export class HomePage {
     });
   }
 
-  showAlert() {
-    let alert = this.alertCtrl.create({
-      title: 'Card deleted',
-      //subTitle: '',
-      buttons: ['OK']
-    });
-    alert.present();
-
-  }
-
+  // navigate to settings page
   settingsNav()
   {
     this.navCtrl.push(SettingsPage);
   }
 
+  // toggle button
   toggleFab() {
     if (this.fabOpened) {
       this.fabOpened = false;
@@ -71,28 +74,39 @@ export class HomePage {
     }
   }
 
+  // click button
   clickFab() {
     document.getElementById("home-fab").click();
   }
 
+  // close overlay
   closeFab() {
     if (this.fabOpened) {
       this.clickFab();
     }
   }
 
+  // show add-note page
   showAddNote() {
     let modal = this.modalCtrl.create(AddNoteComponent);
     modal.present();
     this.closeFab();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#222');
   }
 
+  // show add-reminder page
   showAddReminder() {
     let modal = this.modalCtrl.create(AddReminderComponent);
     modal.present();
     this.closeFab();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#222');
   }
 
+  // delete note
   deleteNote(key: string) {
     this.notesRef.remove(key);
   }

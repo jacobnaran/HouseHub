@@ -1,46 +1,34 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../models/user.interface';
 
 import { TabsPage } from '../tabs/tabs';
 
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import{ AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { DatabaseProvider } from '../../providers/database/database';
 
 /**
- * Generated class for the SetupPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
+ * Setup page. Allows new user to choose between creating a new household and joining one.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-setup',
   templateUrl: 'setup.html',
 })
 export class SetupPage {
   user: User;
-  //currentUserId: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public alertCtrl: AlertController,
               public db: AngularFireDatabase,
-              //public afAuth: AngularFireAuth,
               public dbProv: DatabaseProvider) {
+
+    // fetch user object from NavParams
     this.user = navParams.get('user');
-    // this.afAuth.authState.subscribe(auth => {
-    //   this.currentUserId = auth.uid;
-    // })
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SetupPage');
-  }
-
+  // dialog box for creating household
   create() {
     let prompt = this.alertCtrl.create({
       title: 'New Household',
@@ -68,6 +56,7 @@ export class SetupPage {
     prompt.present();
   }
 
+  // create household with randomly generated key
   createHousehold(title: string) {
     // create new household key and store in user profile
     let hhKey = this.db.list('households').push(null).key;
@@ -83,6 +72,7 @@ export class SetupPage {
     this.navCtrl.setRoot(TabsPage);
   }
 
+  // dialog box for joining household
   join() {
     let prompt = this.alertCtrl.create({
       title: 'Existing Household',
@@ -110,13 +100,14 @@ export class SetupPage {
     prompt.present();
   }
 
+  // join household with shareable key
   joinHousehold(id: string) {
+
     // create new household key and store in user profile
     let hhKey = id;
     this.user.householdKey = hhKey;
 
-    // update user profile
-    //this.db.object(`users/${this.currentUserId}`).set(this.user);
+    // push user profile to database
     this.db.object(`users/${this.dbProv.currentUserId}`).set(this.user);
       // this should automatically update the currentUser object?
 

@@ -14,23 +14,20 @@
 
 <ion-content padding>
 
-<!-- CHANGE NGMODEL -->
   <ion-item>
-    <ion-textarea placeholder="Reminder Title" clearInput [(ngModel)]="noteText"></ion-textarea>
+    <ion-textarea placeholder="Title" clearInput [(ngModel)]="remTitle"></ion-textarea>
   </ion-item>
 
   <ion-list>
-      <ion-item>
-        <ion-label>Start Date</ion-label>
-        <ion-datetime displayFormat="MMM DD YYYY" class="ionic_datepicker_popup" [(ngModel)]="event.month"></ion-datetime>
-      </ion-item>
+    <ion-item>
+      <ion-label>Reminder Date</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" class="ionic_datepicker_popup" [(ngModel)]="remDate"></ion-datetime>
+    </ion-item>
 
+    <ion-item>
+      <ion-label>Reminder Time</ion-label>
+      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="remTime"></ion-datetime>
+    </ion-item>
+  </ion-list>
 
-      <ion-item>
-        <ion-label>Start Time</ion-label>
-        <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>
-      </ion-item>
-
-
-
-  <button ion-button round color ="dark" (click)="showAlert()">Done</button>
+  <button ion-button round color ="dark" (click)="done()">Done</button>
