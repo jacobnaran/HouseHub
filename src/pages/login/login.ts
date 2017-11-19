@@ -21,7 +21,14 @@ export class LoginPage {
               public alertCtrl: AlertController,
               public dbProv: DatabaseProvider,
               private statusBar: StatusBar) {
+    var that = this;
 
+    // timeout needed because it takes a while for dbProv to grab authState
+    setTimeout(function() {
+      if (that.dbProv.authenticated) {
+        that.navCtrl.setRoot(TabsPage);
+      }
+    }, 2500);
   }
 
   ionViewDidLoad() {
@@ -63,8 +70,9 @@ export class LoginPage {
       },function(){
         that.showAlert();
       });
-    } else {
-    this.showAlert();
+    }
+    else {
+      this.showAlert();
     }
   }
 
