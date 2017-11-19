@@ -37,12 +37,21 @@
       {{ note.text }}
 
       <!-- style="position:absolute;right:8px;bottom:-3px;" -->
-      <button ion-button block color="dark" >
-        <ion-icon name="clipboard"></ion-icon>
-      </button>
-      <button ion-button block color="HHred"  (click)="deleteNote(note.key)" >
-        <ion-icon name="trash"></ion-icon>
-      </button>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <button ion-button block color="dark" >
+              <ion-icon name="clipboard"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button block color="HHred"  (click)="deleteNote(note.key)" >
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
     </ion-card-content>
     <!-- <button ion-button item-end class="delete" color="secondary" item-right (click)="deleteNote(note.key)" >
       <ion-icon name="trash"></ion-icon>
