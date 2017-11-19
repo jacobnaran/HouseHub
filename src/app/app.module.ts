@@ -28,6 +28,7 @@ import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { SetupPage } from '../pages/setup/setup';
 import { DatabaseProvider } from '../providers/database/database';
+import { LoadingPage } from '../pages/loading/loading';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DatabaseProvider } from '../providers/database/database';
     LoginPage,
     RegisterPage,
     EditInvItemComponent,
-    SetupPage
+    SetupPage,
+    LoadingPage
   ],
   imports: [
     BrowserModule,
@@ -70,7 +72,8 @@ import { DatabaseProvider } from '../providers/database/database';
     SettingsPage,
     LoginPage,
     RegisterPage,
-    SetupPage
+    SetupPage,
+    LoadingPage
   ],
   providers: [
     StatusBar,

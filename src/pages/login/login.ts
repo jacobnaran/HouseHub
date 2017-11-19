@@ -22,7 +22,6 @@ export class LoginPage {
               public dbProv: DatabaseProvider,
               private statusBar: StatusBar) {
     var that = this;
-
     // timeout needed because it takes a while for dbProv to grab authState
     setTimeout(function() {
       if (that.dbProv.authenticated) {

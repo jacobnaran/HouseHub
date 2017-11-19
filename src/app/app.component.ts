@@ -5,12 +5,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { DatabaseProvider } from '../providers/database/database';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { LoadingPage } from '../pages/loading/loading';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = LoginPage;
+  rootPage: any = LoadingPage;
   //rootPage: any = (this.dbProv.authenticated ? TabsPage : LoginPage);
 
   constructor(platform: Platform,
