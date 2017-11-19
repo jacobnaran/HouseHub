@@ -30,7 +30,12 @@ export class AddIvnItemComponent {
     var d = new Date(); //create new date object
     var daysLeft_int = parseInt(this.inventoryItem.weeksLeft);
     var date_toStore = d.setDate(d.getDate() + daysLeft_int);
-    //console.log(d);
+    console.log(date_toStore);
+
+    d.setHours(d.getHours() - 5);
+    console.log(d);
+
+
 
     var month = d.getUTCMonth() + 1; //months from 1-12
     var day = d.getUTCDate();
@@ -53,7 +58,7 @@ export class AddIvnItemComponent {
 
       });
       this.localNotifications.schedule({
-         text: this.inventoryItem.name + ' is expiring today',
+         text: this.inventoryItem.name + ' is/are expiring today',
          at: nDate,
          led: 'FF0000',
          sound: null
