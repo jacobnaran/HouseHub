@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 import { AddItemComponent } from '../../components/add-item/add-item';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
-import { SettingsPage} from '../settings/settings';
+import { SettingsPage } from '../settings/settings';
 import { DatabaseProvider } from '../../providers/database/database';
 
 /**

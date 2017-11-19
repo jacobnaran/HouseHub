@@ -11,15 +11,17 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AddNoteComponent } from '../../components/add-note/add-note';
 import { AddReminderComponent } from '../../components/add-reminder/add-reminder';
 
+/**
+ * Home page (middle tab). Displays shared notes.
+ */
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
 })
 export class HomePage {
 
-  // keeps track of whether the fab is clicked
-  fabOpened: boolean = false;
-  buttonClick: boolean = false;
+  fabOpened: boolean = false; // keeps track of whether the fab is toggled
 
   notesRef: AngularFireList<any>
   notes: Observable<any[]>
@@ -32,21 +34,23 @@ export class HomePage {
               public db: AngularFireDatabase,
               public dbProv: DatabaseProvider,
               private statusBar: StatusBar) {
+
+    // close fab on tab change
     events.subscribe('tab:selected', () => {
       this.closeFab();
     });
 
-    this.updateList();
-
     this.statusBar.overlaysWebView(true);
     this.statusBar.backgroundColorByHexString('#93A3BC');
 
-    // on user update, update list
+    // update database reference when user logs in
+    this.updateList();
     events.subscribe('user:update', () => {
       this.updateList();
     });
   }
 
+  // update database reference
   updateList() {
     this.notesRef = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`, ref => ref.orderByChild('timestamp'));
     this.notes = this.notesRef.snapshotChanges().map(changes => {
@@ -54,21 +58,13 @@ export class HomePage {
     });
   }
 
-  showAlert(text) {
-    let alert = this.alertCtrl.create({
-      //title: text,
-      subTitle: text,
-      buttons: ['OK']
-    });
-    alert.present();
-
-  }
-
+  // navigate to settings page
   settingsNav()
   {
     this.navCtrl.push(SettingsPage);
   }
 
+  // toggle button
   toggleFab() {
     if (this.fabOpened) {
       this.fabOpened = false;
@@ -78,16 +74,19 @@ export class HomePage {
     }
   }
 
+  // click button
   clickFab() {
     document.getElementById("home-fab").click();
   }
 
+  // close overlay
   closeFab() {
     if (this.fabOpened) {
       this.clickFab();
     }
   }
 
+  // show add-note page
   showAddNote() {
     let modal = this.modalCtrl.create(AddNoteComponent);
     modal.present();
@@ -97,6 +96,7 @@ export class HomePage {
     this.statusBar.backgroundColorByHexString('#222');
   }
 
+  // show add-reminder page
   showAddReminder() {
     let modal = this.modalCtrl.create(AddReminderComponent);
     modal.present();
@@ -106,6 +106,7 @@ export class HomePage {
     this.statusBar.backgroundColorByHexString('#222');
   }
 
+  // delete note
   deleteNote(key: string) {
     this.notesRef.remove(key);
   }
