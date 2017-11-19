@@ -4,10 +4,7 @@ import { LoginPage } from '../login/login';
 import { DatabaseProvider } from '../../providers/database/database';
 
 /**
- * Generated class for the SettingsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
+ * Settings page. Displays log-out button, current user, household name, and household key.
  */
 
 @Component({
@@ -15,8 +12,6 @@ import { DatabaseProvider } from '../../providers/database/database';
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
-
-  //profile: Observable<User>
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -26,6 +21,7 @@ export class SettingsPage {
               public dbProv: DatabaseProvider) {
   }
 
+  // 'About' page
   showAlert() {
       let alert = this.alertCtrl.create({
         title: 'About Version 3.1',
@@ -36,6 +32,7 @@ export class SettingsPage {
       alert.present();
     }
 
+    // Log out
     logOut()
     {
       this.dbProv.signOut();

@@ -6,14 +6,18 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { DatabaseProvider } from '../../providers/database/database';
 import { StatusBar } from '@ionic-native/status-bar';
 
+/**
+* Login page.
+*/
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
 export class LoginPage {
 
-  email: string;
-  password: string;
+  email: string = '';
+  password: string = '';
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -21,13 +25,7 @@ export class LoginPage {
               public alertCtrl: AlertController,
               public dbProv: DatabaseProvider,
               private statusBar: StatusBar) {
-    var that = this;
-    // timeout needed because it takes a while for dbProv to grab authState
-    setTimeout(function() {
-      if (that.dbProv.authenticated) {
-        that.navCtrl.setRoot(TabsPage);
-      }
-    }, 2500);
+
   }
 
   ionViewDidLoad() {
@@ -35,20 +33,23 @@ export class LoginPage {
     this.statusBar.backgroundColorByHexString('#93A3BC');
   }
 
+  // navigate to register page
   navigateToRegisterPage() {
     this.navCtrl.push(RegisterPage);
   }
 
+  // error message
   showAlert() {
     let alert = this.alertCtrl.create({
       title: 'Error',
-      subTitle: 'Please enter a valid email id and password',
+      subTitle: 'Please enter a valid email and password.',
       buttons: ['Ok']
     });
     alert.present();
 
   }
 
+  // sign in as a guest (mainly for testing)
   signInAsGuest() {
     var that = this;
     this.dbProv.emailLogin('guest@househub.com', 'password');
@@ -58,21 +59,15 @@ export class LoginPage {
 
   }
 
+  // sign in as a previously registered user
   signIn()
   {
-    if(this.email != undefined && this.password != undefined)
-    {
-      var that = this;
-      this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(function() {
-        //that.dbProv.updateUserRef();
-        that.navCtrl.setRoot(TabsPage);
-      },function(){
-        that.showAlert();
-      });
-    }
-    else {
-      this.showAlert();
-    }
+    var that = this;
+    this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(function() {
+      that.navCtrl.setRoot(TabsPage);
+    }, function() {
+      that.showAlert();
+    });
   }
-
+  
 }

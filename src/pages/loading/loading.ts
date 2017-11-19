@@ -6,10 +6,7 @@ import { TabsPage } from '../tabs/tabs';
 import { LoginPage } from '../login/login';
 
 /**
- * Generated class for the LoadingPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
+ * Loading page. Here the app decides whether to navigate to the login page or home page.
  */
 
 @Component({
@@ -19,16 +16,19 @@ import { LoginPage } from '../login/login';
 export class LoadingPage {
 
   constructor(public navCtrl: NavController, private dbProv: DatabaseProvider) {
-    var that = this;
+
     // timeout needed because it takes a while for dbProv to grab authState
+    var that = this;
     setTimeout(function() {
+      
+      // navigate to correct page
       if (that.dbProv.authenticated) {
         that.navCtrl.setRoot(TabsPage);
       }
       else {
         that.navCtrl.setRoot(LoginPage);
       }
-    }, 3000);
+    }, 3000); // 3-second delay for DatabaseProvider to fetch auth state
   }
 
 }

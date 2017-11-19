@@ -26,7 +26,7 @@ export class RegisterPage {
     this.submitAttempt = false;
 
     this.userForm = formBuilder.group({
-      email: ['', Validators.compose([Validators.required, Validators.pattern(/^\w+@[a-zA-Z]+\.[a-zA-Z]{2,7}$/)])],
+      email: ['', Validators.compose([Validators.required, Validators.pattern(/^[\w\.]+@[a-zA-Z]+\.[a-zA-Z]{2,7}$/)])],
       //username: ['', Validators.compose([Validators.maxLength(20), Validators.required])],
       name: ['', Validators.compose([Validators.required, Validators.maxLength(20)])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(20)])]

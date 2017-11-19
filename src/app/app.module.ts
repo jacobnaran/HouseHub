@@ -10,12 +10,19 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { FIREBASE_CREDENTIALS } from './firebase.credentials';
+import { DatabaseProvider } from '../providers/database/database';
 
+// pages
 import { MyApp } from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { ShoppingListPage } from '../pages/shopping-list/shopping-list';
 import { InventoryPage } from '../pages/inventory/inventory';
+import { SettingsPage} from '../pages/settings/settings';
+import { LoginPage } from '../pages/login/login';
+import { RegisterPage } from '../pages/register/register';
+import { SetupPage } from '../pages/setup/setup';
+import { LoadingPage } from '../pages/loading/loading';
 
 // components
 import { AddItemComponent } from '../components/add-item/add-item';
@@ -23,12 +30,7 @@ import { AddReminderComponent } from '../components/add-reminder/add-reminder';
 import { AddNoteComponent } from '../components/add-note/add-note';
 import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
 import { EditInvItemComponent } from '../components/edit-inv-item/edit-inv-item';
-import { SettingsPage} from '../pages/settings/settings';
-import { LoginPage } from '../pages/login/login';
-import { RegisterPage } from '../pages/register/register';
-import { SetupPage } from '../pages/setup/setup';
-import { DatabaseProvider } from '../providers/database/database';
-import { LoadingPage } from '../pages/loading/loading';
+
 
 @NgModule({
   declarations: [
@@ -51,9 +53,7 @@ import { LoadingPage } from '../pages/loading/loading';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    // Initialize AngularFire with credentials from the dashboard
     AngularFireModule.initializeApp(FIREBASE_CREDENTIALS),
-    // Import the AngularFireDatabaseModule to use database interactions
     AngularFireDatabaseModule,
     AngularFireAuthModule
   ],

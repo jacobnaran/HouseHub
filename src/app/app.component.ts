@@ -12,7 +12,6 @@ import { LoadingPage } from '../pages/loading/loading';
 })
 export class MyApp {
   rootPage: any = LoadingPage;
-  //rootPage: any = (this.dbProv.authenticated ? TabsPage : LoginPage);
 
   constructor(platform: Platform,
               statusBar: StatusBar,
@@ -21,6 +20,7 @@ export class MyApp {
               private app: App,
               private dbProv: DatabaseProvider) {
 
+    // listen for logout event then sets login page as root
     this.events.subscribe('user:logout', () => {
       this.app.getRootNav().setRoot(LoginPage);
     });
