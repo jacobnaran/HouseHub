@@ -21,12 +21,13 @@
   <ion-list>
     <ion-item>
       <ion-label>Reminder Date</ion-label>
-      <ion-datetime displayFormat="MMM DD YYYY" class="ionic_datepicker_popup" [(ngModel)]="remDate"></ion-datetime>
+      <ion-datetime displayFormat="YYYY-MM-DD" class="ionic_datepicker_popup" [(ngModel)]="remDate"></ion-datetime>
     </ion-item>
+
 
     <ion-item>
       <ion-label>Reminder Time</ion-label>
-      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="remTime"></ion-datetime>
+      <ion-datetime displayFormat="hh:mm" pickerFormat="HH mm" [(ngModel)]="remTime"></ion-datetime>
     </ion-item>
   </ion-list>
 
