@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireList } from 'angularfire2/database';
 import { DatabaseProvider } from '../../providers/database/database';
-import { Subscription } from 'rxjs/Subscription';
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the EditReminderComponent component.
@@ -19,12 +18,10 @@ import { Subscription } from 'rxjs/Subscription';
 export class EditReminderComponent {
 
   remText: string;
-  addRemRef$: AngularFireList<any>;
+  notesRef: AngularFireList<any>;
   remKey: string;
-  remRef: Subscription;
   remTime: string;
   remDate: string;
-  origTime: string;
 
   constructor(public viewCtrl: ViewController,
               private db: AngularFireDatabase,
@@ -33,11 +30,10 @@ export class EditReminderComponent {
               public navParams: NavParams) {
 
     this.remKey = navParams.get('key');
-    this.remRef = db.object(`notes-lists/${this.dbProv.currentUser.householdKey}/${this.remKey}`).valueChanges().subscribe((note) => {
+    db.object(`notes-lists/${this.dbProv.currentUser.householdKey}/${this.remKey}`).valueChanges().first().subscribe((note) => {
       this.remText = note['text'];
-      this.origTime = note['timestamp'];
     });
-    this.addRemRef$ = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`);
+    this.notesRef = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`);
   }
 
   // push reminder to database
@@ -48,12 +44,9 @@ export class EditReminderComponent {
     d.setHours(d.getHours()+5);
     console.log(d.getDate());
     var month = d.getMonth() + 1;
-    //this.showAlert(d);
 
-    this.addRemRef$.update(this.remKey, {
-      id: 'Reminder',
+    this.notesRef.update(this.remKey, {
       text: this.remText,
-      timestamp: this.origTime,//-1 * Date.now(),
       remDate: month + '/' + d.getDate(),
       remTime: this.remTime
     });
@@ -63,9 +56,7 @@ export class EditReminderComponent {
 
   // dismiss page
   dismiss() {
-    // this.note = {}
     this.viewCtrl.dismiss();
-    this.remRef.unsubscribe();
     this.statusBar.overlaysWebView(true);
     this.statusBar.backgroundColorByHexString('#93A3BC');
   }
