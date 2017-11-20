@@ -46,7 +46,7 @@ export class AddIvnItemComponent {
 
 
     var nDate = new Date(d.valueOf());
-    nDate.setHours(10);
+    nDate.setHours(7);
     nDate.setMinutes(0);
     nDate.setSeconds(0);
     console.log(nDate);
