@@ -48,4 +48,36 @@ export class SettingsPage {
 
     }
 
+    // Log out
+    deleteAcct()
+    {
+      this.alertCtrl.create({
+        title: 'Delete account',
+        message: "Are you sure you want to delete your HouseHub account? This action cannot be undone.",
+        buttons: [
+          {
+            text: 'Cancel',
+          },
+          {
+            text: 'OK',
+            handler: data => {
+              this.alertCtrl.create({
+                title: 'Error',
+                message: "Sorry, this function has not been implemented yet.",
+                buttons: [
+                  {
+                    text: 'OK',
+                  }
+                ]
+              }).present();
+            }
+          }
+        ]
+      }).present();
+
+      //this.dbProv.deleteUser();
+      //this.events.publish('user:logout');
+
+    }
+
 }

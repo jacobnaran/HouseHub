@@ -3,7 +3,6 @@ import { ViewController, NavParams } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { InventoryItem } from '../../models/inventory-item.interface';
 
-import { Subscription } from 'rxjs/Subscription';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireList } from 'angularfire2/database';
 import { DatabaseProvider } from '../../providers/database/database';
@@ -20,8 +19,7 @@ import { DatabaseProvider } from '../../providers/database/database';
 export class EditInvItemComponent {
 
   inventoryItem = {} as InventoryItem
-  addItemRef$: AngularFireList<InventoryItem>
-  itemRef: Subscription;
+  itemsRef: AngularFireList<InventoryItem>
 
   text: string;
   itemKey: string;
@@ -33,15 +31,15 @@ export class EditInvItemComponent {
               private dbProv: DatabaseProvider) {
 
     this.itemKey = navParams.get('key');
-    this.itemRef = db.object(`inventory-lists/${this.dbProv.currentUser.householdKey}/${this.itemKey}`).valueChanges().subscribe((item) => {
+    db.object(`inventory-lists/${this.dbProv.currentUser.householdKey}/${this.itemKey}`).valueChanges().first().subscribe((item) => {
       this.inventoryItem.name = item['name'];
       this.inventoryItem.weeksLeft = item['weeksLeft'];
     });
-    this.addItemRef$ = this.db.list(`inventory-lists/${this.dbProv.currentUser.householdKey}`);
+    this.itemsRef = this.db.list(`inventory-lists/${this.dbProv.currentUser.householdKey}`);
   }
 
   addItem() {
-    this.addItemRef$.update(this.itemKey, this.inventoryItem);
+    this.itemsRef.update(this.itemKey, this.inventoryItem);
     // //push({
     //   name: this.inventoryItem.name,
     //   weeksLeft: (this.inventoryItem.weeksLeft!=null ? this.inventoryItem.weeksLeft : '')
@@ -56,7 +54,6 @@ export class EditInvItemComponent {
 
   dismiss() {
     this.inventoryItem = {} as InventoryItem;
-    this.itemRef.unsubscribe();
     this.viewCtrl.dismiss();
 
     this.statusBar.overlaysWebView(true);
