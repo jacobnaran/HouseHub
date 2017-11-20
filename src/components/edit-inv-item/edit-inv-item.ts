@@ -31,8 +31,8 @@ export class EditInvItemComponent {
               private db: AngularFireDatabase,
               private statusBar: StatusBar,
               private dbProv: DatabaseProvider) {
-    
-    this.itemKey = this.navParams.get('key');
+
+    this.itemKey = navParams.get('key');
     this.itemRef = db.object(`inventory-lists/${this.dbProv.currentUser.householdKey}/${this.itemKey}`).valueChanges().subscribe((item) => {
       this.inventoryItem.name = item['name'];
       this.inventoryItem.weeksLeft = item['weeksLeft'];

@@ -8,8 +8,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
+import { EditNoteComponent } from '../../components/edit-note/edit-note';
 import { AddNoteComponent } from '../../components/add-note/add-note';
 import { AddReminderComponent } from '../../components/add-reminder/add-reminder';
+import { EditReminderComponent } from '../../components/edit-reminder/edit-reminder';
 
 /**
  * Home page (middle tab). Displays shared notes.
@@ -89,6 +91,35 @@ export class HomePage {
   // show add-note page
   showAddNote() {
     let modal = this.modalCtrl.create(AddNoteComponent);
+    modal.present();
+    this.closeFab();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#222');
+  }
+
+  editRemNote(id,key)
+  {
+    if(id == 'Note')
+    {
+      this.showEditNote(key);
+    }else if(id == 'Reminder')
+    {
+      this.showEditReminder(key);
+    }
+  }
+  // show edit-note page
+  showEditNote(key: string) {
+    let modal = this.modalCtrl.create(EditNoteComponent, {key: key});
+    modal.present();
+    this.closeFab();
+
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#222');
+  }
+
+  showEditReminder(key: string) {
+    let modal = this.modalCtrl.create(EditReminderComponent, {key: key});
     modal.present();
     this.closeFab();
 

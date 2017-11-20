@@ -28,8 +28,10 @@ import { LoadingPage } from '../pages/loading/loading';
 import { AddItemComponent } from '../components/add-item/add-item';
 import { AddReminderComponent } from '../components/add-reminder/add-reminder';
 import { AddNoteComponent } from '../components/add-note/add-note';
+import { EditNoteComponent } from '../components/edit-note/edit-note';
 import { AddIvnItemComponent } from '../components/add-ivn-item/add-ivn-item';
 import { EditInvItemComponent } from '../components/edit-inv-item/edit-inv-item';
+import { EditReminderComponent } from '../components/edit-reminder/edit-reminder';
 
 
 @NgModule({
@@ -43,12 +45,14 @@ import { EditInvItemComponent } from '../components/edit-inv-item/edit-inv-item'
     AddReminderComponent,
     AddIvnItemComponent,
     AddNoteComponent,
+    EditNoteComponent,
     SettingsPage,
     LoginPage,
     RegisterPage,
     EditInvItemComponent,
     SetupPage,
-    LoadingPage
+    LoadingPage,
+    EditReminderComponent
   ],
   imports: [
     BrowserModule,
@@ -69,11 +73,13 @@ import { EditInvItemComponent } from '../components/edit-inv-item/edit-inv-item'
     AddIvnItemComponent,
     EditInvItemComponent,
     AddNoteComponent,
+    EditNoteComponent,
     SettingsPage,
     LoginPage,
     RegisterPage,
     SetupPage,
-    LoadingPage
+    LoadingPage,
+    EditReminderComponent
   ],
   providers: [
     StatusBar,

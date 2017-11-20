@@ -19,7 +19,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 export class AddReminderComponent {
 
   remTitle: string;
-  remDate: string = '11/19/2017';
+  remDate: string = '2017-11-20';
   remTime: string = '12:00';
 
   addRemRef$: AngularFireList<any>
@@ -48,7 +48,7 @@ export class AddReminderComponent {
     });
 
     this.localNotifications.schedule({
-       text: 'Your reminder titled ' + this.remTitle + ' is now active.',
+       text: 'Your reminder titled "' + this.remTitle + '" is now active.',
        at: d,
        led: 'FF0000',
        sound: null
@@ -78,8 +78,8 @@ showAlert(text) {
   }
 
   dismiss() {
-    // this.note = {}
-    //this.viewCtrl.dismiss();
+
+    this.viewCtrl.dismiss();
 
     this.statusBar.overlaysWebView(true);
     this.statusBar.backgroundColorByHexString('#93A3BC');

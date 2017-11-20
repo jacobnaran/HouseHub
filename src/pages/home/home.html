@@ -46,7 +46,7 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <button ion-button block color="dark" >
+            <button ion-button block color="dark" (click)="editRemNote(note.id,note.key)">
               <ion-icon name="clipboard"></ion-icon>
             </button>
           </ion-col>

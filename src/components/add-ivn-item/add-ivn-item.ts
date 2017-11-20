@@ -44,8 +44,8 @@ export class AddIvnItemComponent {
     var newdate = month + "/" + day + "/" + year;
 
 
-    var nDate = new Date();
-    nDate.setDate(d.getDate());
+
+    var nDate = new Date(d.valueOf());
     nDate.setHours(10);
     nDate.setMinutes(0);
     nDate.setSeconds(0);
