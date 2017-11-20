@@ -30,6 +30,7 @@ export class AddNoteComponent {
   // push note to database
   addNote() {
     this.addNoteRef$.push({
+      id: 'Note',
       text: this.noteText,
       timestamp: -1 * Date.now()
     });

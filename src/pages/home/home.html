@@ -34,7 +34,13 @@
       {{ item.name }}
     </ion-card-header> -->
     <ion-card-content >
-      {{ note.text }}
+      <!-- <h6 style="color:#93A3BC;" *ngIf="note.id=='Note'">Testing</h6> -->
+<h6 style="color:#93A3BC;">{{ note.id }}</h6>
+<h1 style="color:#222;">{{ note.text }}</h1>
+<h3 style="color:#4A525A;" *ngIf="note.id=='Reminder'"> Date: {{ note.remDate }}</h3>
+<h3 style="color:#4A525A;" *ngIf="note.id=='Reminder'"> Time: {{ note.remTime }}</h3>
+
+
 
       <!-- style="position:absolute;right:8px;bottom:-3px;" -->
       <ion-grid>
@@ -51,7 +57,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-      
+
     </ion-card-content>
     <!-- <button ion-button item-end class="delete" color="secondary" item-right (click)="deleteNote(note.key)" >
       <ion-icon name="trash"></ion-icon>
