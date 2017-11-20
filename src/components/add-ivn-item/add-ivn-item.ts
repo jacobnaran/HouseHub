@@ -21,7 +21,7 @@ export class AddIvnItemComponent {
               private db: AngularFireDatabase,
               private dbProv: DatabaseProvider,
               private statusBar: StatusBar,
-              public localNotifications: LocalNotifications,) {
+              public localNotifications: LocalNotifications) {
     this.addItemRef$ = this.db.list(`inventory-lists/${dbProv.currentUser.householdKey}`);
     this.inventoryItem.expDate = 'hello';
   }
@@ -44,10 +44,10 @@ export class AddIvnItemComponent {
     var newdate = month + "/" + day + "/" + year;
 
 
-    var nDate = new Date();
-    nDate.setDate(d.getDate());
-    nDate.setHours(5);
-    nDate.setMinutes(20);
+
+    var nDate = new Date(d.valueOf());
+    nDate.setHours(10);
+    nDate.setMinutes(0);
     nDate.setSeconds(0);
     console.log(nDate);
 

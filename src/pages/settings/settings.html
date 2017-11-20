@@ -21,8 +21,10 @@
     <h5 id="account">{{ dbProv.currentUser.name }}</h5>
     <h4><b>Active House</b></h4>
     <h5> {{ dbProv.currentHouseholdName }} </h5>
-    <h4><b>Shareable Code:</b></h4>
+    <h4><b>Shareable Code</b></h4>
     <h5> {{ dbProv.currentUser.householdKey }} </h5>
+    <h4><b>Household Members</b></h4>
+    <h5 *ngFor="let name of members | async"> {{ name }} </h5>
     <br/>
     <br/>
     <button block ion-button color="secondary" (click)="showAlert()" >

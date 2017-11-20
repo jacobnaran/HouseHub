@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-toolbar color="dark">
-    <ion-title>Add Reminder</ion-title>
+    <ion-title>Edit Reminder</ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
         <span ion-text showWhen="ios">Cancel</span>
@@ -15,7 +15,7 @@
 <ion-content padding>
 
   <ion-item>
-    <ion-textarea placeholder="Title" clearInput [(ngModel)]="remTitle"></ion-textarea>
+    <ion-textarea placeholder="Title" clearInput [(ngModel)]="remText"></ion-textarea>
   </ion-item>
 
   <ion-list>
@@ -31,4 +31,4 @@
     </ion-item>
   </ion-list>
 
-  <button ion-button round color ="dark" (click)="done()">Done</button>
+  <button ion-button round color ="dark" (click)="addReminder()">Done</button>
