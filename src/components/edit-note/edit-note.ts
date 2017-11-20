@@ -20,6 +20,7 @@ export class EditNoteComponent {
   addNoteRef$: AngularFireList<any>;
   noteKey: string;
   noteRef: Subscription;
+  origTime: string;
 
   constructor(public viewCtrl: ViewController,
               private db: AngularFireDatabase,
@@ -30,6 +31,7 @@ export class EditNoteComponent {
     this.noteKey = navParams.get('key');
     this.noteRef = db.object(`notes-lists/${this.dbProv.currentUser.householdKey}/${this.noteKey}`).valueChanges().subscribe((note) => {
       this.noteText = note['text'];
+      this.origTime = note['timestamp'];
     });
     this.addNoteRef$ = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`);
   }
@@ -39,7 +41,7 @@ export class EditNoteComponent {
     this.addNoteRef$.update(this.noteKey, {
       id: 'Note',
       text: this.noteText,
-      timestamp: -1 * Date.now()
+      timestamp: this.origTime// -1 * Date.now()
     });
 
     this.dismiss();

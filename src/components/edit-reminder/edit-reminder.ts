@@ -24,6 +24,7 @@ export class EditReminderComponent {
   remRef: Subscription;
   remTime: string;
   remDate: string;
+  origTime: string;
 
   constructor(public viewCtrl: ViewController,
               private db: AngularFireDatabase,
@@ -34,6 +35,7 @@ export class EditReminderComponent {
     this.remKey = navParams.get('key');
     this.remRef = db.object(`notes-lists/${this.dbProv.currentUser.householdKey}/${this.remKey}`).valueChanges().subscribe((note) => {
       this.remText = note['text'];
+      this.origTime = note['timestamp'];
     });
     this.addRemRef$ = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`);
   }
@@ -51,7 +53,7 @@ export class EditReminderComponent {
     this.addRemRef$.update(this.remKey, {
       id: 'Reminder',
       text: this.remText,
-      timestamp: -1 * Date.now(),
+      timestamp: this.origTime,//-1 * Date.now(),
       remDate: month + '/' + d.getDate(),
       remTime: this.remTime
     });
