@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Events, ModalController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { DatabaseProvider } from '../../providers/database/database';
+import { Observable } from 'rxjs/Observable';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 /**
  * Settings page. Displays log-out button, current user, household name, and household key.
@@ -13,18 +15,22 @@ import { DatabaseProvider } from '../../providers/database/database';
 })
 export class SettingsPage {
 
+  members: Observable<any[]>;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public events: Events,
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
-              public dbProv: DatabaseProvider) {
+              public dbProv: DatabaseProvider,
+              public db: AngularFireDatabase) {
+      this.members = this.db.list(`households/${dbProv.currentUser.householdKey}/members`).valueChanges();
   }
 
   // 'About' page
   showAlert() {
       let alert = this.alertCtrl.create({
-        title: 'About Version 3.1',
+        title: 'About Version 3.7',
         subTitle: 'HouseHub allows users of a common living space to easily share information on household matters. With shopping lists, inventories, notes, and reminders, we aim to improve the headspace of our users by simplifying the management of domestic living.',
         message: 'Developed by Bart Martinon, Jacob Naranjo, Skyler Norgaard and Tanush Samson',
         buttons: ['Close']
