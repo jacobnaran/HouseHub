@@ -39,7 +39,6 @@ export class AuthProvider {
 
   private updateUserRef(): void {
     if (this.authenticated) {
-      //console.log(this.currentUserId);
 
       // do not execute code if user data hasn't been pushed yet
       if (this.registering)
@@ -55,6 +54,24 @@ export class AuthProvider {
         this.events.publish('user:update');
       });
     }
+  }
+
+  public updateDisplayName(name: string) {
+    this.db.object(`users/${this.currentUserId}`).update({ name: name });
+    this.db.object(`households/${this.currentUserHouseholdKey}/members/${this.currentUserId}`).set(name);
+  }
+
+  public updateHousehold(id: string) {
+
+    // remove user from current household list
+    this.db.list(`households/${this.currentUserHouseholdKey}/members`).remove(this.currentUserId);
+
+    // add user to new household list
+    this.db.object(`households/${id}/members/${this.currentUserId}`).set(this.currentUserName);
+
+
+    // update user profile
+    this.db.object(`users/${this.currentUserId}`).update({ householdKey: id });
   }
 
   get currentUserId(): string {

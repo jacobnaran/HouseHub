@@ -71,7 +71,8 @@ export class SetupPage {
 
       // proceed if user wants to join and ID exists
       if (action=='join') {
-        this.createOrJoinHousehold(key);
+        this.authProv.updateHousehold(key);
+        that.done();
       }
     });
 
@@ -86,7 +87,8 @@ export class SetupPage {
 
         // proceed if user wants to create and ID doesn't exist
         if (action=='create') {
-          that.createOrJoinHousehold(key);
+          that.authProv.updateHousehold(key);
+          that.done();
         }
 
         // show error if user wants to join and ID doesn't exist
@@ -95,20 +97,6 @@ export class SetupPage {
         }
       }
     }, 500);  // may need to change later
-  }
-
-  // create household with given key
-  createOrJoinHousehold(key: string) {
-
-    // add user to list of household members
-    this.db.object(`households/${key}/members/${this.authProv.currentUserId}`).set(this.authProv.currentUserName);
-
-
-    // update user profile
-    this.db.object(`users/${this.authProv.currentUserId}`).update({ householdKey: key });
-
-    // navigate to home page
-    this.done();
   }
 
   // display dialog box for joining household

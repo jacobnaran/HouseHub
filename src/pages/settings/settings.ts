@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Events, ModalController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, Events, ModalController, AlertController, PopoverController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/database/database';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase } from 'angularfire2/database';
+
+import { SettingsPopPage } from '../settings-pop/settings-pop';
 
 /**
  * Settings page. Displays log-out button, current user, household name, and household key.
@@ -20,6 +22,7 @@ export class SettingsPage {
               public navParams: NavParams,
               public events: Events,
               public alertCtrl: AlertController,
+              public popCtrl: PopoverController,
               public modalCtrl: ModalController,
               public authProv: AuthProvider,
               public db: AngularFireDatabase) {
@@ -79,4 +82,7 @@ export class SettingsPage {
 
     }
 
+    displayPopover(event) {
+      this.popCtrl.create(SettingsPopPage).present({ ev: event });
+    }
 }

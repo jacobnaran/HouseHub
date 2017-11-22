@@ -8,6 +8,13 @@
 
   <ion-navbar>
     <ion-title>Settings</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="displayPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
@@ -15,18 +22,20 @@
 
 <ion-content padding class="Page">
 
-<div class="setText">
+  <div class="setText">
 
     <h4 style="color:#93A3BC;">Active Account</h4>
+    <h5>{{ authProv.currentUserEmail }}</h5>
 
-    <h5 id="account">{{ authProv.currentUser.name }} <ion-icon name="brush"></ion-icon></h5>
+    <h4 style="color:#93A3BC;">Display Name</h4>
+    <h5>{{ authProv.currentUserName }}</h5>
 
     <!-- <h4><b>Active House</b></h4>
     <h5> {{ authProv.currentHouseholdName }} </h5> -->
-    <h4 style="color:#93A3BC;">Shareable Code</h4>
-    <h5> {{ authProv.currentUser.householdKey }} </h5>
+    <h4 style="color:#93A3BC;">Household ID</h4>
+    <h5>{{ authProv.currentUser.householdKey }}</h5>
     <h4 style="color:#93A3BC;">Household Members</h4>
-    <h5 *ngFor="let name of members | async"> {{ name }} </h5>
+    <h5 *ngFor="let member of members | async">{{ member }}</h5>
     <br/>
     <br/>
     <button block ion-button color="secondary" (click)="showAlert()" >
@@ -41,7 +50,6 @@
       Delete account
     </button>
 
-    <!-- <h4><b>About</b></h4> -->
   </div>
 
 </ion-content>
