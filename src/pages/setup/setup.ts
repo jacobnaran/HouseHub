@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController } from 'ionic-angular';
 import { User } from '../../models/user.interface';
 
 import { TabsPage } from '../tabs/tabs';
@@ -11,26 +11,23 @@ import { DatabaseProvider } from '../../providers/database/database';
 
 
 /**
- * Setup page. Allows new user to choose between creating a new household and joining one.
+ * Setup page. Allows a newly registered user to choose between creating a new
+ * household and joining one. Note: if the user closes the app from this page,
+ * (I think) they are added to the household with ID 'nullhouseholdkey'.
  */
- 
+
 
 @Component({
   selector: 'page-setup',
   templateUrl: 'setup.html',
 })
 export class SetupPage {
-  user: User;
   checker: Subscription;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
               public alertCtrl: AlertController,
               public db: AngularFireDatabase,
               public dbProv: DatabaseProvider) {
-
-    // fetch user object from NavParams
-    this.user = navParams.get('user');
   }
 
   // display dialog box for creating household
@@ -104,12 +101,11 @@ export class SetupPage {
   createOrJoinHousehold(key: string) {
 
     // add user to list of household members
-    this.db.object(`households/${key}/members/${this.dbProv.currentUserId}`).set(this.user.name);
+    this.db.object(`households/${key}/members/${this.dbProv.currentUserId}`).set(this.dbProv.currentUserName);
 
 
-    // update user profile (we can change this to update)
-    this.user.householdKey = key;
-    this.db.object(`users/${this.dbProv.currentUserId}`).set(this.user);
+    // update user profile
+    this.db.object(`users/${this.dbProv.currentUserId}`).update({ householdKey: key });
 
     // navigate to home page
     this.done();

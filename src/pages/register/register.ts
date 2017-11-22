@@ -40,7 +40,7 @@ export class RegisterPage {
       try {
         await this.dbProv.emailSignUp(this.user, this.password);
         this.password = '';
-        this.navCtrl.setRoot(SetupPage, {user: this.user});
+        this.navCtrl.setRoot(SetupPage);
       }
       catch (e) {
         // don't wanna put this in but i think i have to

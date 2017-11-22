@@ -67,6 +67,22 @@ export class DatabaseProvider {
     return this.authenticated ? this.authState.uid : '';
   }
 
+  get currentUserName(): string {
+    return this.authenticated ? this.currentUser.name : '';
+  }
+
+  get currentUserEmail(): string {
+    return this.authenticated ? this.currentUser.email : '';
+  }
+
+  get currentUserPrivateKey(): string {
+    return this.authenticated ? this.currentUser.privateKey : '';
+  }
+
+  get currentUserHouseholdKey(): string {
+    return this.authenticated ? this.currentUser.householdKey : '';
+  }
+
   // creates user and logs in
   emailSignUp(newUser: User, password: string) {
     this.registering = true;
@@ -74,8 +90,7 @@ export class DatabaseProvider {
       .then((auth) => {
         this.authState = auth;
         newUser.privateKey = this.db.list('shopping-lists').push(null).key;
-        newUser.householdKey = 'nullhouseholdkey'; // to change later
-        //newUser.householdName = 'null';
+        newUser.householdKey = 'nullhouseholdkey';
         this.db.object(`users/${auth.uid}`).set(newUser);
         this.registering = false;
         this.updateUserRef();
