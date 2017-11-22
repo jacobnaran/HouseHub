@@ -16,7 +16,6 @@ export class AuthProvider {
 
   authState: any = null;
   currentUser = {} as User;
-  currentHouseholdName: string;
   userRef: Subscription;
 
   // whether a user is in the process of registering
@@ -27,7 +26,6 @@ export class AuthProvider {
               public events: Events) {
 
     this.afAuth.authState.subscribe((auth) => {
-      //console.log(auth);
       this.authState = auth;
       this.updateUserRef();
     });
@@ -49,12 +47,8 @@ export class AuthProvider {
 
       this.userRef = this.db.object(`users/${this.currentUserId}`).valueChanges().subscribe((data) => {
         this.currentUser.name = data['name'];
-        this.currentUser.username = data['username'];
         this.currentUser.email = data['email'];
         this.currentUser.householdKey = data['householdKey'];
-        this.db.object(`households/${this.currentUser.householdKey}`).valueChanges().subscribe((dat) => {
-          this.currentHouseholdName = dat['name'];
-        });
         this.currentUser.privateKey = data['privateKey'];
 
         // for updating lists
@@ -83,7 +77,7 @@ export class AuthProvider {
     return this.authenticated ? this.currentUser.householdKey : '';
   }
 
-  // creates user and logs in
+  // create user and logs in
   emailSignUp(newUser: User, password: string) {
     this.registering = true;
     return this.afAuth.auth.createUserWithEmailAndPassword(newUser.email, password)
@@ -102,6 +96,7 @@ export class AuthProvider {
        .catch(error => console.log(error));
   }
 
+  // sign out and clear variables
   async signOut() {
     await this.afAuth.auth.signOut();
     this.userRef.unsubscribe();

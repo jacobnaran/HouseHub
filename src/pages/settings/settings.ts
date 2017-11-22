@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events, ModalController, AlertController } from 'ionic-angular';
-import { LoginPage } from '../login/login';
 import { AuthProvider } from '../../providers/database/database';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase } from 'angularfire2/database';

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, Events, AlertController } from 'ionic-angular';
+import { ViewController, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireList } from 'angularfire2/database';
