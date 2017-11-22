@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, NavController, AlertController } from 'ionic-angular';
+import { ViewController, NavController, AlertController, Events } from 'ionic-angular';
 
 import { SetupPage } from '../setup/setup';
 import { AuthProvider } from '../../providers/database/database';
@@ -20,7 +20,8 @@ export class SettingsPopPage {
   constructor(public viewCtrl: ViewController,
     public navCtrl: NavController,
     public alertCtrl: AlertController,
-    private authProv: AuthProvider) {
+    private authProv: AuthProvider,
+    public events: Events) {
   }
 
   editName() {
@@ -50,6 +51,47 @@ export class SettingsPopPage {
   navigateToSetupPage() {
     this.navCtrl.push(SetupPage);
     this.close();
+  }
+
+  pressDeleteAccount() {
+
+    // prompt for confirmation
+    this.alertCtrl.create({
+      title: 'Delete account?',
+      message: "Are you sure you want to delete your HouseHub account? This action cannot be undone.",
+      buttons: [
+        {
+          text: 'Cancel',
+        },
+        {
+          text: 'OK',
+          handler: data => {
+            this.confirmDeleteAccount();
+          }
+        }
+      ]
+    }).present();
+  }
+
+  confirmDeleteAccount() {
+
+    // call method in AuthProvider
+    this.authProv.deleteAccount();
+
+    // show confirmation alert
+    this.alertCtrl.create({
+      title: 'Success',
+      message: "Your account has been deleted.",
+      buttons: [
+        {
+          text: 'OK',
+        }
+      ]
+    }).present();
+
+    // navigate to login page
+    this.close();
+    this.events.publish('user:logout');
   }
 
   close() {

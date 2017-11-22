@@ -30,10 +30,9 @@
     <h4 style="color:#93A3BC;">Display Name</h4>
     <h5>{{ authProv.currentUserName }}</h5>
 
-    <!-- <h4><b>Active House</b></h4>
-    <h5> {{ authProv.currentHouseholdName }} </h5> -->
     <h4 style="color:#93A3BC;">Household ID</h4>
-    <h5>{{ authProv.currentUser.householdKey }}</h5>
+    <h5>{{ authProv.currentUserHouseholdKey }}</h5>
+    
     <h4 style="color:#93A3BC;">Household Members</h4>
     <h5 *ngFor="let member of members | async">{{ member }}</h5>
     <br/>
@@ -45,11 +44,6 @@
     <button block ion-button color="dark" (click)="logOut()" >
       Log out
     </button>
-    <br/>
-    <button block ion-button color="HHred" (click)="pressDeleteAccount()" >
-      Delete account
-    </button>
-
   </div>
 
 </ion-content>

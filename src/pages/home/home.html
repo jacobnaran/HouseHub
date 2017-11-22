@@ -44,20 +44,21 @@
       <!-- <h6 style="color:#93A3BC;" *ngIf="note.id=='Note'">Testing</h6> -->
 <h6 style="color:#93A3BC;">{{ note.id }}</h6>
 <h1 style="color:#222;">{{ note.text }}</h1>
-<h3 style="color:#4A525A;" *ngIf="note.id=='Reminder'"> Date: {{ note.remDate }}</h3>
-<h3 style="color:#4A525A;" *ngIf="note.id=='Reminder'"> Time: {{ note.remTime }}</h3>
+<h3 style="color:#4A525A;" *ngIf="note.id=='Reminder'">Date: {{ note.remDate }}</h3>
+<h3 style="color:#4A525A;" *ngIf="note.id=='Reminder'">Time: {{ note.remTime }}</h3>
 
 
 
       <!-- style="position:absolute;right:8px;bottom:-3px;" -->
       <ion-grid>
         <ion-row>
-          <ion-col>
-            <button ion-button block color="dark" (click)="editRemNote(note.id,note.key)">
+          <ion-col col-23>
+            <button ion-button block color="dark" (click)="editRemNote(note.id, note.key)">
               <ion-icon name="clipboard"></ion-icon>
             </button>
           </ion-col>
-          <ion-col>
+          <ion-col col-2></ion-col>
+          <ion-col col-23>
             <button ion-button block color="HHred"  (click)="deleteNote(note.key)" >
               <ion-icon name="trash"></ion-icon>
             </button>
