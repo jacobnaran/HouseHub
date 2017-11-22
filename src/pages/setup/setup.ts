@@ -4,12 +4,16 @@ import { User } from '../../models/user.interface';
 
 import { TabsPage } from '../tabs/tabs';
 
+import { Subscription } from 'rxjs/Subscription';
+
 import { AngularFireDatabase } from 'angularfire2/database';
 import { DatabaseProvider } from '../../providers/database/database';
+
 
 /**
  * Setup page. Allows new user to choose between creating a new household and joining one.
  */
+ 
 
 @Component({
   selector: 'page-setup',
@@ -17,6 +21,7 @@ import { DatabaseProvider } from '../../providers/database/database';
 })
 export class SetupPage {
   user: User;
+  checker: Subscription;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -28,93 +33,127 @@ export class SetupPage {
     this.user = navParams.get('user');
   }
 
-  // dialog box for creating household
+  // display dialog box for creating household
   create() {
-    let prompt = this.alertCtrl.create({
-      title: 'New Household',
-      message: "Enter a household name:",
-      inputs: [
-        {
-          name: 'title',
-          placeholder: 'e.g. \'123 Elm Street\''
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-          }
-        },
-        {
-          text: 'OK',
-          handler: data => {
-            this.createHousehold(data.title);
-          }
-        }
-      ]
-    });
-    prompt.present();
-  }
-
-  // create household with randomly generated key
-  createHousehold(title: string) {
-    // create new household key and store in user profile
-    let hhKey = this.db.list('households').push(null).key;
-    this.db.object(`households/${hhKey}/name`).set(title);
-    this.db.list(`households/${hhKey}/members`).push(this.user.name);
-    this.user.householdKey = hhKey;
-
-    // update user profile
-    //this.db.object(`users/${this.currentUserId}`).set(this.user);
-    this.db.object(`users/${this.dbProv.currentUserId}`).set(this.user);
-
-    // navigate to home page
-    this.navCtrl.setRoot(TabsPage);
-  }
-
-  // dialog box for joining household
-  join() {
-    let prompt = this.alertCtrl.create({
-      title: 'Existing Household',
-      message: "Enter the unique household ID (in the settings page):",
+    this.alertCtrl.create({
+      title: 'Create New Household',
+      message: "Enter a unique household ID:",
       inputs: [
         {
           name: 'id',
-          placeholder: 'e.g. -Kxju0ae_6jb-ygcfExJ'
+          placeholder: 'e.g. \'302douglas\''
         },
       ],
       buttons: [
         {
           text: 'Cancel',
-          handler: data => {
-          }
         },
         {
           text: 'OK',
           handler: data => {
-            this.joinHousehold(data.id);
+            this.checkHouseholdId(data.id, 'create');
           }
         }
       ]
-    });
-    prompt.present();
+    }).present();
   }
 
-  // join household with shareable key
-  joinHousehold(id: string) {
+  // check whether a household ID is in use and proceed accordingly
+  checkHouseholdId(key: string, action: string) {
+    // initialize boolean flag
+    var exists = false;
 
-    // create new household key and store in user profile
-    let hhKey = id;
-    this.user.householdKey = hhKey;
+    this.checker = this.db.list(`households/${key}`).valueChanges().first().subscribe(() => {
+      // ID exists
+      exists = true;
 
-    // push user profile to database
+      // show error if user wants to create and ID exists
+      if (action=='create') {
+        this.showError(`The ID \'${key}\' is already in use.`);
+      }
+
+      // proceed if user wants to join and ID exists
+      if (action=='join') {
+        this.createOrJoinHousehold(key);
+      }
+    });
+
+    var that = this;  // workaround (scope issue)
+
+    // perform this if ID has not been found after 500 milliseconds
+    setTimeout(function() {
+      if (!exists) {
+
+        // unsubscribe from 'checker' observable
+        that.checker.unsubscribe();
+
+        // proceed if user wants to create and ID doesn't exist
+        if (action=='create') {
+          that.createOrJoinHousehold(key);
+        }
+
+        // show error if user wants to join and ID doesn't exist
+        if (action=='join') {
+          that.showError(`No household with ID \'${key}\' was found.`);
+        }
+      }
+    }, 500);  // may need to change later
+  }
+
+  // create household with given key
+  createOrJoinHousehold(key: string) {
+
+    // add user to list of household members
+    this.db.object(`households/${key}/members/${this.dbProv.currentUserId}`).set(this.user.name);
+
+
+    // update user profile (we can change this to update)
+    this.user.householdKey = key;
     this.db.object(`users/${this.dbProv.currentUserId}`).set(this.user);
-      // this should automatically update the currentUser object?
-
-    // add user to list of users of that households
-    this.db.list(`households/${hhKey}/members`).push(this.user.name);
 
     // navigate to home page
+    this.done();
+  }
+
+  // display dialog box for joining household
+  join() {
+    this.alertCtrl.create({
+      title: 'Join Existing Household',
+      message: "Enter the household ID:",
+      inputs: [
+        {
+          name: 'id',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+        },
+        {
+          text: 'OK',
+          handler: data => {
+            this.checkHouseholdId(data.id, 'join');
+          }
+        }
+      ]
+    }).present();
+  }
+
+  // error message
+  showError(message: string) {
+    this.alertCtrl.create({
+      title: 'Error',
+      message: message,
+      buttons: [
+        {
+          text: 'OK',
+        }
+      ]
+    }).present();
+  }
+
+  // navigate to home page
+  done() {
     this.navCtrl.setRoot(TabsPage);
   }
 }
