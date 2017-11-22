@@ -13,6 +13,11 @@
     <ion-title>Inventory</ion-title>
 
     <ion-buttons end>
+        <button (click)="chatNav()" class="Settings">
+          <ion-icon name="chatboxes"></ion-icon>
+        </button>
+    </ion-buttons>
+    <ion-buttons end>
      <button (click)="settingsNav()" class="Settings">
      <ion-icon name="settings"></ion-icon>
    </button>
@@ -39,7 +44,7 @@
           document.getElementById('Days').innerHTML = 'HI';
           </script>
           CHECK SCRIPT -->
-          Expires on {{item.weeksLeft}} 
+          Expires on {{item.weeksLeft}}
         </h2>
         <!-- <hr style="clear:both;"/> -->
 

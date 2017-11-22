@@ -3,6 +3,7 @@ import { Events, NavController, NavParams, ModalController, AlertController } fr
 import { Observable } from 'rxjs/Observable';
 
 import { SettingsPage } from '../settings/settings';
+import { ChatPage } from '../chat/chat';
 import { AuthProvider } from '../../providers/database/database';
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -62,6 +63,12 @@ export class HomePage {
   settingsNav()
   {
     this.navCtrl.push(SettingsPage);
+  }
+
+  chatNav()
+  {
+    this.navCtrl.push(ChatPage);
+    //this.app.getRootNav().setRoot(LoginPage);
   }
 
   // toggle button

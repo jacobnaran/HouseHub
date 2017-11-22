@@ -12,6 +12,7 @@ import { AddItemComponent } from '../../components/add-item/add-item';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
 import { SettingsPage } from '../settings/settings';
+import { ChatPage } from '../chat/chat';
 import { AuthProvider } from '../../providers/database/database';
 
 /**
@@ -48,6 +49,12 @@ export class ShoppingListPage {
   settingsNav()
   {
     this.navCtrl.push(SettingsPage);
+  }
+
+  chatNav()
+  {
+    this.navCtrl.push(ChatPage);
+    //this.app.getRootNav().setRoot(LoginPage);
   }
 
   // click floating action button
