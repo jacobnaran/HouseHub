@@ -45,11 +45,9 @@ export class HomePage {
     this.statusBar.overlaysWebView(true);
     this.statusBar.backgroundColorByHexString('#93A3BC');
 
-    // update database reference when user logs in
-    this.updateList();
-    // events.subscribe('user:update', () => {
-    //   this.updateList();
-    // });
+    this.authProv.userUpdates.subscribe(() => {
+      this.updateList();
+    });
   }
 
   // update database reference

@@ -47,11 +47,22 @@ export class SetupPage {
         {
           text: 'OK',
           handler: data => {
-            this.checkHouseholdId(data.id, 'create');
+            if (this.validate(data.id)) {
+              this.checkHouseholdId(data.id, 'create');
+            }
+            else {
+              this.showError('The household ID must contain 5-20 letters, numbers, \'-\' and \'_\'.');
+            }
+
           }
         }
       ]
     }).present();
+  }
+
+  // check input against regex
+  validate(id: string): boolean {
+    return /^[\w-]{5,20}$/.test(id);
   }
 
   // check whether a household ID is in use and proceed accordingly
@@ -115,7 +126,12 @@ export class SetupPage {
         {
           text: 'OK',
           handler: data => {
-            this.checkHouseholdId(data.id, 'join');
+            if (this.validate(data.id)) {
+              this.checkHouseholdId(data.id, 'join');
+            }
+            else {
+              this.showError('The household ID must contain 5-20 letters, numbers, underscores, and dashes.');
+            }
           }
         }
       ]

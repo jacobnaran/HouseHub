@@ -6,6 +6,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from '../../models/user.interface';
 
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
 /*
   source: https://angularfirebase.com/snippets/angularfire2-version-4-authentication-service/
@@ -25,7 +26,7 @@ export class AuthProvider {
 
     this.afAuth.authState.subscribe((auth) => {
       this.authState = auth;
-      this.updateUserRef();
+      this.updateUserRef(); // move this to sign in method
     });
 
   }
@@ -35,6 +36,10 @@ export class AuthProvider {
     return this.authState !== null;
   }
 
+  get userUpdates(): Observable<User> {
+    return this.db.object(`users/${this.currentUserId}`).valueChanges();
+  }
+
   private updateUserRef(): void {
     if (this.authenticated) {
 
@@ -42,12 +47,16 @@ export class AuthProvider {
       if (this.registering)
         return;
 
-      this.userRef = this.db.object(`users/${this.currentUserId}`).valueChanges().subscribe((data) => {
-        if (data!==null) {
-          this.currentUser.name = data['name'];
-          this.currentUser.email = data['email'];
-          this.currentUser.householdKey = data['householdKey'];
-          this.currentUser.privateKey = data['privateKey'];
+      this.userRef = this.userUpdates.subscribe((userData) => {
+        if (userData!==null) {
+          this.currentUser.name = userData.name;
+          this.currentUser.email = userData.email;
+          this.currentUser.householdKey = userData.householdKey;
+          this.currentUser.privateKey = userData.privateKey;
+          // safe to change this to 'this.currentUser = userData'? worried about aliasing
+        }
+        else {
+          console.log('error: user data not found');
         }
       });
     }
@@ -72,7 +81,7 @@ export class AuthProvider {
   }
 
   get currentUserId(): string {
-    return this.authenticated ? this.authState.uid : '';
+    return this.authenticated ? this.authState.uid : 'no-auth';
   }
 
   get currentUserName(): string {
@@ -84,11 +93,11 @@ export class AuthProvider {
   }
 
   get currentUserPrivateKey(): string {
-    return this.authenticated ? this.currentUser.privateKey : '';
+    return this.authenticated ? this.currentUser.privateKey : 'no-auth';
   }
 
   get currentUserHouseholdKey(): string {
-    return this.authenticated ? this.currentUser.householdKey : '';
+    return this.authenticated ? this.currentUser.householdKey : 'no-auth';
   }
 
   // create user and log in

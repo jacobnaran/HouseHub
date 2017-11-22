@@ -39,11 +39,9 @@ export class ShoppingListPage {
               public authProv: AuthProvider,
               private statusBar: StatusBar) {
 
-    this.updateList();
-    // console.log('shopping list constructor');
-    // events.subscribe('user:update', () => {
-    //   this.updateList();
-    // });
+    this.authProv.userUpdates.subscribe(() => {
+      this.updateList();
+    });
   }
 
   // navigate to settings page
@@ -74,7 +72,7 @@ export class ShoppingListPage {
 
   // update key
   updateListKey() {
-    this.listKey = (this.listType=="public" ? this.authProv.currentUser.householdKey : this.authProv.currentUser.privateKey);
+    this.listKey = (this.listType=="public" ? this.authProv.currentUserHouseholdKey : this.authProv.currentUserPrivateKey);
   }
 
   // update shopping list database reference

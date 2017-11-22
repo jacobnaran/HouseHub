@@ -42,12 +42,9 @@ export class InventoryPage {
               private authProv: AuthProvider) {
 
 
-    this.updateList();
-
-    // on user update, update list
-    // events.subscribe('user:update', () => {
-    //   this.updateList();
-    // });
+    this.authProv.userUpdates.subscribe(() => {
+      this.updateList();
+    });
 
     events.subscribe('tab:selected', () => {
       this.closeFab();
