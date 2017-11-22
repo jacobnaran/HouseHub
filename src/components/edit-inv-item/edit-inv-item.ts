@@ -5,7 +5,7 @@ import { InventoryItem } from '../../models/inventory-item.interface';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireList } from 'angularfire2/database';
-import { DatabaseProvider } from '../../providers/database/database';
+import { AuthProvider } from '../../providers/database/database';
 /**
  * Generated class for the EditInvItemComponent component.
  *
@@ -28,14 +28,14 @@ export class EditInvItemComponent {
               public navParams: NavParams,
               private db: AngularFireDatabase,
               private statusBar: StatusBar,
-              private dbProv: DatabaseProvider) {
+              private authProv: AuthProvider) {
 
     this.itemKey = navParams.get('key');
-    db.object(`inventory-lists/${this.dbProv.currentUser.householdKey}/${this.itemKey}`).valueChanges().first().subscribe((item) => {
+    db.object(`inventory-lists/${this.authProv.currentUser.householdKey}/${this.itemKey}`).valueChanges().first().subscribe((item) => {
       this.inventoryItem.name = item['name'];
       this.inventoryItem.weeksLeft = item['weeksLeft'];
     });
-    this.itemsRef = this.db.list(`inventory-lists/${this.dbProv.currentUser.householdKey}`);
+    this.itemsRef = this.db.list(`inventory-lists/${this.authProv.currentUser.householdKey}`);
   }
 
   addItem() {

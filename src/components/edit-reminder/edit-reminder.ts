@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireList } from 'angularfire2/database';
-import { DatabaseProvider } from '../../providers/database/database';
+import { AuthProvider } from '../../providers/database/database';
 import { StatusBar } from '@ionic-native/status-bar';
 
 /**
@@ -25,15 +25,15 @@ export class EditReminderComponent {
 
   constructor(public viewCtrl: ViewController,
               private db: AngularFireDatabase,
-              private dbProv: DatabaseProvider,
+              private authProv: AuthProvider,
               private statusBar: StatusBar,
               public navParams: NavParams) {
 
     this.remKey = navParams.get('key');
-    db.object(`notes-lists/${this.dbProv.currentUser.householdKey}/${this.remKey}`).valueChanges().first().subscribe((note) => {
+    db.object(`notes-lists/${this.authProv.currentUser.householdKey}/${this.remKey}`).valueChanges().first().subscribe((note) => {
       this.remText = note['text'];
     });
-    this.notesRef = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`);
+    this.notesRef = this.db.list(`notes-lists/${this.authProv.currentUser.householdKey}`);
   }
 
   // push reminder to database

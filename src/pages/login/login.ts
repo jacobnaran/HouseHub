@@ -3,7 +3,7 @@ import { NavController, NavParams,AlertController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from '../register/register';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { DatabaseProvider } from '../../providers/database/database';
+import { AuthProvider } from '../../providers/database/database';
 import { StatusBar } from '@ionic-native/status-bar';
 
 /**
@@ -23,7 +23,7 @@ export class LoginPage {
               public navParams: NavParams,
               public afAuth: AngularFireAuth,
               public alertCtrl: AlertController,
-              public dbProv: DatabaseProvider,
+              public authProv: AuthProvider,
               private statusBar: StatusBar) {
 
   }
@@ -52,7 +52,7 @@ export class LoginPage {
   // sign in as a guest (mainly for testing)
   signInAsGuest() {
     var that = this;
-    this.dbProv.emailLogin('guest@househub.com', 'password');
+    this.authProv.emailLogin('guest@househub.com', 'password');
     setTimeout(function() {
       that.navCtrl.setRoot(TabsPage);
     }, 750);
@@ -69,5 +69,5 @@ export class LoginPage {
       that.showAlert();
     });
   }
-  
+
 }

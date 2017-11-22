@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController, NavController } from 'ionic-angular';
-import { DatabaseProvider } from '../../providers/database/database';
+import { AuthProvider } from '../../providers/database/database';
 import { SetupPage } from '../setup/setup';
 import { User } from '../../models/user.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -21,7 +21,7 @@ export class RegisterPage {
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
-              private dbProv: DatabaseProvider,
+              private authProv: AuthProvider,
               public formBuilder: FormBuilder) {
     this.submitAttempt = false;
 
@@ -38,13 +38,13 @@ export class RegisterPage {
     this.submitAttempt = true;
     if (this.userForm.valid) {
       try {
-        await this.dbProv.emailSignUp(this.user, this.password);
+        await this.authProv.emailSignUp(this.user, this.password);
         this.password = '';
-        this.navCtrl.setRoot(SetupPage, {user: this.user});
+        this.navCtrl.setRoot(SetupPage);
       }
       catch (e) {
         // don't wanna put this in but i think i have to
-        this.dbProv.registering = false;
+        this.authProv.registering = false;
         console.log(e);
       }
     }

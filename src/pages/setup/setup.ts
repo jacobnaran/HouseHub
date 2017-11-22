@@ -1,120 +1,158 @@
 import { Component } from '@angular/core';
-import { AlertController, NavController, NavParams } from 'ionic-angular';
-import { User } from '../../models/user.interface';
+import { AlertController, NavController } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs';
 
+import { Subscription } from 'rxjs/Subscription';
+
 import { AngularFireDatabase } from 'angularfire2/database';
-import { DatabaseProvider } from '../../providers/database/database';
+import { AuthProvider } from '../../providers/database/database';
+
 
 /**
- * Setup page. Allows new user to choose between creating a new household and joining one.
+ * Setup page. Allows a newly registered user to choose between creating a new
+ * household and joining one. Note: if the user closes the app from this page,
+ * (I think) they are added to the household with ID 'nullhouseholdkey'.
  */
+
 
 @Component({
   selector: 'page-setup',
   templateUrl: 'setup.html',
 })
 export class SetupPage {
-  user: User;
+  checker: Subscription;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
               public alertCtrl: AlertController,
               public db: AngularFireDatabase,
-              public dbProv: DatabaseProvider) {
-
-    // fetch user object from NavParams
-    this.user = navParams.get('user');
+              public authProv: AuthProvider) {
   }
 
-  // dialog box for creating household
+  // display dialog box for creating household
   create() {
-    let prompt = this.alertCtrl.create({
-      title: 'New Household',
-      message: "Enter a household name:",
-      inputs: [
-        {
-          name: 'title',
-          placeholder: 'e.g. \'123 Elm Street\''
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-          }
-        },
-        {
-          text: 'OK',
-          handler: data => {
-            this.createHousehold(data.title);
-          }
-        }
-      ]
-    });
-    prompt.present();
-  }
-
-  // create household with randomly generated key
-  createHousehold(title: string) {
-    // create new household key and store in user profile
-    let hhKey = this.db.list('households').push(null).key;
-    this.db.object(`households/${hhKey}/name`).set(title);
-    this.db.list(`households/${hhKey}/members`).push(this.user.name);
-    this.user.householdKey = hhKey;
-
-    // update user profile
-    //this.db.object(`users/${this.currentUserId}`).set(this.user);
-    this.db.object(`users/${this.dbProv.currentUserId}`).set(this.user);
-
-    // navigate to home page
-    this.navCtrl.setRoot(TabsPage);
-  }
-
-  // dialog box for joining household
-  join() {
-    let prompt = this.alertCtrl.create({
-      title: 'Existing Household',
-      message: "Enter the unique household ID (in the settings page):",
+    this.alertCtrl.create({
+      title: 'Create New Household',
+      message: "Enter a unique household ID:",
       inputs: [
         {
           name: 'id',
-          placeholder: 'e.g. -Kxju0ae_6jb-ygcfExJ'
+          placeholder: 'e.g. \'302douglas\''
         },
       ],
       buttons: [
         {
           text: 'Cancel',
-          handler: data => {
-          }
         },
         {
           text: 'OK',
           handler: data => {
-            this.joinHousehold(data.id);
+            if (this.validate(data.id)) {
+              this.checkHouseholdId(data.id, 'create');
+            }
+            else {
+              this.showError('The household ID must contain 5-20 letters, numbers, \'-\' and \'_\'.');
+            }
+
           }
         }
       ]
-    });
-    prompt.present();
+    }).present();
   }
 
-  // join household with shareable key
-  joinHousehold(id: string) {
+  // check input against regex
+  validate(id: string): boolean {
+    return /^[\w-]{5,20}$/.test(id);
+  }
 
-    // create new household key and store in user profile
-    let hhKey = id;
-    this.user.householdKey = hhKey;
+  // check whether a household ID is in use and proceed accordingly
+  checkHouseholdId(key: string, action: string) {
+    // initialize boolean flag
+    var exists = false;
 
-    // push user profile to database
-    this.db.object(`users/${this.dbProv.currentUserId}`).set(this.user);
-      // this should automatically update the currentUser object?
+    this.checker = this.db.list(`households/${key}`).valueChanges().first().subscribe(() => {
+      // ID exists
+      exists = true;
 
-    // add user to list of users of that households
-    this.db.list(`households/${hhKey}/members`).push(this.user.name);
+      // show error if user wants to create and ID exists
+      if (action=='create') {
+        this.showError(`The ID \'${key}\' is already in use.`);
+      }
 
-    // navigate to home page
+      // proceed if user wants to join and ID exists
+      if (action=='join') {
+        this.authProv.updateHousehold(key);
+        that.done();
+      }
+    });
+
+    var that = this;  // workaround (scope issue)
+
+    // perform this if ID has not been found after 500 milliseconds
+    setTimeout(function() {
+      if (!exists) {
+
+        // unsubscribe from 'checker' observable
+        that.checker.unsubscribe();
+
+        // proceed if user wants to create and ID doesn't exist
+        if (action=='create') {
+          that.authProv.updateHousehold(key);
+          that.done();
+        }
+
+        // show error if user wants to join and ID doesn't exist
+        if (action=='join') {
+          that.showError(`No household with ID \'${key}\' was found.`);
+        }
+      }
+    }, 500);  // may need to change later
+  }
+
+  // display dialog box for joining household
+  join() {
+    this.alertCtrl.create({
+      title: 'Join Existing Household',
+      message: "Enter the household ID:",
+      inputs: [
+        {
+          name: 'id',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+        },
+        {
+          text: 'OK',
+          handler: data => {
+            if (this.validate(data.id)) {
+              this.checkHouseholdId(data.id, 'join');
+            }
+            else {
+              this.showError('The household ID must contain 5-20 letters, numbers, underscores, and dashes.');
+            }
+          }
+        }
+      ]
+    }).present();
+  }
+
+  // error message
+  showError(message: string) {
+    this.alertCtrl.create({
+      title: 'Error',
+      message: message,
+      buttons: [
+        {
+          text: 'OK',
+        }
+      ]
+    }).present();
+  }
+
+  // navigate to home page
+  done() {
     this.navCtrl.setRoot(TabsPage);
   }
 }

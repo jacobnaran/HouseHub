@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Events, ModalController, AlertController } from 'ionic-angular';
-import { LoginPage } from '../login/login';
-import { DatabaseProvider } from '../../providers/database/database';
+import { NavController, NavParams, Events, ModalController, AlertController, PopoverController } from 'ionic-angular';
+import { AuthProvider } from '../../providers/database/database';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase } from 'angularfire2/database';
+
+import { SettingsPopPage } from '../settings-pop/settings-pop';
 
 /**
  * Settings page. Displays log-out button, current user, household name, and household key.
@@ -21,10 +22,11 @@ export class SettingsPage {
               public navParams: NavParams,
               public events: Events,
               public alertCtrl: AlertController,
+              public popCtrl: PopoverController,
               public modalCtrl: ModalController,
-              public dbProv: DatabaseProvider,
+              public authProv: AuthProvider,
               public db: AngularFireDatabase) {
-      this.members = this.db.list(`households/${dbProv.currentUser.householdKey}/members`).valueChanges();
+      this.members = this.db.list(`households/${authProv.currentUser.householdKey}/members`).valueChanges();
   }
 
   // 'About' page
@@ -41,7 +43,7 @@ export class SettingsPage {
     // Log out
     logOut()
     {
-      this.dbProv.signOut();
+      this.authProv.signOut();
 
       // publish event for global function in app.component.ts
       this.events.publish('user:logout');
@@ -49,10 +51,11 @@ export class SettingsPage {
     }
 
     // Log out
-    deleteAcct()
-    {
+    pressDeleteAccount() {
+
+      // prompt for confirmation
       this.alertCtrl.create({
-        title: 'Delete account',
+        title: 'Delete account?',
         message: "Are you sure you want to delete your HouseHub account? This action cannot be undone.",
         buttons: [
           {
@@ -61,23 +64,34 @@ export class SettingsPage {
           {
             text: 'OK',
             handler: data => {
-              this.alertCtrl.create({
-                title: 'Error',
-                message: "Sorry, this function has not been implemented yet.",
-                buttons: [
-                  {
-                    text: 'OK',
-                  }
-                ]
-              }).present();
+              this.confirmDeleteAccount();
             }
           }
         ]
       }).present();
-
-      //this.dbProv.deleteUser();
-      //this.events.publish('user:logout');
-
     }
 
+    displayPopover(event) {
+      this.popCtrl.create(SettingsPopPage).present({ ev: event });
+    }
+
+    confirmDeleteAccount() {
+
+      // call method in AuthProvider
+      this.authProv.deleteAccount();
+
+      // show confirmation alert
+      this.alertCtrl.create({
+        title: 'Success',
+        message: "Your account has been deleted.",
+        buttons: [
+          {
+            text: 'OK',
+          }
+        ]
+      }).present();
+
+      // navigate to login page
+      this.events.publish('user:logout');
+    }
 }

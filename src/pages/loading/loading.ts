@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { DatabaseProvider } from '../../providers/database/database';
+import { AuthProvider } from '../../providers/database/database';
 
 import { TabsPage } from '../tabs/tabs';
 import { LoginPage } from '../login/login';
@@ -15,20 +15,20 @@ import { LoginPage } from '../login/login';
 })
 export class LoadingPage {
 
-  constructor(public navCtrl: NavController, private dbProv: DatabaseProvider) {
+  constructor(public navCtrl: NavController, private authProv: AuthProvider) {
 
-    // timeout needed because it takes a while for dbProv to grab authState
+    // timeout needed because it takes a while for authProv to grab authState
     var that = this;
     setTimeout(function() {
       
       // navigate to correct page
-      if (that.dbProv.authenticated) {
+      if (that.authProv.authenticated) {
         that.navCtrl.setRoot(TabsPage);
       }
       else {
         that.navCtrl.setRoot(LoginPage);
       }
-    }, 3000); // 3-second delay for DatabaseProvider to fetch auth state
+    }, 3000); // 3-second delay for AuthProvider to fetch auth state
   }
 
 }

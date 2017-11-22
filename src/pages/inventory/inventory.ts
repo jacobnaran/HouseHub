@@ -9,7 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SettingsPage} from '../settings/settings';
 import { EditInvItemComponent } from '../../components/edit-inv-item/edit-inv-item';
-import { DatabaseProvider } from '../../providers/database/database';
+import { AuthProvider } from '../../providers/database/database';
 
 
 /**
@@ -39,13 +39,10 @@ export class InventoryPage {
               public modalCtrl: ModalController,
               private statusBar: StatusBar,
               public localNotifications: LocalNotifications,
-              private dbProv: DatabaseProvider) {
+              private authProv: AuthProvider) {
 
 
-    this.updateList();
-
-    // on user update, update list
-    events.subscribe('user:update', () => {
+    this.authProv.userUpdates.subscribe(() => {
       this.updateList();
     });
 
@@ -57,7 +54,7 @@ export class InventoryPage {
   }
 
   updateList() {
-    this.itemsRef = this.db.list(`inventory-lists/${this.dbProv.currentUser.householdKey}`);
+    this.itemsRef = this.db.list(`inventory-lists/${this.authProv.currentUser.householdKey}`);
     this.items = this.itemsRef.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });

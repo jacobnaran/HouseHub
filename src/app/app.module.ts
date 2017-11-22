@@ -10,7 +10,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { FIREBASE_CREDENTIALS } from './firebase.credentials';
-import { DatabaseProvider } from '../providers/database/database';
+import { AuthProvider } from '../providers/database/database';
 
 // pages
 import { MyApp } from './app.component';
@@ -18,10 +18,11 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { ShoppingListPage } from '../pages/shopping-list/shopping-list';
 import { InventoryPage } from '../pages/inventory/inventory';
-import { SettingsPage} from '../pages/settings/settings';
+import { SettingsPage } from '../pages/settings/settings';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { SetupPage } from '../pages/setup/setup';
+import { SettingsPopPage } from '../pages/settings-pop/settings-pop';
 import { LoadingPage } from '../pages/loading/loading';
 
 // components
@@ -52,7 +53,8 @@ import { EditReminderComponent } from '../components/edit-reminder/edit-reminder
     EditInvItemComponent,
     SetupPage,
     LoadingPage,
-    EditReminderComponent
+    EditReminderComponent,
+    SettingsPopPage
   ],
   imports: [
     BrowserModule,
@@ -79,14 +81,15 @@ import { EditReminderComponent } from '../components/edit-reminder/edit-reminder
     RegisterPage,
     SetupPage,
     LoadingPage,
-    EditReminderComponent
+    EditReminderComponent,
+    SettingsPopPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     LocalNotifications,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DatabaseProvider
+    AuthProvider
   ]
 })
 export class AppModule {}

@@ -12,7 +12,7 @@ import { AddItemComponent } from '../../components/add-item/add-item';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
 import { SettingsPage } from '../settings/settings';
-import { DatabaseProvider } from '../../providers/database/database';
+import { AuthProvider } from '../../providers/database/database';
 
 /**
 * Displays public or private shopping list. FAB allows user to add an item. Dropdown menu changes between private and public.
@@ -36,12 +36,10 @@ export class ShoppingListPage {
               private db: AngularFireDatabase,
               public events: Events,
               public alertCtrl: AlertController,
-              public dbProv: DatabaseProvider,
+              public authProv: AuthProvider,
               private statusBar: StatusBar) {
 
-    // update list whenever user logs in
-    this.updateList();
-    events.subscribe('user:update', () => {
+    this.authProv.userUpdates.subscribe(() => {
       this.updateList();
     });
   }
@@ -74,7 +72,7 @@ export class ShoppingListPage {
 
   // update key
   updateListKey() {
-    this.listKey = (this.listType=="public" ? this.dbProv.currentUser.householdKey : this.dbProv.currentUser.privateKey);
+    this.listKey = (this.listType=="public" ? this.authProv.currentUserHouseholdKey : this.authProv.currentUserPrivateKey);
   }
 
   // update shopping list database reference
