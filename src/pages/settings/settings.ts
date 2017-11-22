@@ -50,48 +50,7 @@ export class SettingsPage {
 
     }
 
-    // Log out
-    pressDeleteAccount() {
-
-      // prompt for confirmation
-      this.alertCtrl.create({
-        title: 'Delete account?',
-        message: "Are you sure you want to delete your HouseHub account? This action cannot be undone.",
-        buttons: [
-          {
-            text: 'Cancel',
-          },
-          {
-            text: 'OK',
-            handler: data => {
-              this.confirmDeleteAccount();
-            }
-          }
-        ]
-      }).present();
-    }
-
     displayPopover(event) {
       this.popCtrl.create(SettingsPopPage).present({ ev: event });
-    }
-
-    confirmDeleteAccount() {
-
-      // call method in AuthProvider
-      this.authProv.deleteAccount();
-
-      // show confirmation alert
-      this.alertCtrl.create({
-        title: 'Success',
-        message: "Your account has been deleted.",
-        buttons: [
-          {
-            text: 'OK',
-          }
-        ]
-      }).present();
-
-      // navigate to login page
-      this.events.publish('user:logout');
     }
 }

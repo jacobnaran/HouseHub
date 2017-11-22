@@ -103,7 +103,7 @@ export class SetupPage {
 
         // show error if user wants to join and ID doesn't exist
         if (action=='join') {
-          that.showError(`No household with ID \'${key}\' was found.`);
+          that.showError(`No household with ID \'${key}\' was found. Remember that ID's are case-sensitive.`);
         }
       }
     }, 500);  // may need to change later
