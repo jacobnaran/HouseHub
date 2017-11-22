@@ -22,7 +22,8 @@ $app-direction: ltr;
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
-
+$grid-padding-width: 0px; // default 10px
+$grid-columns: 48; // default 12
 $background-color: #4A525A;
 
 // Named Color Variables
