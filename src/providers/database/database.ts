@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
+
 import { User } from '../../models/user.interface';
+
 import { Subscription } from 'rxjs/Subscription';
-import { Events } from 'ionic-angular';
 
 /*
   source: https://angularfirebase.com/snippets/angularfire2-version-4-authentication-service/
@@ -21,9 +21,7 @@ export class AuthProvider {
   // whether a user is in the process of registering
   registering: boolean = false;
 
-  constructor(private afAuth: AngularFireAuth,
-              private db: AngularFireDatabase,
-              public events: Events) {
+  constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
 
     this.afAuth.authState.subscribe((auth) => {
       this.authState = auth;
@@ -45,13 +43,12 @@ export class AuthProvider {
         return;
 
       this.userRef = this.db.object(`users/${this.currentUserId}`).valueChanges().subscribe((data) => {
-        this.currentUser.name = data['name'];
-        this.currentUser.email = data['email'];
-        this.currentUser.householdKey = data['householdKey'];
-        this.currentUser.privateKey = data['privateKey'];
-
-        // for updating lists
-        //this.events.publish('user:update');
+        if (data!==null) {
+          this.currentUser.name = data['name'];
+          this.currentUser.email = data['email'];
+          this.currentUser.householdKey = data['householdKey'];
+          this.currentUser.privateKey = data['privateKey'];
+        }
       });
     }
   }
@@ -94,7 +91,7 @@ export class AuthProvider {
     return this.authenticated ? this.currentUser.householdKey : '';
   }
 
-  // create user and logs in
+  // create user and log in
   emailSignUp(newUser: User, password: string) {
     this.registering = true;
     return this.afAuth.auth.createUserWithEmailAndPassword(newUser.email, password)
@@ -113,10 +110,35 @@ export class AuthProvider {
        .catch(error => console.log(error));
   }
 
-  // sign out and clear variables
+  // sign out then clear variables
   async signOut() {
     await this.afAuth.auth.signOut();
     this.userRef.unsubscribe();
     this.currentUser = {} as User;
+  }
+
+  deleteAccount() {
+    // temporarily store user id and auth object
+    let id = this.currentUserId;
+    let hhKey = this.currentUserHouseholdKey;
+    let privKey = this.currentUserPrivateKey;
+    let userDel = this.authState;
+
+    // sign out user
+    this.signOut();
+
+    // wait 1 second
+    let that = this;
+    setTimeout(function() {
+
+      // clear user from database
+      that.db.list('users').remove(id);
+      that.db.list(`households/${hhKey}/members`).remove(id);
+      that.db.list('shopping-lists').remove(privKey);
+
+      // delete user account on firebase
+      userDel.delete();
+
+    }, 1000);
   }
 }
