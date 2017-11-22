@@ -24,6 +24,7 @@ import { RegisterPage } from '../pages/register/register';
 import { SetupPage } from '../pages/setup/setup';
 import { SettingsPopPage } from '../pages/settings-pop/settings-pop';
 import { LoadingPage } from '../pages/loading/loading';
+import { ChatPage } from '../pages/chat/chat';
 
 // components
 import { AddItemComponent } from '../components/add-item/add-item';
@@ -54,7 +55,8 @@ import { EditReminderComponent } from '../components/edit-reminder/edit-reminder
     SetupPage,
     LoadingPage,
     EditReminderComponent,
-    SettingsPopPage
+    SettingsPopPage,
+    ChatPage
   ],
   imports: [
     BrowserModule,
@@ -82,7 +84,8 @@ import { EditReminderComponent } from '../components/edit-reminder/edit-reminder
     SetupPage,
     LoadingPage,
     EditReminderComponent,
-    SettingsPopPage
+    SettingsPopPage,
+    ChatPage
   ],
   providers: [
     StatusBar,

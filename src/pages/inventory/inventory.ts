@@ -10,7 +10,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SettingsPage} from '../settings/settings';
 import { EditInvItemComponent } from '../../components/edit-inv-item/edit-inv-item';
 import { AuthProvider } from '../../providers/database/database';
-
+import { ChatPage } from '../chat/chat';
 
 /**
  * Generated class for the InventoryPage page.
@@ -69,6 +69,12 @@ ionViewDidLoad()
   settingsNav()
   {
     this.navCtrl.push(SettingsPage);
+  }
+
+  chatNav()
+  {
+    this.navCtrl.push(ChatPage);
+    //this.app.getRootNav().setRoot(LoginPage);
   }
 
  showAlert() {
