@@ -6,7 +6,7 @@ import { InventoryItem } from '../../models/inventory-item.interface';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireList } from 'angularfire2/database';
-import { DatabaseProvider } from '../../providers/database/database';
+import { AuthProvider } from '../../providers/database/database';
 
 @Component({
   selector: 'add-ivn-item',
@@ -19,10 +19,10 @@ export class AddIvnItemComponent {
 
   constructor(public viewCtrl: ViewController,
               private db: AngularFireDatabase,
-              private dbProv: DatabaseProvider,
+              private authProv: AuthProvider,
               private statusBar: StatusBar,
               public localNotifications: LocalNotifications) {
-    this.addItemRef$ = this.db.list(`inventory-lists/${dbProv.currentUser.householdKey}`);
+    this.addItemRef$ = this.db.list(`inventory-lists/${authProv.currentUser.householdKey}`);
     this.inventoryItem.expDate = 'hello';
   }
 

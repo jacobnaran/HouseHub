@@ -7,7 +7,7 @@ import { TabsPage } from '../tabs/tabs';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AngularFireDatabase } from 'angularfire2/database';
-import { DatabaseProvider } from '../../providers/database/database';
+import { AuthProvider } from '../../providers/database/database';
 
 
 /**
@@ -27,7 +27,7 @@ export class SetupPage {
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
               public db: AngularFireDatabase,
-              public dbProv: DatabaseProvider) {
+              public authProv: AuthProvider) {
   }
 
   // display dialog box for creating household
@@ -101,11 +101,11 @@ export class SetupPage {
   createOrJoinHousehold(key: string) {
 
     // add user to list of household members
-    this.db.object(`households/${key}/members/${this.dbProv.currentUserId}`).set(this.dbProv.currentUserName);
+    this.db.object(`households/${key}/members/${this.authProv.currentUserId}`).set(this.authProv.currentUserName);
 
 
     // update user profile
-    this.db.object(`users/${this.dbProv.currentUserId}`).update({ householdKey: key });
+    this.db.object(`users/${this.authProv.currentUserId}`).update({ householdKey: key });
 
     // navigate to home page
     this.done();

@@ -12,7 +12,7 @@ import { Events } from 'ionic-angular';
 */
 
 @Injectable()
-export class DatabaseProvider {
+export class AuthProvider {
 
   authState: any = null;
   currentUser = {} as User;

@@ -3,7 +3,7 @@ import { ViewController, NavParams } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireList } from 'angularfire2/database';
-import { DatabaseProvider } from '../../providers/database/database';
+import { AuthProvider } from '../../providers/database/database';
 
 /**
  * Page to edit a note on the home page.
@@ -21,15 +21,15 @@ export class EditNoteComponent {
 
   constructor(public viewCtrl: ViewController,
               private db: AngularFireDatabase,
-              private dbProv: DatabaseProvider,
+              private authProv: AuthProvider,
               private statusBar: StatusBar,
               public navParams: NavParams) {
 
     this.noteKey = navParams.get('key');
-    db.object(`notes-lists/${this.dbProv.currentUser.householdKey}/${this.noteKey}`).valueChanges().first().subscribe((note) => {
+    db.object(`notes-lists/${this.authProv.currentUser.householdKey}/${this.noteKey}`).valueChanges().first().subscribe((note) => {
       this.noteText = note['text'];
     });
-    this.notesRef = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`);
+    this.notesRef = this.db.list(`notes-lists/${this.authProv.currentUser.householdKey}`);
   }
 
   // push note to database

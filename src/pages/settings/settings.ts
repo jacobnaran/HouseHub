@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events, ModalController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
-import { DatabaseProvider } from '../../providers/database/database';
+import { AuthProvider } from '../../providers/database/database';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase } from 'angularfire2/database';
 
@@ -22,9 +22,9 @@ export class SettingsPage {
               public events: Events,
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
-              public dbProv: DatabaseProvider,
+              public authProv: AuthProvider,
               public db: AngularFireDatabase) {
-      this.members = this.db.list(`households/${dbProv.currentUser.householdKey}/members`).valueChanges();
+      this.members = this.db.list(`households/${authProv.currentUser.householdKey}/members`).valueChanges();
   }
 
   // 'About' page
@@ -41,7 +41,7 @@ export class SettingsPage {
     // Log out
     logOut()
     {
-      this.dbProv.signOut();
+      this.authProv.signOut();
 
       // publish event for global function in app.component.ts
       this.events.publish('user:logout');
@@ -75,7 +75,7 @@ export class SettingsPage {
         ]
       }).present();
 
-      //this.dbProv.deleteUser();
+      //this.authProv.deleteUser();
       //this.events.publish('user:logout');
 
     }

@@ -10,7 +10,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { FIREBASE_CREDENTIALS } from './firebase.credentials';
-import { DatabaseProvider } from '../providers/database/database';
+import { AuthProvider } from '../providers/database/database';
 
 // pages
 import { MyApp } from './app.component';
@@ -86,7 +86,7 @@ import { EditReminderComponent } from '../components/edit-reminder/edit-reminder
     SplashScreen,
     LocalNotifications,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DatabaseProvider
+    AuthProvider
   ]
 })
 export class AppModule {}

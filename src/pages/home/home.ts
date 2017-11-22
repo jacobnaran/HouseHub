@@ -3,7 +3,7 @@ import { Events, NavController, NavParams, ModalController, AlertController } fr
 import { Observable } from 'rxjs/Observable';
 
 import { SettingsPage } from '../settings/settings';
-import { DatabaseProvider } from '../../providers/database/database';
+import { AuthProvider } from '../../providers/database/database';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
@@ -34,7 +34,7 @@ export class HomePage {
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
               public db: AngularFireDatabase,
-              public dbProv: DatabaseProvider,
+              public authProv: AuthProvider,
               private statusBar: StatusBar) {
 
     // close fab on tab change
@@ -54,7 +54,7 @@ export class HomePage {
 
   // update database reference
   updateList() {
-    this.notesRef = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`, ref => ref.orderByChild('timestamp'));
+    this.notesRef = this.db.list(`notes-lists/${this.authProv.currentUser.householdKey}`, ref => ref.orderByChild('timestamp'));
     this.notes = this.notesRef.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });

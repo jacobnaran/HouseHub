@@ -3,7 +3,7 @@ import { ViewController, Events, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireList } from 'angularfire2/database';
-import { DatabaseProvider } from '../../providers/database/database';
+import { AuthProvider } from '../../providers/database/database';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
 /**
@@ -24,9 +24,9 @@ export class AddReminderComponent {
 
   addRemRef$: AngularFireList<any>
 
-  constructor(public viewCtrl: ViewController, private dbProv: DatabaseProvider, private db: AngularFireDatabase, public statusBar: StatusBar, public alertCtrl: AlertController, public localNotifications: LocalNotifications) {
+  constructor(public viewCtrl: ViewController, private authProv: AuthProvider, private db: AngularFireDatabase, public statusBar: StatusBar, public alertCtrl: AlertController, public localNotifications: LocalNotifications) {
     //this.remTime = this.calculateTime('-5');
-    this.addRemRef$ = this.db.list(`notes-lists/${this.dbProv.currentUser.householdKey}`);
+    this.addRemRef$ = this.db.list(`notes-lists/${this.authProv.currentUser.householdKey}`);
   }
 
   done() {
