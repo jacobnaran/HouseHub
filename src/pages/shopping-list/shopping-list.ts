@@ -39,11 +39,11 @@ export class ShoppingListPage {
               public authProv: AuthProvider,
               private statusBar: StatusBar) {
 
-    // update list whenever user logs in
     this.updateList();
-    events.subscribe('user:update', () => {
-      this.updateList();
-    });
+    // console.log('shopping list constructor');
+    // events.subscribe('user:update', () => {
+    //   this.updateList();
+    // });
   }
 
   // navigate to settings page

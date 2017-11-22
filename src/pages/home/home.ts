@@ -47,9 +47,9 @@ export class HomePage {
 
     // update database reference when user logs in
     this.updateList();
-    events.subscribe('user:update', () => {
-      this.updateList();
-    });
+    // events.subscribe('user:update', () => {
+    //   this.updateList();
+    // });
   }
 
   // update database reference

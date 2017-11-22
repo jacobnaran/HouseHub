@@ -51,7 +51,7 @@ export class AuthProvider {
         this.currentUser.privateKey = data['privateKey'];
 
         // for updating lists
-        this.events.publish('user:update');
+        //this.events.publish('user:update');
       });
     }
   }

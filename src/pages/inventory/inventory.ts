@@ -45,9 +45,9 @@ export class InventoryPage {
     this.updateList();
 
     // on user update, update list
-    events.subscribe('user:update', () => {
-      this.updateList();
-    });
+    // events.subscribe('user:update', () => {
+    //   this.updateList();
+    // });
 
     events.subscribe('tab:selected', () => {
       this.closeFab();
