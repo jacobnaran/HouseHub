@@ -51,10 +51,9 @@ export class ShoppingListPage {
     this.navCtrl.push(SettingsPage);
   }
 
-  chatNav()
+  openChat()
   {
-    this.navCtrl.push(ChatPage);
-    //this.app.getRootNav().setRoot(LoginPage);
+    this.events.publish('chat:open');
   }
 
   // click floating action button

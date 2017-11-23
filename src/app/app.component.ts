@@ -6,6 +6,7 @@ import { AuthProvider } from '../providers/database/database';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { LoadingPage } from '../pages/loading/loading';
+import { ChatPage } from '../pages/chat/chat';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,6 +24,10 @@ export class MyApp {
     // listen for logout event then sets login page as root
     this.events.subscribe('user:logout', () => {
       this.app.getRootNav().setRoot(LoginPage);
+    });
+
+    this.events.subscribe('chat:open', () => {
+      this.app.getRootNav().push(ChatPage);
     });
 
     platform.ready().then(() => {
