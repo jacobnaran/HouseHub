@@ -1,12 +1,7 @@
-<!--
-  Generated template for the SettingsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
+
     <ion-title>Settings</ion-title>
 
     <ion-buttons end>
@@ -35,15 +30,18 @@
     
     <h4 style="color:#93A3BC;">Household Members</h4>
     <h5 *ngFor="let member of members | async">{{ member }}</h5>
-    <br/>
-    <button block ion-button color="secondary" (click)="showAlert()" >
-      About &nbsp;
-      <ion-icon class="icon" name="information-circle"></ion-icon>
-    </button>
-    <br/>
-    <button block ion-button color="dark" (click)="logOut()" >
-      Log out
-    </button>
+
   </div>
+
+  <br/>
+  <button block ion-button color="secondary" (click)="showAlert()" >
+    About &nbsp;
+    <ion-icon class="icon" name="information-circle"></ion-icon>
+  </button>
+
+  <br/>
+  <button ion-button block color="dark" (click)="logOut()" >
+    Log out
+  </button>
 
 </ion-content>

@@ -76,6 +76,10 @@ export class ShoppingListPage {
     this.itemsRef.remove(key);
   }
 
+  clearAllItems() {
+    this.itemsRef.remove();
+  }
+
   // update key
   updateListKey() {
     this.listKey = (this.listType=="public" ? this.authProv.currentUserHouseholdKey : this.authProv.currentUserPrivateKey);
