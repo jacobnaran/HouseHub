@@ -15,7 +15,7 @@ import { AddReminderComponent } from '../../components/add-reminder/add-reminder
 import { EditReminderComponent } from '../../components/edit-reminder/edit-reminder';
 
 /**
- * Home page (middle tab). Displays shared notes.
+ * Home page (middle tab). Displays shared notes and reminders.
  */
 
 @Component({
